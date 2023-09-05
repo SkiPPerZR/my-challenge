@@ -1,0 +1,22 @@
+.user-profile {
+    display: inline-block;
+    -webkit-mask-box-image: url('../../img/UserProfileIconMask.svg') 35 repeat;
+    mask-border: url('../../img/UserProfileIconMask.svg') 35 repeat;
+    width: 50px;
+    height: 50px;
+    background-color: var(--BG_secondary8);
+    overflow: hidden;
+    & > img {
+        width: 100%;
+        object-fit: cover;
+    }
+}
+
+.profile-btn {
+    display: inline-block;
+    background-color: transparent;
+    border: none;
+    position: relative;
+    top: -20px;
+    left: 11.5px;
+}

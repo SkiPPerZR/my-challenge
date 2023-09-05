@@ -1,0 +1,22 @@
+.btn {
+    color: var(--white);
+    background-color: var(--intElements);
+    border: none;
+    border-radius: 12px;
+    padding: 12px 27px 14px 41.92px;
+    transition: 0.4s;
+    max-height: 50px;
+}
+
+.btn:hover {
+    background-color: var(--intElementsHover);
+    transition: 0.4s;
+    cursor: pointer;
+}
+
+.btn-icon {
+    display: inline;
+    position: relative;
+    top: 3px;
+    left: -11.27px;
+}

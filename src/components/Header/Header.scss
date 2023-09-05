@@ -1,0 +1,30 @@
+.Header{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px 30px;
+    background-color: var(--BG_secondary100);
+    border-bottom: 1px solid var(--separator);
+    &Sort {
+        display: flex;
+        margin-right: 30px;
+        & > *:not(:last-child)  {
+            // TODO: CHANGE TO ADAPTIVE MARGIN
+            margin-right: 10px;
+        }
+    }
+    &ActionGroup {
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+        & > *:not(:last-child)  {
+            // TODO: CHANGE TO ADAPTIVE MARGIN
+            margin-right: 10px;
+        }
+    }
+}
+
+.sort {
+    display: flex;
+}

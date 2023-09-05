@@ -1,0 +1,16 @@
+.SinqUpButton {
+    border: 0;
+    background-color: var(--intElements);
+    color: var(--white);
+    padding: 12.2px 37.64px;
+    border-radius: 12px;
+    transition: 0.3s ease-in-out;    
+    max-height: 50px;
+    cursor: pointer;
+}
+
+.SinqUpButton:hover, .SinqUpButton:active {
+    background-color: var(--intElementsHover);
+    transition: 0.3s ease-in-out;    
+}
+

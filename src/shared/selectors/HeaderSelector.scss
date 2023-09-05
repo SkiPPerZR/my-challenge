@@ -1,0 +1,15 @@
+.selector {
+    border: 0;
+    background-color: var(--BG_secondary8);
+    padding: 12.2px 32.6px;
+    border-radius: 12px;
+    transition: 0.3s ease-in-out;    
+    max-height: 50px;
+    cursor: pointer;
+}
+
+.selector:hover, .selector:active {
+    background-color: transparent;
+    transition: 0.3s ease-in-out;  
+}
+

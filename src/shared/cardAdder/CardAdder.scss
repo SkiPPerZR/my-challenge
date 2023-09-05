@@ -1,0 +1,29 @@
+.CardAdder {
+    width: 500px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 16px 17px 16px;
+    border-radius: 20px;
+    background-color: var(--BG_secondary8);
+    transition: 0.2s ease-in-out;
+    &Icon {
+        position: relative;
+        top: 4px;
+        margin-right: 8px;
+    }
+    &Arrow {
+        position: relative;
+        top: 4px;
+    }
+    & div {
+        margin: 0;
+        padding: 0;
+        display: flex;
+        align-items: center;
+    }
+    &:hover {
+        background-color: var(--goldCardButton);
+        transition: 0.2s ease-in-out;
+    }
+}

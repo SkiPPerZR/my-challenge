@@ -1,0 +1,112 @@
+:root{
+    --labelPrimary: #102B32;
+    --labelSecondary: rgb(16, 43, 50, 0.8);
+    --labelTertiary: rgb(16, 43, 50, 0.6);
+    --accent: #F99D12;
+    --intElements: #1E8CAF;
+    --intElementsHover: #1482A5;
+    --negativeIntElements: #DE9151;
+    --separator: #D3DADC;
+    --section: #4F345A;
+    --sysColor: #000;
+    --white: #fff;
+    --black: #000;
+    --popUp: #DEE8EB;
+    --goldCardButton: #D2E8EF;
+
+    --BG_primary: #fff;
+    --BG_secondary8: rgb(73, 162, 190, 0.08);
+    --BG_secondary100: rgb(245, 249, 250, 1);
+    --BG_tertiary: rgb(225, 233, 234, 1);
+    --BG_challenge_menu: rgb(30, 140, 175, 0.2);
+}
+
+.Main, .Login {
+    justify-content: start;
+}
+
+html, body, #root, .Main, .Login {
+    height: 100%; //TODO: do adaptive height
+}
+
+.Login, .Main {
+    display: flex;
+    flex-direction: row;
+}
+
+.Container {
+    min-width: 1710px;
+    display: flex;
+    flex-direction: column;
+}
+
+.title {
+    font-family: 'Rawline';
+    &-80{
+        @extend .title;
+        font-size: 80px;
+    }
+    &-48{
+        @extend .title;
+        font-size: 48px;
+    }
+    &-25{
+        @extend .title;
+        font-size: 25px;
+    }
+    &-18{
+        @extend .title;
+        font-size: 18px;
+    }
+    &-11{
+        @extend .title;
+        font-size: 11px;
+    }
+}
+
+.text{
+    font-family: 'Rawline';
+    &-96{
+        @extend .text;
+        font-size: 96px;
+    }
+    &-64{
+        @extend .text;
+        font-size: 64px;
+    }
+    &-36{
+        @extend .text;
+        font-size: 36px;
+    }
+    &-28{
+        @extend .text;
+        font-size: 28px;
+    }
+    &-18{
+        @extend .text;
+        font-size: 18px;
+    }
+    &-17{
+        @extend .text;
+        font-size: 17px;
+    }
+    &-14{
+        @extend .text;
+        font-size: 14px;
+    }
+    &-11{
+        @extend .text;
+        font-size: 17px;
+    }
+}
+
+.italic { font-style: italic; }
+
+.bold { font-weight: 700; }
+.semibold { font-weight: 600; }
+.medium { font-weight: 500; }
+.regular { font-weight: 400; }
+.light { font-weight: 300; }
+
+
+

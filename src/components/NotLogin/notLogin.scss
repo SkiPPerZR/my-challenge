@@ -1,0 +1,37 @@
+.NotLogin {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    user-select: none;
+    & div {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+    & img {
+        width: 388px;
+        margin-bottom: 80px;
+    }
+    & span {
+        margin-top: 20px;
+        margin-bottom: 40px;
+        text-align: center;
+    }
+    & button {
+        width: 390px;
+        padding: 13px 142px 11px 142px;
+        color: var(--white);
+        background-color: var(--intElements);
+        border: none;
+        border-radius: 12px;
+        transition: 0.3s ease-in-out;
+        cursor: pointer;
+    }
+    & button:hover, button:active {
+        background-color: var(--intElementsHover);
+        transition: 0.3s ease-in-out;
+    }
+}

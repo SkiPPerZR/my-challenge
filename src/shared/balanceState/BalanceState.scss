@@ -1,0 +1,34 @@
+.balance-state {
+    display: inline-block;
+    background-color: var(--BG_secondary8);
+    padding: 11.92px 20px;
+    border-radius: 20px;
+    color: var(--labelPrimary);
+    max-height: 50px;
+}
+
+.balance-state .gold {
+    display: inline-block;
+    margin-right: 20px;
+}
+
+.balance-state .gold .icon {
+    display: inline-block;
+    position: relative;
+    top: 2px;
+    margin-right: 8px;
+}
+
+.balance-state .gold .balance {
+    display: inline-block;
+    padding-bottom: 2px;
+}
+
+.balance-state .gold-buy {
+    display: inline-block;
+    background: transparent;
+    border: none;
+    position: relative;
+    top: 3px;
+    cursor: pointer;
+}

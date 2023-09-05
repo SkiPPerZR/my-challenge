@@ -1,0 +1,57 @@
+.GoldField {
+    width: 500px;
+    position: relative;
+    z-index: 0 !important;
+    margin-bottom: 20px;
+    & h4 {
+        margin-bottom: 10px;
+    }
+    &:hover{
+        .GoldField__input{
+            border-top: none;
+            border-left: none;
+            border-right: none;
+            border-bottom: 1px solid var(--labelPrimary);
+            color: var(--labelPrimary);
+        }
+        .active{
+            opacity: 1;
+            border-top: none;
+            border-left: none;
+            border-right: none;
+        }
+    }
+}
+
+.GoldField__input {
+    display: block;
+    width: 100%;
+    padding-bottom: 4.5px;
+    line-height: 1.5;
+    color: var(--labelPrimary);
+    background: transparent;
+    background-clip: padding-box;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    border-bottom: 1px solid var(--separator);
+    transition: border-color 0.7s, box-shadow 0.7s;
+}
+
+.GoldField input {
+    padding-right: 40px;
+    &:focus-visible {
+        outline: none;
+    }
+}
+
+.GoldField__aicon {
+    height: 24px;
+    width: 24px;
+    position: absolute;
+    display: flex;
+    align-items: center;
+    top: 33px;
+    bottom: 0;
+    right: 0;
+}
