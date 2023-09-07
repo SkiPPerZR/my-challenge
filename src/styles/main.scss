@@ -19,6 +19,28 @@
     --BG_secondary100: rgb(245, 249, 250, 1);
     --BG_tertiary: rgb(225, 233, 234, 1);
     --BG_challenge_menu: rgb(30, 140, 175, 0.2);
+
+    --Button_Label: white;
+    --Button_FillWithBlur: rgb(30, 140, 175, 0.8);
+    --Button_Hover: rgb(20, 130, 165, 0.8);
+
+    --BL_Button_Label: white;
+    --BL_Button_FillWithBlur: rgb(79, 52, 90, 1);
+    --BL_Button_Hover: rgb(103, 59, 121, 1);
+    --BL_separator: rgb(69, 42, 80, 1);
+
+    --PR_Button_Label: white;
+    --PR_Button_FillWithBlur: rgb(249, 175, 18, 1);
+    --PR_Button: rgb(16, 43, 50, 1);
+    --PR_Button_Hover: rgb(39, 75, 84, 1);
+    --PR_separator: rgb(229, 137, 0, 1);
+    
+    --BS_Button_Label: white;
+    --BS_Button_FillWithBlurBased: rgba(249,157,18,1);
+    --BS_Button_FillWithBlur: linear-gradient(90deg, rgba(249,157,18,1) 0%, rgba(185,211,81,1) 100%);
+    --BS_Button: rgb(16, 43, 50, 1);
+    --BS_Button_Hover: rgb(39, 75, 84, 1);
+    --BS_separator: rgb(229, 137, 0, 1);
 }
 
 .Main, .Login {
@@ -36,6 +58,7 @@ html, body, #root, .Main, .Login {
 
 .Container {
     min-width: 1710px;
+    max-width: 1920px;
     display: flex;
     flex-direction: column;
 }

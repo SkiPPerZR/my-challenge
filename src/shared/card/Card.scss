@@ -1,0 +1,186 @@
+.CardStandart, .CardBlogger, .CardPremium, .CardBased {
+    width: 390px;
+    height: 370px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    background-image: url(../../img/CardBG/dota.png);
+    border: none;
+    border-radius: 22px;
+    user-select: none;
+    & .CardMembers-box {
+        width: 100%;
+        display: flex;
+        justify-content: flex-end;
+    }
+    & .CardMembers {
+        margin: 10px 10px 0 0;
+        display: flex;
+        align-items: center;
+        background-color: var(--Button_FillWithBlur); //Todo: general
+        border-radius: 12px;
+        padding: 7px 12px;
+        color: var(--Button_Label);
+        & svg {
+            margin-right: 4px;
+        }
+    }
+    & .CardInfo {
+        display: flex;
+        flex-direction: column;
+        margin: 0 3px 3px 3px;
+        padding: 20px;
+        border-radius: 22px;
+        background-color: var(--BG_secondary100); //Todo: general
+        & h3 {
+            text-transform: uppercase;
+            margin-bottom: 10px;
+            color: var(--labelPrimary); //Todo: general
+        }
+        & button {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 6.9px 0 9.9px 0;
+            border-radius: 20px;
+            border: none;
+            background-color: var(--intElements); //todo: general;
+            color: var(--Button_Label); //todo: general;
+            transition: 0.3s ease-in-out;
+            &:hover {
+                background-color: var(--intElementsHover); //todo: general;
+                cursor: pointer;
+                transition: 0.3s ease-in-out;
+            }
+        }
+        &Type {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 8px;
+            &Stake {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                & svg {
+                    margin-left: 5px;
+                }
+            }
+        }
+        &State {
+            display: flex;
+            justify-content: space-between;
+            border-top: 1px solid var(--separator); //todo: general;
+            margin-bottom: 10px;
+            & span {
+                margin-bottom: 5px;
+            }
+            &Bank {
+                width: 50%;
+                display: flex;
+                justify-content: start;
+                align-items: center;
+                padding: 7px 0;
+                border-right: 1px solid var(--separator); //todo: general;
+                & span {
+                    margin: 0 6px 5px 4px;
+                }
+            }
+            &Condition {
+                width: 50%;
+                display: flex;
+                justify-content: flex-end;
+                align-items: center;
+                padding: 10px 0 7px 0;
+                & span {
+                    margin-left: 4px;
+                }
+            }
+        }
+    }
+}
+
+.CardBlogger {
+    & .CardMembers {
+        background-color: var(--BL_Button_FillWithBlur);
+    }
+    & .CardInfo {
+        background-color: var(--BL_Button_FillWithBlur);
+        color: var(--BL_Button_Label);
+        & h3 {
+            color: var(--BL_Button_Label);
+        }
+        & button {
+            background-color: var(--BL_separator);
+            color: var(--BL_Button_Label);
+            &:hover {
+                background-color: var(--BL_Button_Hover);
+            }
+        }
+        &State {
+            border-top: 1px solid var(--BL_separator);
+            &Bank {
+                border-right: 1px solid var(--BL_separator);
+            }
+        }
+    }
+}
+
+.CardPremium {
+    & svg path{
+        fill: var(--PR_Button);
+    }
+    & .CardMembers {
+        background-color: var(--PR_Button_FillWithBlur);
+    }
+    & .CardInfo {
+        background-color: var(--PR_Button_FillWithBlur);
+        color: var(--PR_Button_Label);
+        & h3 {
+            color: var(--PR_Button_Label);
+        }
+        & button {
+            background-color: var(--PR_Button);
+            color: var(--PR_Button_Label);
+            &:hover {
+                background-color: var(--PR_Button_Hover);
+            }
+        }
+        &State {
+            border-top: 1px solid var(--PR_separator);
+            &Bank {
+                border-right: 1px solid var(--PR_separator);
+            }
+        }
+    }
+}
+
+.CardBased {
+    & svg path{
+        fill: var(--BS_Button);
+    }
+    & .CardMembers {
+        background: var(--BS_Button_FillWithBlurBased);
+        background: var(--BS_Button_FillWithBlur);
+    }
+    & .CardInfo {
+        background: var(--BS_Button_FillWithBlurBased);
+        background: var(--BS_Button_FillWithBlur);
+        color: var(--BS_Button_Label);
+        & h3 {
+            color: var(--BS_Button_Label);
+        }
+        & button {
+            background-color: var(--BS_Button);
+            color: var(--BS_Button_Label);
+            &:hover {
+                background-color: var(--BS_Button_Hover);
+            }
+        }
+        &State {
+            border-top: 1px solid var(--BS_separator);
+            &Bank {
+                border-right: 1px solid var(--BS_separator);
+            }
+        }
+    }
+}

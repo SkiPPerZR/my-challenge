@@ -1,21 +1,9 @@
 import React from 'react';
 import './SidebarLogin.scss'
-import SidebarButton from '../../shared/buttons/SidebarButton';
+
 import Contacts from '../contacts/Contacts';
 import useModal from '../../shared/hooks/useModal';
 
-import games from '../../img/SidebarLg/GamesLg.svg'
-import games_hover from '../../img/SidebarLg/GamesLgHover.svg'
-import blog from '../../img/SidebarLg/BlogLg.svg'
-import blog_hover from '../../img/SidebarLg/BlogLgHover.svg'
-import other from '../../img/SidebarLg/OtherLg.svg'
-import other_hover from '../../img/SidebarLg/OtherLgHover.svg'
-import sport from '../../img/SidebarLg/SportLg.svg'
-import sport_hover from '../../img/SidebarLg/SportLgHover.svg'
-import tabletop from '../../img/SidebarLg/TabletopLg.svg'
-import tabletop_hover from '../../img/SidebarLg/TabletopLgHover.svg'
-import toEveryone from '../../img/SidebarLg/ToEveryoneLg.svg'
-import toEveryone_hover from '../../img/SidebarLg/ToEveryoneLgHover.svg'
 import telegram from '../../img/Telegram.svg'
 import twitch from '../../img/Twitch.svg'
 import vk from '../../img/VK-menu-logo.svg'
