@@ -1,0 +1,54 @@
+.Section {
+    display: flex;
+    flex-direction: column;
+    margin-top: 50px;
+    margin-left: 30px;
+    &Header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 20px;
+        &Title {
+            display: flex;
+            & img {
+                margin-right: 11px;
+            }
+            &Count {
+                display: flex;
+                color: var(--labelSecondary);
+                margin-top: 3px;
+                margin-left: 76px;
+            }
+        }
+        &Filters {
+            & button {
+                padding: 5.4px 15.425px;
+                border: none;
+                border-radius: 20px;
+                background-color: transparent;
+                transition: 0.3s ease-in-out;
+                &:hover {
+                    background-color: var(--BG_secondary8);
+                    font-weight: 600;
+                    transition: 0.3s ease-in-out;
+                    cursor: pointer;
+                }
+                &:not(:last-child) {
+                    margin-right: 5px;
+                }
+            }
+        }
+        &Content {
+            display: flex;
+            align-items: start;
+            & svg {
+                margin-top: 4px;
+                margin-left: 10px;
+            }
+        }
+    }
+    &Challenges {
+        display: flex;
+        justify-content: space-between;
+    }
+}
