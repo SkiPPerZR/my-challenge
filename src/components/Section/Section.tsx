@@ -1,6 +1,8 @@
-import React, {FC, useState} from 'react';
+import React, {FC, useState, useEffect} from 'react';
 import './Section.scss'
 import Card, {CardVariant} from '../../shared/card/Card';
+import PostService from '../../api/PostService';
+import ChallengeList from '../ChallengesList/ChallengesList';
 
 interface MarkersProps {
     marker_name: string;
@@ -15,6 +17,16 @@ interface SectionProps {
 
 const Section:FC<SectionProps> = ({icon,name,count}) => {
     const [markers, setMarkers] = useState([]);
+    const [cards, setCards] = useState([]);
+
+    useEffect( ()=> {
+        fetchCards()
+    }, [])
+
+    async function fetchCards() {
+        const cards = await PostService.getChallengeList();
+        setCards(cards)
+    }
 
     return (
         <div className='Section'>
@@ -41,12 +53,7 @@ const Section:FC<SectionProps> = ({icon,name,count}) => {
                     </svg>
                 </div>
             </div>
-            <div className='SectionChallenges'>
-                <Card variant={CardVariant.blogger}/>
-                <Card variant={CardVariant.premium}/>
-                <Card variant={CardVariant.based}/>
-                <Card variant={CardVariant.standart}/>
-            </div>
+            <ChallengeList children={cards} items={cards} />
         </div>
     );
 };
