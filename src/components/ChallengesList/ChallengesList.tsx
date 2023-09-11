@@ -1,20 +1,21 @@
-import React from 'react';
-import Card, { CardVariant} from '../../shared/card/Card';
-import CardProps from '../../shared/card/Card'
+import React, {FC} from 'react';
+import './ChallengesList.scss'
+import Card from '../../shared/card/Card';
+import { ICard } from '../../interfaces/ICard';
+import { CardVariant } from '../../shared/card/Card';
 
-interface ChallengeListProps<T> {
-    children: (item: T) => React.ReactNode;
-    items: Array<T>;
+interface ChallengeListProps {
+    cards: ICard[];
 }
 
-export function ChallengeList<T>({items, children} : ChallengeListProps<T>){
+const ChallengesList:FC<ChallengeListProps> = ({cards}) => {
     return (
-        <div className='ChallengeList'>
-            {items.map((item) => 
-                <Card variant={CardVariant.standart} cards={CardProps.item}/>
-            )}
+        <div className='ChallengesList'>
+            {cards.map(card => {
+                return <Card key={card.token} variant={CardVariant.standart} card={card}/>
+            })}
         </div>
     );
 };
 
-export default ChallengeList;
+export default ChallengesList;

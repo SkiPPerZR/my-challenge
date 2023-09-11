@@ -1,31 +1,36 @@
 import React, {FC, useState, useEffect} from 'react';
 import './Section.scss'
-import Card, {CardVariant} from '../../shared/card/Card';
-import PostService from '../../api/PostService';
 import ChallengeList from '../ChallengesList/ChallengesList';
+import { ICard } from '../../interfaces/ICard';
+import PostService from '../../api/PostService';
+import { type } from 'os';
 
-interface MarkersProps {
-    marker_name: string;
-}
+// interface MarkersProps {
+//     marker_name: string;
+// }
 
 interface SectionProps {
-    icon: any;
+    icon: string;
     name: string;
     count: number;
     // filters: MarkersProps[];
 }
 
 const Section:FC<SectionProps> = ({icon,name,count}) => {
-    const [markers, setMarkers] = useState([]);
-    const [cards, setCards] = useState([]);
+    // const [markers, setMarkers] = useState([]);
+    const [cards, setCards] = useState<ICard[]>([]);
 
     useEffect( ()=> {
         fetchCards()
     }, [])
 
     async function fetchCards() {
-        const cards = await PostService.getChallengeList();
-        setCards(cards)
+        let cardList : ICard[] = await PostService.getChallengeList('recommend');
+        
+        
+        console.log(cardList);
+
+        setCards(cardList);
     }
 
     return (
@@ -53,7 +58,7 @@ const Section:FC<SectionProps> = ({icon,name,count}) => {
                     </svg>
                 </div>
             </div>
-            <ChallengeList children={cards} items={cards} />
+            <ChallengeList cards={cards}/>
         </div>
     );
 };
