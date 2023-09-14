@@ -1,0 +1,30 @@
+.TermsPolicy {
+    display: flex;
+    justify-content: space-between;
+    &Buttons {
+        display: flex;
+        flex-direction: column;
+        width: 25%;
+        margin-left: 30px;
+        margin-top: 10px;
+        & button {
+            color: var(--labelTertiary);
+            text-decoration: none;
+            text-transform: uppercase;
+            background: transparent;
+            border: none;
+            text-align: left;
+            margin-top: 20px;
+            transition: 0.2s ease-in-out;
+            &:hover {
+                text-decoration: none;
+                color: var(--intElements);
+                cursor: pointer;
+                transition: 0.2s ease-in-out;
+            }
+        }
+    }
+    &Text {
+        width: 65%;
+    }
+}

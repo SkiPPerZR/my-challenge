@@ -14,7 +14,9 @@
 .Contacts {
     z-index: 9;
     position: fixed;
-    
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
     background: var(--BG_primary);
     width: 462px;
     height: 100%;
@@ -44,6 +46,7 @@
     }
     &Info {
         margin-left: 20px;
+        margin-bottom: 80px;
         & h2 {
             margin-bottom: 20px;
         }
@@ -52,14 +55,25 @@
             margin-top: 20px;
             margin-bottom: 10px;
         }
-        & > *:nth-child(2), *:nth-child(5) {
+        & a {
+            color: var(--intElements);
+            text-decoration: none;
+            &:hover {
+                text-decoration: underline;
+            }
+        }
+        & hr {
+            margin-top: 20px;
+            margin-bottom: 20px;
+            width: 20%;
+        }
+        & > *:nth-child(2), *:nth-child(5), *:nth-child(8) {
             margin-bottom: 10px;
         }
     }
     & .icon {
-        margin-top: 25%;
-        margin-left: 125px;
-        margin-bottom: 27%;
+        width: 212px;
+        margin: 125px;
     }
 }
   

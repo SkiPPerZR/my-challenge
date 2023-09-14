@@ -1,0 +1,26 @@
+.BackButton {
+    text-decoration: none;
+    & button {
+        display: flex;
+        justify-content: start;
+        align-items: center;
+        width: 180px;
+        height: 34px;
+        background: transparent;
+        text-align: left;
+        text-transform: uppercase;
+        border-radius: 20px;
+        border: none;
+        cursor: pointer;
+        &:hover {
+            background-color: var(--BG_secondary8);
+        }
+        &:active {
+            background-color: var(--BG_secondary8);
+        }
+        & svg {
+            margin-right: 12px;
+            margin-left: 12px;
+        }
+    }
+}

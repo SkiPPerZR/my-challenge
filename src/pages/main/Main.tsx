@@ -9,9 +9,9 @@ const Main = () => {
 
     return (
         <div className='Main'>
-            <Sidebar />
+            <Sidebar backbutton={0}/>
             <div className='Container'>
-                <Header />
+                <Header login={1}/>
                 <Section icon={games} name='Видеоигры' count={12415}/>
                 <Section icon={sport} name='Спорт' count={1505407}/>
             </div>

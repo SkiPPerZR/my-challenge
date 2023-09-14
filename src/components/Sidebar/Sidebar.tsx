@@ -1,8 +1,9 @@
-import React from 'react';
+import React, {FC} from 'react';
 import './Sidebar.scss'
 import SidebarButton from '../../shared/buttons/SidebarButton';
 import Contacts from '../contacts/Contacts';
 import useModal from '../../shared/hooks/useModal';
+import BackButton from '../../shared/buttons/BackButton';
 
 import games from '../../img/SidebarLg/GamesLg.svg'
 import games_hover from '../../img/SidebarLg/GamesLgHover.svg'
@@ -20,8 +21,11 @@ import telegram from '../../img/Telegram.svg'
 import twitch from '../../img/Twitch.svg'
 import vk from '../../img/VK-menu-logo.svg'
 
+interface SiderbarProps {
+    backbutton: number;
+}
 
-const Sidebar = () => {
+const Sidebar:FC<SiderbarProps> = ({backbutton}) => {
     const [choosedBut, setChoosedButton] = React.useState<number|null>(null);
     const {isOpen, toggle} = useModal();
 
@@ -36,9 +40,18 @@ const Sidebar = () => {
     return (
         <div className='Sidebar'>
             <div className='logo'></div>
-            {buttonsData.map(el=>
-                <SidebarButton key={el.id} icon={el.icon} activeIcon={el.activeIcon} text={el.text} onClick={(event)=>setChoosedButton(el.id)} active={el.id===choosedBut}/>
-            )}
+            {backbutton === 1
+                ?
+                    <BackButton link='/main'/>
+                : <div></div>
+            }
+            {backbutton === 0
+                ? 
+                    buttonsData.map(el=>
+                        <SidebarButton key={el.id} icon={el.icon} activeIcon={el.activeIcon} text={el.text} onClick={(event)=>setChoosedButton(el.id)} active={el.id===choosedBut}/>
+                    )
+                : <div></div>
+            }
             <div className='SidebarContacts'>
                 <button className='title-18' onClick={toggle}>Контакты</button>
                 <hr color="#102B32"/>

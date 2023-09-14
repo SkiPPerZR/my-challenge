@@ -28,7 +28,9 @@ export default class PostService {
                 cash_min: cardFromApi["cash_min"],
                 cash_max: cardFromApi["cash_max"],
                 cash_bank: cardFromApi["cash_bank"],
+                city: cardFromApi["city"],
                 is_online: cardFromApi["is_online"],
+                district: cardFromApi["district"],
                 user_count1: cardFromApi["user_count1"],
                 user_count2: cardFromApi["user_count2"]
             }

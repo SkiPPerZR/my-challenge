@@ -43,9 +43,6 @@
     --BS_separator: rgb(229, 137, 0, 1);
 }
 
-.Main, .Login {
-    justify-content: start;
-}
 
 html, body, #root, .Main, .Login {
     height: 100%; //TODO: do adaptive height
@@ -54,6 +51,7 @@ html, body, #root, .Main, .Login {
 .Login, .Main {
     display: flex;
     flex-direction: row;
+    justify-content: start;
 }
 
 .Container {
@@ -119,7 +117,7 @@ html, body, #root, .Main, .Login {
     }
     &-11{
         @extend .text;
-        font-size: 17px;
+        font-size: 11px;
     }
 }
 
