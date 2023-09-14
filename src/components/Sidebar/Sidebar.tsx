@@ -39,27 +39,31 @@ const Sidebar:FC<SiderbarProps> = ({backbutton}) => {
     ]
     return (
         <div className='Sidebar'>
-            <div className='logo'></div>
-            {backbutton === 1
-                ?
-                    <BackButton link='/main'/>
-                : <div></div>
-            }
-            {backbutton === 0
-                ? 
-                    buttonsData.map(el=>
-                        <SidebarButton key={el.id} icon={el.icon} activeIcon={el.activeIcon} text={el.text} onClick={(event)=>setChoosedButton(el.id)} active={el.id===choosedBut}/>
-                    )
-                : <div></div>
-            }
-            <div className='SidebarContacts'>
-                <button className='title-18' onClick={toggle}>Контакты</button>
-                <hr color="#102B32"/>
-                <ul className='SidebarContactsSocial'>
-                    <li><a href="####"><img src={telegram} alt="Telegram" /></a></li>
-                    <li><a href="@@@@"><img src={twitch} alt="Twitch" /></a></li>
-                    <li><a href="$$$$"><img src={vk} alt="VK" /></a></li>
-                </ul>
+            <div className='SidebarWrapper'>
+                <div className='SidebarWrapperMenu'>
+                    <div className='logo'></div>
+                    {backbutton === 1
+                        ?
+                            <BackButton link='/main'/>
+                        : <div></div>
+                    }
+                    {backbutton === 0
+                        ? 
+                            buttonsData.map(el=>
+                                <SidebarButton key={el.id} icon={el.icon} activeIcon={el.activeIcon} text={el.text} onClick={(event)=>setChoosedButton(el.id)} active={el.id===choosedBut}/>
+                            )
+                        : <div></div>
+                    }
+                </div>
+                <div className='SidebarWrapperContacts'>
+                    <button className='title-18' onClick={toggle}>Контакты</button>
+                    <hr color="#102B32"/>
+                    <ul className='SidebarWrapperContactsSocial'>
+                        <li><a href="####"><img src={telegram} alt="Telegram" /></a></li>
+                        <li><a href="@@@@"><img src={twitch} alt="Twitch" /></a></li>
+                        <li><a href="$$$$"><img src={vk} alt="VK" /></a></li>
+                    </ul>
+                </div>
             </div>
             <Contacts isOpen={isOpen} toggle={toggle}/>
         </div>

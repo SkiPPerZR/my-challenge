@@ -43,20 +43,25 @@
     --BS_separator: rgb(229, 137, 0, 1);
 }
 
+html, body, #root{
+    height: auto;
+}
 
-html, body, #root, .Main, .Login {
-    height: 100%; //TODO: do adaptive height
+body, #root {
+    display: flex;
 }
 
 .Login, .Main {
     display: flex;
     flex-direction: row;
     justify-content: start;
+    min-height: 100vh;
 }
 
 .Container {
-    min-width: 1710px;
-    max-width: 1920px;
+    min-width: 1693px;
+    max-width: 100%;
+    min-height: 100vh;
     display: flex;
     flex-direction: column;
 }

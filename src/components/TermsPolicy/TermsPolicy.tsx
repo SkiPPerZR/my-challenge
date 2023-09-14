@@ -1,20 +1,27 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './TermsPolicy.scss'
-import {Document, Page} from 'react-pdf'
+import { func } from 'prop-types';
 
 
 const TermsPolicy = () => {
+    const [terms, setTerms] = useState(0);
+
+    const urlDocx = [
+        './docx/Personal_Data_Processing_and_Privacy_Policy.html',
+        './docx/Consent_to_distribution.html',
+        './docx/User_Agreement.html',
+    ]
 
     return (
         <div className='TermsPolicy'>
             <div className='TermsPolicyButtons'>
-                <button className='text-11 bold'>Политика обработки персональных<br/> данных и конфиденциальности</button>
-                <button className='text-11 bold'>Согласие на распорстранение<br/> персональных данных</button>
+                <button onClick={(e) => setTerms(0)} className='text-11 bold'>Политика обработки персональных<br/> данных и конфиденциальности</button>
+                <button onClick={(e) => setTerms(1)} className='text-11 bold'>Согласие на распорстранение<br/> персональных данных</button>
+                <button onClick={(e) => setTerms(2)} className='text-11 bold'>Пользовательское соглашение</button>
             </div>
             <div className='TermsPolicyText'>
-                <Document file='../../img/Consent_to_distribution.pdf'>
-                    <Page pageNumber={1}/>
-                </Document>
+                <iframe width="100%" height="1000px" src={urlDocx[terms]}>
+                </iframe>
             </div>
         </div>
     );

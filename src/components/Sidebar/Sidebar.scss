@@ -1,36 +1,45 @@
 .Sidebar {
     display: flex;
-    align-items: center;
-    flex-direction: column;
     width: 210px;
-    height: 100%;
+    min-height: 120%;
     background-color: var(--BG_secondary100);
     border-right: 1px solid var(--separator);
-    &Contacts{
-        display: inline;
-        position: absolute;
-        bottom: 30px;
-        left: 15px;
-        width: 180px;
-        & button{
-            background-color: transparent;
-            width: 86px;
-            height: 20px;
-            line-height: 13px;
-            cursor: pointer;
-            user-select: none;
-            border: none;
-            margin-bottom: 20px;
-        }
-        &Social {
-            margin-top: 20px;
+    &Wrapper {
+        min-height: 100%;
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+        justify-content: space-between;
+        &Menu {
             display: flex;
-            justify-content: start;
-            & li{
-                list-style-type: none;
+            flex-direction: column;
+            align-items: center;
+        }
+        &Contacts{
+            display: flex;
+            flex-direction: column;
+            margin: 0 15px 30px 15px;
+            width: 180px;
+            & button{
+                background-color: transparent;
+                width: 86px;
+                height: 20px;
+                line-height: 13px;
+                cursor: pointer;
+                user-select: none;
+                border: none;
+                margin-bottom: 20px;
             }
-            & > *:not(:last-child) {
-                margin-right: 10px;
+            &Social {
+                margin-top: 20px;
+                display: flex;
+                justify-content: start;
+                & li{
+                    list-style-type: none;
+                }
+                & > *:not(:last-child) {
+                    margin-right: 10px;
+                }
             }
         }
     }

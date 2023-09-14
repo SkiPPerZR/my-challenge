@@ -13,6 +13,7 @@
     "@types/react-dom": "^18.2.7",
     "axios": "^1.5.0",
     "docxtemplater": "^3.39.1",
+    "mammoth": "^1.6.0",
     "react": "^18.2.0",
     "react-doc-viewer": "^0.1.5",
     "react-dom": "^18.2.0",
