@@ -10,7 +10,7 @@ const Main = () => {
         <div className='Main'>
             <Sidebar backbutton={1}/>
             <div className='Container'>
-                <Header login={1}/>
+                <Header login={0}/>
                 <TermsPolicy/>
             </div>
         </div>

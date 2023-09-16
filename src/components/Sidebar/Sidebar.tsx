@@ -4,6 +4,7 @@ import SidebarButton from '../../shared/buttons/SidebarButton';
 import Contacts from '../contacts/Contacts';
 import useModal from '../../shared/hooks/useModal';
 import BackButton from '../../shared/buttons/BackButton';
+import { useNavigate } from 'react-router-dom';
 
 import games from '../../img/SidebarLg/GamesLg.svg'
 import games_hover from '../../img/SidebarLg/GamesLgHover.svg'
@@ -37,6 +38,7 @@ const Sidebar:FC<SiderbarProps> = ({backbutton}) => {
         {id:4, icon:toEveryone, activeIcon: toEveryone_hover, text: 'Вызов каждому'},
         {id:5, icon:other, activeIcon: other_hover, text: 'Другое'} 
     ]
+
     return (
         <div className='Sidebar'>
             <div className='SidebarWrapper'>
@@ -44,7 +46,7 @@ const Sidebar:FC<SiderbarProps> = ({backbutton}) => {
                     <div className='logo'></div>
                     {backbutton === 1
                         ?
-                            <BackButton link='/main'/>
+                            <BackButton/>
                         : <div></div>
                     }
                     {backbutton === 0

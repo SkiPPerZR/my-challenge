@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import './TermsPolicy.scss'
-import { func } from 'prop-types';
+import {useNavigate} from 'react-router-dom'
 
 
 const TermsPolicy = () => {
@@ -20,7 +20,7 @@ const TermsPolicy = () => {
                 <button onClick={(e) => setTerms(2)} className='text-11 bold'>Пользовательское соглашение</button>
             </div>
             <div className='TermsPolicyText'>
-                <iframe width="100%" height="1000px" src={urlDocx[terms]}>
+                <iframe width="100%" height="900px" src={urlDocx[terms]}>
                 </iframe>
             </div>
         </div>

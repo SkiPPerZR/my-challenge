@@ -1,4 +1,5 @@
 import React, {ReactNode} from 'react';
+import {useNavigate} from 'react-router-dom'
 import './Contacts.scss'
 import close from '../../img/close.svg'
 import logo from '../../img/contacts-icon.svg'
@@ -10,6 +11,12 @@ interface ContactsProps {
 }
 
 export default function Contacts(props: ContactsProps) {
+    const navigate = useNavigate();
+
+    const navigateToTerms = () => {
+      navigate('/terms');
+    }
+
     return (
         <>
         {props.isOpen && (
@@ -38,8 +45,9 @@ export default function Contacts(props: ContactsProps) {
                         <p className='text-14 regular'><span className='bold'>ОГРН:</span> 1202100005580</p>
                         <hr color="#102B32"/>
                         <h3 className='text-11 bold'>Политики и соглашения</h3>
-                        <a href="/terms"><h3 className='text-11 bold'>Политика обработки персональных данных<br/> и конфиденциальности</h3></a>
-                        <a href="/terms"><h3 className='text-11 bold'>Согласие на распорстранение<br/> персональных данных</h3></a>
+                        <h4 className='text-11 bold' onClick={navigateToTerms}>Политика обработки персональных данных<br/> и конфиденциальности</h4>
+                        <h4 className='text-11 bold' onClick={navigateToTerms}>Согласие на распорстранение<br/> персональных данных</h4>
+                        <h4 className='text-11 bold' onClick={navigateToTerms}>Пользовательское соглашение</h4>
                     </div>
                 </div>
             </div>

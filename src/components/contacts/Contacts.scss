@@ -55,15 +55,17 @@
             margin-top: 20px;
             margin-bottom: 10px;
         }
-        & a {
+        & h4 {
             color: var(--intElements);
             text-decoration: none;
+            margin-bottom: 10px;
             &:hover {
                 text-decoration: underline;
+                cursor: pointer;
             }
         }
         & hr {
-            margin: 20px 10px; 
+            margin: 20px 20px 0 0; 
         }
         & > *:nth-child(2), *:nth-child(5), *:nth-child(8) {
             margin-bottom: 10px;
