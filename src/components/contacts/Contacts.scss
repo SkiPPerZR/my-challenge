@@ -1,7 +1,7 @@
 .Contacts-overlay {
     z-index: 9;
     min-width: 88.29vw;
-    min-height: 100%;
+    min-height: 70%;
     position: relative;
     top: 0;
     left: 0; //TODO Adaptive
@@ -46,7 +46,7 @@
     }
     &Info {
         margin-left: 20px;
-        margin-bottom: 80px;
+        padding-bottom: 7%;
         & h2 {
             margin-bottom: 20px;
         }
@@ -73,7 +73,7 @@
     }
     & .icon {
         width: 212px;
-        margin: 125px;
+        margin: 2% auto;
     }
 }
   

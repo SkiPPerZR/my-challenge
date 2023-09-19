@@ -3,7 +3,7 @@ import './LoginButton.scss'
 
 interface LoginButtonProps {
     children: any;
-    onClick: () => void;
+    onClick?: () => void;
 }
 
 const LoginButton:FC<LoginButtonProps> = 

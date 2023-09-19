@@ -1,6 +1,7 @@
 .TermsPolicy {
     display: flex;
     justify-content: space-between;
+    min-height: 90vh;
     &Buttons {
         display: flex;
         flex-direction: column;

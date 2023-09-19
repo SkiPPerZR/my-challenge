@@ -17,7 +17,7 @@ function Router() {
     <BrowserRouter>
       <Routes>
         <Route path={'/'} element={<Login/>}></Route>
-        <Route path={'/main'} element={<Main/>}></Route>
+        {/* <Route path={'/main'} element={<Main/>}></Route> */}
         <Route path={'/terms'} element={<Terms/>}></Route>
       </Routes>
     </BrowserRouter>

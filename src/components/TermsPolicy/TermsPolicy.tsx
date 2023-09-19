@@ -20,7 +20,7 @@ const TermsPolicy = () => {
                 <button onClick={(e) => setTerms(2)} className='text-11 bold'>Пользовательское соглашение</button>
             </div>
             <div className='TermsPolicyText'>
-                <iframe width="100%" height="900px" src={urlDocx[terms]}>
+                <iframe width="100%" height="100%" src={urlDocx[terms]}>
                 </iframe>
             </div>
         </div>

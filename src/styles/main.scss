@@ -55,13 +55,13 @@ body, #root {
     display: flex;
     flex-direction: row;
     justify-content: start;
-    min-height: 104.4vh;
+    min-height: 100vh;
 }
 
 .Container {
     min-width: 1693px;
     max-width: 100%;
-    min-height: 104.4vh;
+    min-height: 100%;
     display: flex;
     flex-direction: column;
 }
