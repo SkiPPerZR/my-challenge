@@ -1,20 +1,19 @@
 import React from 'react';
 import Header from '../../components/Header/Header';
 import Sidebar from '../../components/Sidebar/Sidebar';
-import TermsPolicy from '../../components/TermsPolicy/TermsPolicy';
+import ChallengePage from '../../components/ChallengePage/ChallengePage';
 
-
-const Terms = () => {
+const Challenge = () => {
 
     return (
-        <div className='Main'>
+        <div className='Challenge'>
             <Sidebar backbutton={1}/>
             <div className='Container'>
                 <Header login={0}/>
-                <TermsPolicy/>
+                <ChallengePage/>
             </div>
         </div>
     );
 };
 
-export default Terms;
+export default Challenge;

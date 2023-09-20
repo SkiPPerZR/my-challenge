@@ -26,10 +26,7 @@ const Section:FC<SectionProps> = ({icon,name,count}) => {
 
     async function fetchCards() {
         let cardList : ICard[] = await PostService.getChallengeList('recommend');
-        
-        
         console.log(cardList);
-
         setCards(cardList);
     }
 

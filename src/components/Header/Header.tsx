@@ -22,11 +22,11 @@ interface HeaderProps {
 const Header:FC<HeaderProps> = ({login}) => {
     const {isOpen, toggle} = useModal();
 
-    // const navigate = useNavigate();
+    const navigate = useNavigate();
 
-    // const navigateToMain = () => {
-    //   navigate('/main');
-    // }
+    const navigateToMain = () => {
+      navigate('/main');
+    }
 
     return (
         <header className='Header'>
@@ -50,7 +50,7 @@ const Header:FC<HeaderProps> = ({login}) => {
                 :
                     
                     <div className='HeaderActionGroup'>
-                        <LoginButton children='Вход'/>
+                        <LoginButton children='Вход' onClick={navigateToMain}/>
                         <SinqUpButton children='Регистрация'/>
                     </div>
             }

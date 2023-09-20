@@ -1,0 +1,39 @@
+.ButtonAccept {
+    display: flex;
+    justify-content: center;
+    background-color: var(--intElements);
+    border-radius: 12px;
+    padding: 5px 0;
+    &__container {
+        display: flex;
+        justify-content: center;
+    }
+    & button {
+        color: var(--BG_primary);
+        background-color: transparent;
+        border: none;
+        height: 40px;
+        padding-right: 32.5px;
+        transition: 0.2s ease-in-out;
+        &:hover {
+            cursor: pointer;
+            transition: 0.2s ease-in-out;
+        }
+        &:last-child {
+            padding-left: 32.5px;
+            padding-right: 0;
+            opacity: 0.4;
+            &:hover {
+                opacity: 1;
+                cursor: pointer;
+                transition: 0.2s ease-in-out;
+            }
+        }
+    }
+    & .line-v {
+        height: 100%;
+        background-color: var(--separator);
+        width: 1px;
+        opacity: 0.4;
+    }
+}
