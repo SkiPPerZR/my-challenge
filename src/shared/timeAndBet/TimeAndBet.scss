@@ -1,0 +1,22 @@
+.TimeAndBet {
+    background-color: var(--intElements);
+    display: flex;
+    justify-content: space-around;
+    border-radius: 12px;
+    & span {
+        color: var(--BG_primary);
+    }
+    & p {
+        color: var(--BG_primary);
+        opacity: 0.6;
+    }
+    &Timer {
+        display: flex;
+        flex-direction: column;
+
+    }
+    &Prise {
+        display: flex;
+        flex-direction: column;
+    }
+}
