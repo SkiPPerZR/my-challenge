@@ -6,10 +6,10 @@ import ChallengePage from '../../components/ChallengePage/ChallengePage';
 const Challenge = () => {
 
     return (
-        <div className='Challenge'>
-            <Sidebar backbutton={1}/>
+        <div className='Main'>
+            <Sidebar backbutton={2}/>
             <div className='Container'>
-                <Header login={0}/>
+                <Header login={1}/>
                 <ChallengePage/>
             </div>
         </div>

@@ -1,6 +1,7 @@
-import React, {FC} from 'react';
+import React, {FC, useState} from 'react';
 import './Card.scss'
 import { ICard } from '../../interfaces/ICard';
+import { useNavigate } from 'react-router-dom';
 
 export enum CardVariant {
     standart = 'CardStandart',
@@ -15,6 +16,17 @@ interface CardProps {
 }
 
 const Card:FC<CardProps> = ({variant, card}) => {
+    const navigate = useNavigate();
+    const navigateToChallenge = () => {
+        navigate('/challenge');
+    }
+
+    const [data, setData] = useState('');
+    let token = card.token
+    const handleClick = () => {
+        setData(token);
+    };
+
     return (
         <div className={variant}>
             <div className='CardMembers-box'>
@@ -64,7 +76,7 @@ const Card:FC<CardProps> = ({variant, card}) => {
                         }</span>
                     </div>
                 </div>
-                <button className='text-17 semibold'>Принять участие</button>
+                <button className='text-17 semibold' onClick={navigateToChallenge} onMouseDown={handleClick}>Принять участие</button>
             </div>
         </div>
     );

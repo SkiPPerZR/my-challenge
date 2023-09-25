@@ -1,0 +1,30 @@
+.ChallengePage {
+    display: flex;
+    justify-content: space-between;
+    margin: 1.5vw;
+    &Requirement {
+        width: 24%;
+        & h4:first-child {
+            margin-bottom: 20px;
+        }
+        & .RequirementItem {
+            margin-bottom: 8px;
+        }
+    }
+    &Chat {
+        margin-top: 34px;
+        width: 49%;
+        color: var(--labelPrimary);
+        background-color: var(--BG_secondary8);
+        border-radius: 20px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        & h2 {
+            opacity: 0.3;
+        }
+    }
+    & .ChallengeInfo {
+        width: 24%;
+    }
+}

@@ -1,0 +1,16 @@
+.RequirementItem {
+    display: flex;
+    flex-direction: column;
+    background-color: var(--BG_secondary8);
+    border-radius: 20px;
+    padding: 20px;
+    width: 100%;
+    & div {
+        display: flex;
+        align-items: center;
+        margin-bottom: 10px;
+        & img {
+            margin-right: 8px;
+        }
+    }
+}

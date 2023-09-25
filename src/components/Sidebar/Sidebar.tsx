@@ -18,6 +18,16 @@ import tabletop from '../../img/SidebarLg/TabletopLg.svg'
 import tabletop_hover from '../../img/SidebarLg/TabletopLgHover.svg'
 import toEveryone from '../../img/SidebarLg/ToEveryoneLg.svg'
 import toEveryone_hover from '../../img/SidebarLg/ToEveryoneLgHover.svg'
+
+import premium from '../../img/Challenge/Premium.svg'
+import premium_hover from '../../img/Challenge/Premium_hover.svg'
+import edit from '../../img/Challenge/Edit.svg'
+import edit_hover from '../../img/Challenge/Edit_hover.svg'
+import share from '../../img/Challenge/Share.svg'
+import share_hover from '../../img/Challenge/Share_hover.svg'
+import trash from '../../img/Challenge/Trash.svg'
+import trash_hover from '../../img/Challenge/Trash_hover.svg'
+
 import telegram from '../../img/Telegram.svg'
 import twitch from '../../img/Twitch.svg'
 import vk from '../../img/VK-menu-logo.svg'
@@ -39,6 +49,13 @@ const Sidebar:FC<SiderbarProps> = ({backbutton}) => {
         {id:5, icon:other, activeIcon: other_hover, text: 'Другое'} 
     ]
 
+    const buttonsDataChallenge = [
+        {id:0, icon:premium, activeIcon: premium_hover, text: 'Продвинуть челлендж'},
+        {id:1, icon:share, activeIcon: share_hover, text: 'Пригласить друзей'},
+        {id:2, icon:trash, activeIcon: trash_hover, text: 'Удалить челлендж'},
+        {id:3, icon:edit, activeIcon: edit_hover, text: 'Редактировать челлендж'}
+    ]
+
     return (
         <div className='Sidebar'>
             <div className='SidebarWrapper'>
@@ -52,6 +69,13 @@ const Sidebar:FC<SiderbarProps> = ({backbutton}) => {
                     {backbutton === 0
                         ? 
                             buttonsData.map(el=>
+                                <SidebarButton key={el.id} icon={el.icon} activeIcon={el.activeIcon} text={el.text} onClick={(event)=>setChoosedButton(el.id)} active={el.id===choosedBut}/>
+                            )
+                        : <div></div>
+                    }
+                    {backbutton === 2
+                        ? 
+                            buttonsDataChallenge.map(el=>
                                 <SidebarButton key={el.id} icon={el.icon} activeIcon={el.activeIcon} text={el.text} onClick={(event)=>setChoosedButton(el.id)} active={el.id===choosedBut}/>
                             )
                         : <div></div>

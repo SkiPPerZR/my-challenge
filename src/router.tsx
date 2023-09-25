@@ -9,6 +9,7 @@ import Test from './pages/test/test'
 import './styles/blank.scss'
 import './styles/fonts.scss'
 import './styles/main.scss'
+import Challenge from './pages/challenge/Challenge';
 
 
 
@@ -21,6 +22,7 @@ function Router() {
         <Route path={'/login'} element={<Login/>}></Route>
         <Route path={'/main'} element={<Main/>}></Route>
         <Route path={'/terms'} element={<Terms/>}></Route>
+        <Route path={'/challenge'} element={<Challenge/>}></Route>
       </Routes>
     </BrowserRouter>
   );

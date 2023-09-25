@@ -1,8 +1,9 @@
 .TimeAndBet {
     background-color: var(--intElements);
     display: flex;
-    justify-content: space-around;
+    justify-content: space-between;
     border-radius: 12px;
+    padding: 10px 30px;
     & span {
         color: var(--BG_primary);
     }
@@ -13,10 +14,26 @@
     &Timer {
         display: flex;
         flex-direction: column;
-
+        & p {
+            padding-top: 3px;
+        }
     }
     &Prise {
         display: flex;
         flex-direction: column;
+        & div {
+            display: flex;
+            align-items: center;
+            & span {
+                display: flex;
+                margin-right: 4px;
+                padding-bottom: 3px;
+            }
+            & svg {
+                display: flex;
+                align-items: center;
+                
+            }
+        }
     }
 }

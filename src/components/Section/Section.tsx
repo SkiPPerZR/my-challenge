@@ -3,7 +3,6 @@ import './Section.scss'
 import ChallengeList from '../ChallengesList/ChallengesList';
 import { ICard } from '../../interfaces/ICard';
 import PostService from '../../api/PostService';
-import { type } from 'os';
 
 // interface MarkersProps {
 //     marker_name: string;
@@ -26,7 +25,6 @@ const Section:FC<SectionProps> = ({icon,name,count}) => {
 
     async function fetchCards() {
         let cardList : ICard[] = await PostService.getChallengeList('recommend');
-        console.log(cardList);
         setCards(cardList);
     }
 
