@@ -4,7 +4,6 @@ import SidebarButton from '../../shared/buttons/SidebarButton';
 import Contacts from '../contacts/Contacts';
 import useModal from '../../shared/hooks/useModal';
 import BackButton from '../../shared/buttons/BackButton';
-import { useNavigate } from 'react-router-dom';
 
 import games from '../../img/SidebarLg/GamesLg.svg'
 import games_hover from '../../img/SidebarLg/GamesLgHover.svg'

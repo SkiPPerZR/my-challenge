@@ -1,0 +1,10 @@
+.ChallengeRequirement {
+    display: flex;
+    flex-direction: column;
+    & h4:first-child {
+        margin-bottom: 20px;
+    }
+    & .RequirementItem {
+        margin-bottom: 8px;
+    }
+}

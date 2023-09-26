@@ -18,9 +18,9 @@ function Router() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path={'/'} element={<Test/>}></Route>
-        <Route path={'/login'} element={<Login/>}></Route>
-        <Route path={'/main'} element={<Main/>}></Route>
+        <Route path={'/'} element={<Main/>}></Route>
+        <Route path={'/test'} element={<Test/>}></Route>
+        <Route path={'/error'} element={<Login/>}></Route>
         <Route path={'/terms'} element={<Terms/>}></Route>
         <Route path={'/challenge'} element={<Challenge/>}></Route>
       </Routes>

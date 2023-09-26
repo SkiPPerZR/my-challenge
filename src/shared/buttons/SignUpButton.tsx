@@ -1,14 +1,15 @@
 import React, {FC} from 'react';
-import './SinqUpButton.scss'
+import './SignUpButton.scss'
 
 interface SinqUpButtonProps {
     children: any;
+    toggle: any;
 }
 
 const SinqUpButton:FC<SinqUpButtonProps> = 
-    ({children}) => {
+    ({children, toggle}) => {
     return (
-        <button className='SinqUpButton text-18 medium'>
+        <button className='SignUpButton text-18 medium' onClick={toggle}>
             {children}
         </button>
     );

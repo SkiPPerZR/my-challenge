@@ -11,8 +11,8 @@ import NotificationButton from '../../shared/buttons/NotificationButton';
 import UserProfileButton from '../../shared/buttons/UserProfileButton';
 import PurchaseSale from '../PurchaseSale/PurchaseSale';
 import LoginButton from '../../shared/buttons/LoginButton';
-import SinqUpButton from '../../shared/buttons/SinqUpButton';
-import { useNavigate } from 'react-router-dom';
+import SignUpButton from '../../shared/buttons/SignUpButton';
+import SignUp from '../SignUp/SignUp';
 
 
 interface HeaderProps {
@@ -21,12 +21,6 @@ interface HeaderProps {
 
 const Header:FC<HeaderProps> = ({login}) => {
     const {isOpen, toggle} = useModal();
-
-    const navigate = useNavigate();
-
-    const navigateToMain = () => {
-      navigate('/main');
-    }
 
     return (
         <header className='Header'>
@@ -48,11 +42,20 @@ const Header:FC<HeaderProps> = ({login}) => {
                     <PurchaseSale isOpen={isOpen} toggle={toggle}/>
                 </>
                 :
-                    
+                <></>
+            }
+            {
+                login === 0
+                ?
+                <>
                     <div className='HeaderActionGroup'>
-                        <LoginButton children='Вход' onClick={navigateToMain}/>
-                        <SinqUpButton children='Регистрация'/>
+                        <LoginButton children='Вход'/>
+                        <SignUpButton children='Регистрация' toggle={toggle}/>
                     </div>
+                    <SignUp isOpen={isOpen} toggle={toggle}/>
+                </>
+                :
+                <></>
             }
         </header>
     );

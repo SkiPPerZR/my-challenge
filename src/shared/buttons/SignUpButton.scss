@@ -1,4 +1,4 @@
-.SinqUpButton {
+.SignUpButton {
     border: 0;
     background-color: var(--intElements);
     color: var(--white);
@@ -9,7 +9,7 @@
     cursor: pointer;
 }
 
-.SinqUpButton:hover, .SinqUpButton:active {
+.SignUpButton:hover, .SignUpButton:active {
     background-color: var(--intElementsHover);
     transition: 0.3s ease-in-out;    
 }

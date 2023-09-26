@@ -1,4 +1,4 @@
-import React, {FC, useState} from 'react';
+import React, {FC} from 'react';
 import './Card.scss'
 import { ICard } from '../../interfaces/ICard';
 import { useNavigate } from 'react-router-dom';
@@ -18,14 +18,8 @@ interface CardProps {
 const Card:FC<CardProps> = ({variant, card}) => {
     const navigate = useNavigate();
     const navigateToChallenge = () => {
-        navigate('/challenge');
+        navigate('/challenge', {state:{token:card.token}});
     }
-
-    const [data, setData] = useState('');
-    let token = card.token
-    const handleClick = () => {
-        setData(token);
-    };
 
     return (
         <div className={variant}>
@@ -76,7 +70,7 @@ const Card:FC<CardProps> = ({variant, card}) => {
                         }</span>
                     </div>
                 </div>
-                <button className='text-17 semibold' onClick={navigateToChallenge} onMouseDown={handleClick}>Принять участие</button>
+                <button className='text-17 semibold' onClick={navigateToChallenge}>Принять участие</button>
             </div>
         </div>
     );

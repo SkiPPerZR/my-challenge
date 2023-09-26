@@ -1,18 +1,21 @@
 import React from 'react';
 import './Video.scss'
 
+import img from '../../img/soccer.jpg'
+
 const Video = () => {
     return (
         <div className='Video'>
-            <iframe 
+            {/* <iframe 
                 width="100%"
                 height="575"
-                src="https://www.youtube.com/embed/NcHyE_N1QDI?si=yPRJ3VbiZMdWBiYg"
+                src={img}
                 title="YouTube video player"
                 frameBorder={0}
                 allow=" autoplay; clipboard-write; encrypted-media; web-share"
                 allowFullScreen
-            ></iframe>
+            ></iframe> */}
+            <img src={img} alt="Шварц" width="100%"/>
         </div>
     );
 };

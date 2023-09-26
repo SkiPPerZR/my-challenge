@@ -6,7 +6,7 @@ import NotLogin from '../../components/NotLogin/notLogin';
 const Login = () => {
     return (
         <div className='Login'>
-            <Sidebar backbutton={2}/>
+            <Sidebar backbutton={0}/>
             <div className='Container'>
                 <Header login={0}/>
                 <NotLogin />
