@@ -4,7 +4,7 @@ import { ICardInfo } from "../interfaces/ICardInfo";
 
 export default class PostService {
     static async sendRawData(data : String, url:String) : Promise<AxiosResponse> {
-        const BASE_URL = 'http://form.upon.ru/api/';
+        const BASE_URL = 'https://uponblog.ru/api/';
             
         let config = {
             method: 'post',
@@ -24,17 +24,7 @@ export default class PostService {
     static async getChallengeList(type : String) : Promise<ICard[]> {
         let data = '{"type" : "' + type + '", "token" : "2704a8149172386fcb7b01408c0c35c343fd9dfc7c02aab5321da2c40358d8ea635eaedfc1b01f44551a554c5192723c60359fad0db538ef994644ab0b40d1a0"}';
 
-        let config = {
-            method: 'post',
-            maxBodyLength: Infinity,
-            url: 'http://form.upon.ru/api/challenge_list.php',
-            headers: { 
-            'Content-Type': 'text/plain'
-        },
-            data : data
-        };
-
-        let responce = await axios.request(config);
+        let responce = await PostService.sendRawData(data, 'challenge_list.php');
 
         let cardListFromApi = responce.data["challenge"];
 
