@@ -9,6 +9,11 @@
         margin-bottom: 20px;
         &Title {
             display: flex;
+            align-items: center;
+            & button {
+                background-color: transparent;
+                border: none;
+            }
             & img {
                 margin-right: 11px;
             }

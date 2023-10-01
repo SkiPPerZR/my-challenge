@@ -30,6 +30,7 @@ import trash_hover from '../../img/Challenge/Trash_hover.svg'
 import telegram from '../../img/Telegram.svg'
 import twitch from '../../img/Twitch.svg'
 import vk from '../../img/VK-menu-logo.svg'
+import { useNavigate } from 'react-router-dom';
 
 interface SiderbarProps {
     backbutton: number;
@@ -38,6 +39,11 @@ interface SiderbarProps {
 const Sidebar:FC<SiderbarProps> = ({backbutton}) => {
     const [choosedBut, setChoosedButton] = React.useState<number|null>(null);
     const {isOpen, toggle} = useModal();
+    const navigate = useNavigate();
+
+    const navigateToMain = () => {
+      navigate('/');
+    }
 
     const buttonsData = [
         {id:0, icon:games, activeIcon: games_hover, text: 'Видеоигры'},
@@ -59,7 +65,7 @@ const Sidebar:FC<SiderbarProps> = ({backbutton}) => {
         <div className='Sidebar'>
             <div className='SidebarWrapper'>
                 <div className='SidebarWrapperMenu'>
-                    <div className='logo'></div>
+                    <div className='logo' onClick={navigateToMain}></div>
                     {backbutton === 1
                         ?
                             <BackButton/>
