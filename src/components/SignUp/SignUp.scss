@@ -105,6 +105,12 @@
                 transition: 0.3s ease-in-out;
                 cursor: pointer;
             }
+            &:active {
+                background-color: var(--BG_secondary8);
+                color: var(--negativeIntElements);
+                transition: 0.1s ease-in-out;
+                cursor: pointer;
+            }
         }
     }
 }

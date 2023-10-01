@@ -3,6 +3,7 @@ import './Section.scss'
 import ChallengeList from '../ChallengesList/ChallengesList';
 import { ICard } from '../../interfaces/ICard';
 import PostService from '../../api/PostService';
+import { useNavigate } from 'react-router-dom';
 
 // interface MarkersProps {
 //     marker_name: string;
@@ -32,7 +33,7 @@ const Section:FC<SectionProps> = ({icon,name,count}) => {
         <div className='Section'>
             <div className='SectionHeader'>
                 <div className='SectionHeaderTitle'>
-                    <img src={icon} alt="Icon" />
+                    <button ><img src={icon} alt="Icon" /></button>
                     <span className='text-18 semibold'>{name}</span>
                     <div className='SectionHeaderTitleCount'>
                         <span className='text-14 regular'>{count} челленджей</span>
