@@ -23,7 +23,7 @@ export default function Contacts(props: ContactsProps) {
             <div className='Contacts-overlay' onClick={props.toggle}>
                 <div onClick={(e) => e.stopPropagation()} className="Contacts">
                     <div className='ContactsTitle'>
-                        <h1 className='text-36 medium'>Контакты</h1>
+                        <h1 className='text-36 medium'>О компании</h1>
                         <button onClick={props.toggle}>
                             <img src={close} alt="Закрыть" />
                         </button>

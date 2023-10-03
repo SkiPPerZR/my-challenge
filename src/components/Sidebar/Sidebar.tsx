@@ -87,7 +87,7 @@ const Sidebar:FC<SiderbarProps> = ({backbutton}) => {
                     }
                 </div>
                 <div className='SidebarWrapperContacts'>
-                    <button className='title-18' onClick={toggle}>Контакты</button>
+                    <button className='title-18' onClick={toggle}>О компании</button>
                     <hr color="#102B32"/>
                     <ul className='SidebarWrapperContactsSocial'>
                         <li><a href="####"><img src={telegram} alt="Telegram" /></a></li>
