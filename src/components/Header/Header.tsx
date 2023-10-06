@@ -13,6 +13,7 @@ import PurchaseSale from '../PurchaseSale/PurchaseSale';
 import LoginButton from '../../shared/buttons/LoginButton';
 import SignUpButton from '../../shared/buttons/SignUpButton';
 import SignUp from '../SignUp/SignUp';
+import LogIn from '../LogIn/LogIn';
 
 
 interface HeaderProps {
@@ -49,10 +50,11 @@ const Header:FC<HeaderProps> = ({login}) => {
                 ?
                 <>
                     <div className='HeaderActionGroup'>
-                        <LoginButton children='Вход'/>
+                        <LoginButton children='Вход' toggle={toggle}/>
                         <SignUpButton children='Регистрация' toggle={toggle}/>
                     </div>
                     <SignUp isOpen={isOpen} toggle={toggle}/>
+                    {/* <LogIn isOpen={isOpen} toggle={toggle}/> */}
                 </>
                 :
                 <></>

@@ -1,4 +1,9 @@
 .ChallengesList {
     display: flex;
     justify-content: space-between;
+    width: 88.2vw;
+    overflow-x: scroll;
+    &::-webkit-scrollbar {
+        display: none;
+    }
 }

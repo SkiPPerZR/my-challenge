@@ -19,6 +19,15 @@
     padding: 40px;
     display: flex;
     flex-direction: column;
+    & .SignUpCant {
+        margin-top: 20px;
+        color: var(--intElements);
+        border: none;
+        background-color: transparent;
+        &:hover {
+            cursor: pointer;
+        }
+    }
 }
 .SignUpTitle {
     width: 100%;
@@ -36,81 +45,15 @@
         right: -132px;
         border: none;
         background-color: transparent;
+        transition: 0.2s ease-in-out;
         &:hover {
             cursor: pointer;
+            transition: 0.2s ease-in-out;
         }
     }
 }
-
-.SignUpInput, .SignUpCode {
-        display: flex;
-        flex-direction: column;
-        justify-content: start;
-        & input {
-            margin-top: 12px;
-            border: none;
-            border-bottom: 1px solid var(--separator);
-            height: 28px;
-            background-color: transparent;
-            &:focus-visible {
-                border: none;
-                border-bottom: 2px solid var(--labelPrimary);
-            }
-        }
-}
-
-.SignUpInput {
-    & span {
-        display: flex;
-        justify-content: start;
-        margin-top: 10px;
-    }
-}
-
-.SignUpCode {
-    margin-top: 20px;
-    & span {
-        display: flex;
-        justify-content: flex-end;
-        color: var(--intElements);
-        margin-top: 10px;
-    }
-}
-
-.SignUpState {
+.SignUpChoose {
     display: flex;
-    flex-direction: column;
-    margin-top: 15vh;
-    & div {
-        width: 100%;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        &:first-child {
-            justify-content: center;
-            margin-bottom: 20px;
-        }
-        &:nth-child(2) span {
-            color: var(--intElements);
-        }
-        & button {
-            color: var(--Button_Label);
-            border: none;
-            border-radius: 12px;
-            background-color: var(--intElements);
-            padding: 8px 50px 9px 50px;
-            transition: 0.3s ease-in-out;
-            &:hover {
-                background-color: var(--intElementsHover);
-                transition: 0.3s ease-in-out;
-                cursor: pointer;
-            }
-            &:active {
-                background-color: var(--BG_secondary8);
-                color: var(--negativeIntElements);
-                transition: 0.1s ease-in-out;
-                cursor: pointer;
-            }
-        }
-    }
+    flex-direction: row;
+    justify-content: space-between;
 }

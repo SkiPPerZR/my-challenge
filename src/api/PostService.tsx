@@ -22,7 +22,7 @@ export default class PostService {
     }
 
     static async getChallengeList(type : String) : Promise<ICard[]> {
-        let data = '{"type" : "' + type + '", "token" : "2704a8149172386fcb7b01408c0c35c343fd9dfc7c02aab5321da2c40358d8ea635eaedfc1b01f44551a554c5192723c60359fad0db538ef994644ab0b40d1a0"}';
+        let data = '{"type" : "' + type + '", "token" : "6d432d60ef3bc832fb651ede7ab89cf2bec45cf0d2208dcf8c2f3a2fd5b151e1bb1b800b304e7798b6fc017128b7aea0bfe30dbd61f702599520e1a74ce1071d"}';
 
         let responce = await PostService.sendRawData(data, 'challenge_list.php');
 
@@ -48,11 +48,11 @@ export default class PostService {
             cardList.push(CardInfo);
         }
 
-        return cardList.slice(cardList.length-4, cardList.length); //TO DO Slider
+        return cardList;
     }
 
     static async getChallengeInfo(token_challenge : String) : Promise<ICardInfo> {
-        let data = '{"token" : "2704a8149172386fcb7b01408c0c35c343fd9dfc7c02aab5321da2c40358d8ea635eaedfc1b01f44551a554c5192723c60359fad0db538ef994644ab0b40d1a0", "token_challenge" : "'+ token_challenge +'"}';
+        let data = '{"token" : "6d432d60ef3bc832fb651ede7ab89cf2bec45cf0d2208dcf8c2f3a2fd5b151e1bb1b800b304e7798b6fc017128b7aea0bfe30dbd61f702599520e1a74ce1071d", "token_challenge" : "'+ token_challenge +'"}';
 
         let responce = await PostService.sendRawData(data, 'challenge_info.php');
 

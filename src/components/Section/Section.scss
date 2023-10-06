@@ -1,7 +1,8 @@
 .Section {
     display: flex;
     flex-direction: column;
-    margin: 50px 30px 0 30px;
+    overflow: hidden;
+    margin: 50px 0 0 30px;
     &Header {
         display: flex;
         justify-content: space-between;
