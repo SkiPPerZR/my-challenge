@@ -1,0 +1,13 @@
+.ProfileItem {
+    display: flex;
+    align-items: center;
+    border: none;
+    background-color: transparent;
+    padding: 13px 0;
+    & img {
+        margin-right: 10px;
+    }
+    & span {
+        padding-bottom: 1.7px;
+    }
+}

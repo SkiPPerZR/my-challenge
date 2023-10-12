@@ -6,8 +6,12 @@
     height: 50px;
     background-color: var(--BG_secondary8);
     overflow: hidden;
+    &:hover {
+        cursor: pointer;
+    }
     & > img {
         width: 100%;
+        padding: 5px; //TODO Delete this in prodaction
         object-fit: cover;
     }
 }

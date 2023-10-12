@@ -3,12 +3,13 @@ import './BalanceState.scss'
 
 interface BalanceStateProps {
     balance: string;
+    toggleStatus: () => void;
     toggle: any;
 }
 
-const BalanceState:FC<BalanceStateProps> = ({balance, toggle}) => {
+const BalanceState:FC<BalanceStateProps> = ({balance, toggle, toggleStatus}) => {
     return (
-        <div className='balance-state'>
+        <div className='balance-state' onMouseDown={toggleStatus}>
             <div className='gold'>
                 <div className='icon'>
                     <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18" fill="none">

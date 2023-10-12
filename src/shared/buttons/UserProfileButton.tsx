@@ -1,12 +1,17 @@
-import React from 'react';
+import React, {FC} from 'react';
 import './UserProfileButton.scss'
-import avatar from '../../img/avatar.jpg'
+import avatar from '../../img/test-profile-icon.png'
 
-const UserProfileButton = () => {
+interface UserProfileButtonProps {
+    toggleStatus: () => void;
+    toggle: any;
+}
+
+const UserProfileButton:FC<UserProfileButtonProps> = ({toggle, toggleStatus}) => {
     return (
-        <div>
+        <div onClick={toggle} onMouseDown={toggleStatus}>
             <div className='user-profile'>
-                {/* <img src={avatar} alt="Avatar" /> */}
+                <img src={avatar} alt="Avatar" />
             </div>
             <button className='profile-btn'>
                 <svg xmlns="http://www.w3.org/2000/svg" width="10" height="6" viewBox="0 0 10 6" fill="none">

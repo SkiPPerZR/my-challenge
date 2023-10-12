@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React, { FC, useState } from 'react';
 import './Header.scss'
 
 import useModal from '../../shared/hooks/useModal';
@@ -14,6 +14,7 @@ import LoginButton from '../../shared/buttons/LoginButton';
 import SignUpButton from '../../shared/buttons/SignUpButton';
 import SignUp from '../SignUp/SignUp';
 import LogIn from '../LogIn/LogIn';
+import ProfileMenu from '../ProfileMenu/ProfileMenu';
 
 
 interface HeaderProps {
@@ -22,6 +23,7 @@ interface HeaderProps {
 
 const Header:FC<HeaderProps> = ({login}) => {
     const {isOpen, toggle} = useModal();
+    const [toggleStatus, setToggleStatus] = useState(false)
 
     return (
         <header className='Header'>
@@ -36,11 +38,16 @@ const Header:FC<HeaderProps> = ({login}) => {
                 <>
                     <nav className='HeaderActionGroup'>
                         <HeaderButton children='Создать челлендж'/>
-                        <BalanceState balance='213 124,23' toggle={toggle}/>
+                        <BalanceState balance='213 124,23' toggle={toggle} toggleStatus={() => setToggleStatus(true)}/>
                         <NotificationButton/>
-                        <UserProfileButton/>
+                        <UserProfileButton toggle={toggle} toggleStatus={() => setToggleStatus(false)}/>
                     </nav>
-                    <PurchaseSale isOpen={isOpen} toggle={toggle}/>
+                    <>
+                        {toggleStatus 
+                            ? <PurchaseSale isOpen={isOpen} toggle={toggle}/>
+                            : <ProfileMenu user_name='IvanZolo2004' user_num={12345} isOpen={isOpen} toggle={toggle}/>
+                        }
+                    </>
                 </>
                 :
                 <></>
@@ -50,11 +57,15 @@ const Header:FC<HeaderProps> = ({login}) => {
                 ?
                 <>
                     <div className='HeaderActionGroup'>
-                        <LoginButton children='Вход' toggle={toggle}/>
-                        <SignUpButton children='Регистрация' toggle={toggle}/>
+                        <LoginButton children='Вход' toggle={toggle} toggleStatus={() => setToggleStatus(false)}/>
+                        <SignUpButton children='Регистрация' toggle={toggle} toggleStatus={() => setToggleStatus(true)}/>
                     </div>
-                    <SignUp isOpen={isOpen} toggle={toggle}/>
-                    {/* <LogIn isOpen={isOpen} toggle={toggle}/> */}
+                    <>
+                        {toggleStatus 
+                            ? <SignUp isOpen={isOpen} toggle={toggle} />
+                            : <LogIn isOpen={isOpen} toggle={toggle} />
+                        }
+                    </>
                 </>
                 :
                 <></>

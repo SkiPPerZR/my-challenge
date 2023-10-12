@@ -1,0 +1,40 @@
+.ProfileMenu-overlay {
+    z-index: 9999 !important;
+    width: 100%;
+    height: 100vh;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background: transparent;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: 0.2s ease-in-out;
+}
+
+.ProfileMenu {
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    background-color: var(--BG_secondary100);
+    position: absolute;
+    top: 74px;
+    right: 42px;
+    border: 0.5px var(--separator) solid;
+    border-radius: 20px;
+    transition: 0.2s ease-in-out;
+    &Name {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 270px; //TODO adaptive
+        margin-bottom: 27px;
+    }
+    &Items {
+        display: flex;
+        flex-direction: column;
+        & > *:not(:last-child) {
+            border-bottom: 1px var(--BG_secondary8) solid;
+        }
+    }
+}

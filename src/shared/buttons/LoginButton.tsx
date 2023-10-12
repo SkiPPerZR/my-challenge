@@ -3,13 +3,14 @@ import './LoginButton.scss'
 
 interface LoginButtonProps {
     children: any;
-    toggle: any;
+    toggle: () => void;
+    toggleStatus: () => void;
 }
 
 const LoginButton:FC<LoginButtonProps> = 
-    ({children, toggle}) => {
+    ({children, toggle, toggleStatus}) => {
     return (
-        <button className='LoginButton text-18 medium' onClick={toggle}>
+        <button className='LoginButton text-18 medium' onClick={toggle} onMouseDown={toggleStatus}>
             {children}
         </button>
     );
