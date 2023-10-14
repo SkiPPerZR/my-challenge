@@ -2,6 +2,7 @@ import React from 'react';
 import Sidebar from '../../components/Sidebar/Sidebar';
 import Header from '../../components/Header/Header';
 import { useLocation } from 'react-router-dom';
+import Profile from '../../components/Profile/Profile';
 
 const Test = () => {
     const location = useLocation();
@@ -13,6 +14,7 @@ const Test = () => {
             <Sidebar backbutton={0}/>
             <div className='Container'>
                 <Header login={login}/>
+                <Profile/>
             </div>
         </div>
     );
