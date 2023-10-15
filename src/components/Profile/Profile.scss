@@ -5,9 +5,13 @@
     & h3 {
         margin-bottom: 20px;
     }
+    &  > *:not(:last-child) {
+        margin-right: 30px;
+    }
     &Stat {
         display: flex;
         flex-direction: column;
+        width: 37.7%;
         &  > *:not(:last-child) {
             margin-bottom: 20px;
         }
@@ -57,5 +61,25 @@
                 }
             }
         }
+    }
+    &UserInfo {
+        display: flex;
+        flex-direction: column;
+        width: 24.6%;
+        &Social {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            &  > *:not(:last-child) {
+                margin-bottom: 20px;
+            }
+        }
+        &  > *:not(:last-child) {
+            margin-bottom: 20px;
+        }
+    }
+    &Achievements {
+        width: 37.7%;
+        background-color: cyan;
     }
 }

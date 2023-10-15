@@ -1,5 +1,5 @@
 import React, { FC } from 'react'
-import './profileStatItem.scss'
+import './ProfileStatItem.scss'
 
 interface ProfileStatItem {
     nameStat: string;
