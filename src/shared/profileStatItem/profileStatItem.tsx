@@ -1,12 +1,12 @@
 import React, { FC } from 'react'
 import './ProfileStatItem.scss'
 
-interface ProfileStatItem {
+interface ProfileStatItemProps {
     nameStat: string;
     statValue: number;
 }
 
-const ProfileStatItem:FC<ProfileStatItem> = ({nameStat, statValue}) => {
+const ProfileStatItem:FC<ProfileStatItemProps> = ({nameStat, statValue}) => {
     return (
         <div className='ProfileStatItem'>
             <span className='title-18 semibold'>{nameStat}</span>
