@@ -1,9 +1,9 @@
 import React from 'react';
-import './notLogin.scss'
+import './NotLogin.scss'
 
 import NLicon from '../../img/contacts-icon.svg'
 
-const notLogin = () => {
+const NotLogin = () => {
     return (
         <div className='NotLogin'>
             <div>
@@ -16,4 +16,4 @@ const notLogin = () => {
     );
 };
 
-export default notLogin;
+export default NotLogin;

@@ -6,6 +6,7 @@ import { ICardInfo } from '../../interfaces/ICardInfo';
 import PostService from '../../api/PostService';
 import { useLocation } from 'react-router-dom';
 import ChallengeRequirement from '../ChallengeRequirement/ChallengeRequirement';
+import NotLogin from '../NotLogin/NotLogin';
 
 
 const ChallengePage = () => {
@@ -23,13 +24,11 @@ const ChallengePage = () => {
         fetchInfo()
     }, [])
 
-    if (info === undefined)
-        return <div></div>
-
+    if (!info) return <NotLogin/> // info == null or undefiend or {}
     return (
         <div className='ChallengePage'>
-            <ChallengeInfo info={info!}/>
-            <ChallengeRequirement info={info!}/>
+            <ChallengeInfo info={info}/>
+            <ChallengeRequirement info={info}/>
             <div className='ChallengePageChat'>
                 <h2 className='title-25 medium'>Чат в разработке...</h2>
             </div>
