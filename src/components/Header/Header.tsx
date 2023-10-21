@@ -45,7 +45,7 @@ const Header:FC<HeaderProps> = ({login}) => {
                     <>
                         {toggleStatus 
                             ? <PurchaseSale isOpen={isOpen} toggle={toggle}/>
-                            : <ProfileMenu user_name='IvanZolo2004' user_num={12345} isOpen={isOpen} toggle={toggle}/>
+                            : <ProfileMenu user_name='IvanZolo2004' user_num={12345} isOpenMenu={isOpen} toggleMenu={toggle}/>
                         }
                     </>
                 </>

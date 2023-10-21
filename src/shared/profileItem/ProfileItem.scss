@@ -4,6 +4,9 @@
     border: none;
     background-color: transparent;
     padding: 13px 0;
+    &:hover {
+        cursor: pointer;
+    }
     & img {
         margin-right: 10px;
     }

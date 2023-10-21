@@ -4,11 +4,13 @@ import './ProfileItem.scss'
 interface ProfileItemProps {
     icon: string;
     title: string;
+    nav?: () => void;
+    toggle?: () => void;
 }
 
-const ProfileItem:FC<ProfileItemProps> = ({icon, title}) => {
+const ProfileItem:FC<ProfileItemProps> = ({icon, title, nav, toggle}) => {
     return (
-        <button className='ProfileItem'>
+        <button className='ProfileItem' onClick={nav} onMouseDown={toggle}>
             <img src={icon} alt="" />
             <span className='text-17 semibold'>{title}</span>
         </button>

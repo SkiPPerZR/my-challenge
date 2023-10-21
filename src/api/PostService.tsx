@@ -11,7 +11,7 @@ export default class PostService {
             maxBodyLength: Infinity,
             url: BASE_URL +  url,
             headers: { 
-            'Content-Type': 'text/plain'
+            'Content-Type': 'text/plain' //application/json
         },
             data : data
         };

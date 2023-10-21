@@ -49,6 +49,7 @@ html, body, #root{
 
 body, #root {
     display: flex;
+    user-select: none;
 }
 
 .Login, .Main {
@@ -59,7 +60,7 @@ body, #root {
 }
 
 .Container {
-    min-width: 90.17vw;
+    min-width: 90vw;
     min-height: 100%;
     display: flex;
     flex-direction: column;

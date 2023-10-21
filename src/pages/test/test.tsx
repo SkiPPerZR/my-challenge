@@ -14,7 +14,7 @@ const Test = () => {
             <Sidebar backbutton={0}/>
             <div className='Container'>
                 <Header login={login}/>
-                <Profile/>
+                
             </div>
         </div>
     );

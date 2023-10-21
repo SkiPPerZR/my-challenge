@@ -1,0 +1,46 @@
+.AchivementItem {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 17px 16px;
+    margin-bottom: 11px;
+    width: 100%;
+    background-color: var(--BG_secondary8);
+    border-radius: 20px;
+    &Content {
+        display: flex;
+        &Img {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 64px;
+            height: 64px;
+            background-color: var(--BG_secondary8);
+            border-radius: 12px;
+            margin-right: 8px;
+        }
+        &Text {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            color: var(--labelTertiary);
+            & h4 {
+                margin-bottom: 3px;
+            }
+        }
+    }
+    &State {
+        width: 100%;
+        height: 4px;
+        margin-top: 8px;
+        border-radius: 19px;
+        background-color: var(--BG_secondary8);
+        transition: 0.2s ease-in-out;
+        & div {
+            background-color: var(--intElements);
+            border-radius: 19px;
+            height: 4px;
+            transition: 0.2s ease-in-out;
+        }
+    }
+}
