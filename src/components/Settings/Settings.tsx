@@ -2,6 +2,7 @@ import React, { FC } from 'react'
 import './Settings.scss'
 
 import close from '../../img/close.svg'
+import settings from '../../img/Settings.svg'
 
 interface SettingsProps{
     toggle: () => void;
@@ -16,12 +17,13 @@ const Settings:FC<SettingsProps> = ({toggle, isOpen}) => {
                 <div className="Settings-overlay" onClick={toggle}>
                     <div className="Settings-box" onClick={(e)=>e.stopPropagation()}>
                         <div className="SettingsTitle">
-                            <img src='' alt="Настройки" />
+                            <img src={settings} alt="Настройки" />
                             <h2 className="title-25 semibold">Настройки</h2>
                             <button onClick={toggle}>
                                 <img src={close} alt="Закрыть" />
                             </button>
                         </div>
+                        div.Settings
                     </div>
                 </div>
             )}

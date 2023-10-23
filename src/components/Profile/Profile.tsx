@@ -1,7 +1,7 @@
 import React from 'react-dom'
 import './Profile.scss'
 
-import ProfileStatItem from '../../shared/profileStatItem/ProfileStatItem'
+import ProfileStatItem from '../../shared/profileStatItem/profileStatItem'
 import ProfileInfoItem from '../../shared/profileInfoItem/ProfileInfoItem'
 import AchivementItem from '../../shared/achivementItem/AchivementItem'
 import SeeAll from '../../shared/buttons/SeeAll'
@@ -17,6 +17,7 @@ const Profile = () => {
                 <h3 className='text-14 regular'>Профиль и статистика</h3>
                 <div className="ProfileStatUserName">
                     <div className="ProfileStatUserNameAvatar">
+                        {/* Todo: do avatar css styles */}
                         <img src={avatar} alt="" />
                     </div>
                     <span className="text-18 light">IvanZolo2004</span>
@@ -24,7 +25,8 @@ const Profile = () => {
                 </div>
                 <ProfileStatItem nameStat='Всего побед' statValue={32} />
                 <ProfileStatItem nameStat='Участий в Челленджах' statValue={50} />
-                <ProfileStatItem nameStat='Всего выиграно золота' statValue={114000} />
+                <ProfileStatItem nameStat='Всего выиграно золота' statValue={150100} />
+                {/* Todo: Пофиксить чтобы пример: 1,5, округление до 0,1 после 100 не нужно*/}
             </div>
             <div className="ProfileUserInfo">
                 <h3 className='text-14 regular'>Информация о пользователе</h3>
@@ -43,6 +45,8 @@ const Profile = () => {
             <div className="ProfileAchievements">
                 <h3 className='text-14 regular'>Достижения</h3>
                 <AchivementItem title='Амбассадор' text='Пригласить 5 новых пользователей' icon={achivement} state={0}/>
+                {/* TODO Получаю значение как есть в достижении, перобразовать state в проценты + те которые выполнил 100% пользователь ставяться наверх списка */}
+                {/* TODO Добавить информационный попап(прописать текст и оформление) + модульное решение */}
                 <div className="ProfileAchievementsOthers">
                     <div className='ProfileAchievementsOthersColumn'>
                         <AchivementItem title='Добро пожаловать' text='Номер телефона подтвержден' icon={achivement}/>
