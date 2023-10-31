@@ -6,7 +6,7 @@ import { ICardInfo } from '../../interfaces/ICardInfo';
 import PostService from '../../api/PostService';
 import { useLocation } from 'react-router-dom';
 import ChallengeRequirement from '../ChallengeRequirement/ChallengeRequirement';
-import NotLogin from '../NotLogin/NotLogin';
+import NotLogin from '../NotLogin/notLogin';
 
 
 const ChallengePage = () => {

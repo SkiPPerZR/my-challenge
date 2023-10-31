@@ -120,6 +120,10 @@ body, #root {
         @extend .text;
         font-size: 14px;
     }
+    &-12{
+        @extend .text;
+        font-size: 12px;
+    }
     &-11{
         @extend .text;
         font-size: 11px;

@@ -1,5 +1,5 @@
 import React from 'react';
-import './NotLogin.scss'
+import './notLogin.scss'
 
 import NLicon from '../../img/contacts-icon.svg'
 

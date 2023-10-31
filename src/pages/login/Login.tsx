@@ -1,7 +1,7 @@
 import React from 'react';
 import Header from '../../components/Header/Header';
 import Sidebar from '../../components/Sidebar/Sidebar';
-import NotLogin from '../../components/NotLogin/NotLogin';
+import NotLogin from '../../components/NotLogin/notLogin';
 
 const Login = () => {
     return (

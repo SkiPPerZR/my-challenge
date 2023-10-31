@@ -57,3 +57,26 @@
     flex-direction: row;
     justify-content: space-between;
 }
+
+.SignUpBySocial {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 40px;
+    &Group {
+        display: flex;
+        flex-direction: row;
+        & div::after:not(:last-child) {
+            margin-top: 5px;
+            margin-left: 15px;
+            border-radius: 2px;
+            width: 1px;
+            height: 30px;
+            background-color: cyan;
+            content: '';
+        }
+    }
+    & span {
+        color: var(--labelSecondary);
+    }
+}
