@@ -47,7 +47,7 @@ const ProfileMenu:FC<ProfileMenuProps> = ({isOpenMenu, toggleMenu, user_num, use
                             <ProfileItem icon={help} title='Помощь'/>
                             <ProfileItem icon={log_out} title='Выйти из профиля'/>
                         </div>
-                        <Settings toggle={toggle} isOpen={isOpen}/>
+                        <Settings toggleSet={toggle} isOpenSet={isOpen}/>
                     </div>
                 </div>
             )}

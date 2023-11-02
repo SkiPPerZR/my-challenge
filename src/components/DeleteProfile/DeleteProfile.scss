@@ -1,5 +1,5 @@
-.Settings-overlay {
-    z-index: 9000 !important;
+.DeleteProfile-overlay {
+    z-index: 10000 !important;
     width: 100%;
     height: 100vh;
     position: fixed;
@@ -12,19 +12,19 @@
     transition: 0.2s ease-in-out;
 }
   
-.Settings-box {
+.DeleteProfile-box {
     display: flex;
     flex-direction: column;
     align-items: center;
     background: #fff;
     width: 550px;
-    height: 490px;
+    height: 308px;
     padding: 12px;
     border-radius: 12px;
     transition: 0.2s ease-in-out;
 }
 
-.SettingsTitle {
+.DeleteProfileTitle {
     display: flex;
     align-items: center;
     margin-top: 28px;
@@ -35,7 +35,7 @@
         padding-bottom: 3px;
     }
     & button {
-        z-index: 10000;
+        z-index: 11000;
         position: absolute;
         top: 405px;
         right: 853px;
@@ -48,18 +48,5 @@
         border: none;
         background-color: transparent;
         cursor: pointer;
-    }
-}
-
-.SettingsItems {
-    display: flex;
-    flex-direction: column;
-    padding: 0 30px;
-    width: 100%;
-    & > *:not(:last-child) {
-        margin-bottom: 10px;
-    }
-    & > *:last-child {
-        margin-top: 10px;
     }
 }

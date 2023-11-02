@@ -3,11 +3,12 @@ import './SocialSignUp.scss'
 
 interface SocialSignUpProps {
     icon: string;
+    func?: () => void;
 }
 
-const SocialSignUp:FC<SocialSignUpProps> = ({icon}) => {
+const SocialSignUp:FC<SocialSignUpProps> = ({icon, func}) => {
     return (
-        <div className='SocialSignUp'>
+        <div className='SocialSignUp' onClick={func}>
             <img src={icon} alt="Social" />
         </div>
     );

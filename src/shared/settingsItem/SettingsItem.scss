@@ -1,0 +1,44 @@
+.SettingsItemDefault, .SettingsItemBlogger, .SettingsItemDelete {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    border-radius: 12px;
+    padding: 18px 20px;
+    &:hover {
+        cursor: pointer;
+    }
+}
+
+.ItemContent {
+    display: flex;
+    justify-content: start;
+    & span {
+        margin-left: 8px;
+        padding-bottom: 2px;
+    }
+}
+
+.SettingsItemDefault {
+    background-color: var(--BG_secondary8);
+}
+
+.SettingsItemBlogger {
+    background-color: var(--BL_Button_FillWithBlur);
+    & span {
+        color: var(--BL_Button_Label);
+    }
+    & svg path{
+        fill: var(--BL_Button_Label);
+    }
+}
+
+.SettingsItemDelete {
+    background-color: var(--BG_secondary8);
+    & span {
+        color: var(--negativeIntElements);
+    }
+    & svg path{
+        fill: var(--negativeIntElements);
+    }
+}
