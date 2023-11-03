@@ -1,13 +1,13 @@
 import React, {FC} from 'react';
 import './SignUpButton.scss'
 
-interface SinqUpButtonProps {
+interface SignUpButtonProps {
     children: any;
     toggle: any;
     toggleStatus: () => void;
 }
 
-const SinqUpButton:FC<SinqUpButtonProps> = 
+const SignUpButton:FC<SignUpButtonProps> = 
     ({children, toggle, toggleStatus}) => {
     return (
         <button className='SignUpButton text-18 medium' onClick={toggle} onMouseDown={toggleStatus}>
@@ -16,4 +16,4 @@ const SinqUpButton:FC<SinqUpButtonProps> =
     );
 };
 
-export default SinqUpButton;
+export default SignUpButton;

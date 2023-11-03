@@ -12,11 +12,12 @@ interface SettingsItemProps {
     icon: string;
     theme: ItemTheme;
     func?: () => void;
+    toggle?: () => void;
 }
 
-const SettingsItem:FC<SettingsItemProps> = ({name,icon,theme,func}) => {
+const SettingsItem:FC<SettingsItemProps> = ({name,icon,theme,func,toggle}) => {
     return (
-        <div className={theme} onClick={func}>
+        <div className={theme} onClick={func} onMouseDown={toggle}>
             <div className="ItemContent">
                 <img src={icon} alt="Иконка" />
                 <span className='title-18 regular'>{name}</span>

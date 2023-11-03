@@ -1,4 +1,4 @@
-import React, { FC } from 'react'
+import React, { FC, useState } from 'react'
 import './Settings.scss'
 
 import SettingsItem, { ItemTheme } from '../../shared/settingsItem/SettingsItem';
@@ -12,6 +12,8 @@ import blogger from '../../img/Settings/Bloger.svg'
 import del from '../../img/Settings/Del.svg'
 import useModal from '../../shared/hooks/useModal';
 import DeleteProfile from '../DeleteProfile/DeleteProfile';
+import { number } from 'yargs';
+import EditProfile from '../EditProfile/EditProfile';
 
 interface SettingsProps{
     toggleSet: () => void;
@@ -20,6 +22,10 @@ interface SettingsProps{
 
 const Settings:FC<SettingsProps> = ({toggleSet, isOpenSet}) => {
     const {isOpen, toggle} = useModal();
+    const [toggleStatus, setToggleStatus] = useState<number>(0);
+    const status = (toggleStatus: number) => {
+        setToggleStatus(toggleStatus)
+    }
     return (
         <>
             {isOpenSet && (
@@ -33,13 +39,28 @@ const Settings:FC<SettingsProps> = ({toggleSet, isOpenSet}) => {
                             </button>
                         </div>
                         <div className="SettingsItems">
-                            <SettingsItem name='Информация о пользователе' icon={info} theme={ItemTheme.standart}/>
+                            <SettingsItem name='Информация о пользователе' icon={info} theme={ItemTheme.standart} func={toggle} toggle={() => status(2)}/>
                             <SettingsItem name='Номер телефона' icon={phone} theme={ItemTheme.standart}/>
                             <SettingsItem name='Почта и пароль' icon={email} theme={ItemTheme.standart}/>
                             <SettingsItem name='Верификация для блогеров' icon={blogger} theme={ItemTheme.blogger}/>
-                            <SettingsItem name='Удалить аккаунт' icon={del} theme={ItemTheme.delete} func={toggle}/>
-                            <DeleteProfile toggleDel={toggle} isOpenDel={isOpen}/>
+                            <SettingsItem name='Удалить аккаунт' icon={del} theme={ItemTheme.delete} func={toggle} toggle={() => status(1)}/>
                         </div>
+                        {toggleStatus === 1
+                            ? <DeleteProfile toggleDel={toggle} isOpenDel={isOpen} toggleStatus={() => status(0)}/>
+                            : <></>
+                        }
+                        {toggleStatus === 2
+                            ? <EditProfile toggleEdit={toggle} isOpenEdit={isOpen} toggleStatus={() => status(0)}/>
+                            : <></>
+                        }
+                        {/* {toggleStatus == 3
+                            ? <></>
+                            : 
+                        }
+                        {toggleStatus == 4
+                            ? <></>
+                            : 
+                        } */}
                     </div>
                 </div>
             )}

@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import './SignUp.scss'
-import {useGoogleLogin, GoogleOAuthProvider} from '@react-oauth/google'
+// import {useGoogleLogin, GoogleOAuthProvider} from '@react-oauth/google'
 import axios from 'axios'
 
 import icon from '../../img/iconSignUp.svg'

@@ -19,7 +19,7 @@
     background: #fff;
     width: 550px;
     height: 308px;
-    padding: 12px;
+    padding: 40px;
     border-radius: 12px;
     transition: 0.2s ease-in-out;
 }
@@ -27,7 +27,6 @@
 .DeleteProfileTitle {
     display: flex;
     align-items: center;
-    margin-top: 28px;
     margin-bottom: 20px;
     & h2 {
         margin-left: 10px;
@@ -37,8 +36,8 @@
     & button {
         z-index: 11000;
         position: absolute;
-        top: 405px;
-        right: 853px;
+        top: 378px;
+        right: 780px;
         width: 28px;
         height: 28px;
         margin-right: 16px;
@@ -48,5 +47,18 @@
         border: none;
         background-color: transparent;
         cursor: pointer;
+    }
+}
+
+.DeleteProfileContent {
+    display: flex;
+    flex-direction: column;
+    &Choose {
+        display: flex;
+        justify-content: space-between;
+    }
+    & span {
+        text-align: center;
+        margin-bottom: 20px;
     }
 }

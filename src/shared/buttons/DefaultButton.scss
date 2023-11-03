@@ -1,0 +1,14 @@
+.DefaultButton {
+    border: none;
+    background-color: var(--intElements);
+    border-radius: 12px;
+    padding: 13px 60px 11px 60px;
+    color: var(--Button_Label);
+    transition: 0.2s ease-in-out;
+    &:hover {
+        color: var(--negativeIntElements);
+        background-color: var(--BG_secondary8);
+        transition: 0.2s ease-in-out;
+        cursor: pointer;
+    }
+}
