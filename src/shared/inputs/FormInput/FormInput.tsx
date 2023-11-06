@@ -10,8 +10,8 @@ interface FormInputProps {
 const FormInput:FC<FormInputProps> = ({label,htmlFor,input}) => {
     return (
         <>
-            <label htmlFor={htmlFor}>{label}</label>
-            <input type='text'>{input}</input>
+            <label htmlFor={htmlFor} className='text-14 regular'>{label}</label>
+            <input type='text' className='text-17 semibold'>{input}</input>
         </>
     );
 };

@@ -3,6 +3,7 @@ import './EditProfile.scss'
 
 import close from '../../img/close.svg'
 import defIcon from '../../img/iconSignUp.svg'
+import FormInput from '../../shared/inputs/FormInput/FormInput';
 
 interface EditProfileProps {
     toggleEdit: () => void;
@@ -24,6 +25,7 @@ const EditProfile:FC<EditProfileProps> = ({toggleEdit,isOpenEdit,toggleStatus}) 
                             </button>
                         </div>
                         <form action="">
+                            <FormInput label='Имя Фамилия' htmlFor='' input=''/>
                         </form>
                     </div>
                 </div>
