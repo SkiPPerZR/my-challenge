@@ -30,13 +30,15 @@ const Settings:FC<SettingsProps> = ({toggleSet, isOpenSet}) => {
         <>
             {isOpenSet && (
                 <div className="Settings-overlay" onClick={toggleSet}>
-                    <div className="Settings-box" onClick={(e)=>e.stopPropagation()}>
-                        <div className="SettingsTitle">
-                            <img src={settings} alt="Настройки" />
-                            <h2 className="title-25 semibold">Настройки</h2>
+                    <div className="Settings-box" onClick={(e) => e.stopPropagation()}>
+                        <div className="SettingsClose">
                             <button onClick={toggleSet}>
                                 <img src={close} alt="Закрыть" />
                             </button>
+                        </div>
+                        <div className="SettingsTitle">
+                            <img src={settings} alt="Настройки" />
+                            <h2 className="title-25 semibold">Настройки</h2>
                         </div>
                         <div className="SettingsItems">
                             <SettingsItem name='Информация о пользователе' icon={info} theme={ItemTheme.standart} func={toggle} toggle={() => status(2)}/>
@@ -50,7 +52,7 @@ const Settings:FC<SettingsProps> = ({toggleSet, isOpenSet}) => {
                             : <></>
                         }
                         {toggleStatus === 2
-                            ? <EditProfile toggleEdit={toggle} isOpenEdit={isOpen} toggleStatus={() => status(0)}/>
+                            ? <EditProfile name='Редактирование профиля' toggleEdit={toggle} isOpenEdit={isOpen} toggleStatus={() => status(0)}/>
                             : <></>
                         }
                         {/* {toggleStatus == 3

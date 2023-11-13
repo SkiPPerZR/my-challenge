@@ -3,16 +3,15 @@ import './FormInput.scss'
 
 interface FormInputProps {
     label: string;
-    htmlFor: string;
-    input: string;
+    id: string;
 }
 
-const FormInput:FC<FormInputProps> = ({label,htmlFor,input}) => {
+const FormInput:FC<FormInputProps> = ({label,id}) => {
     return (
-        <>
-            <label htmlFor={htmlFor} className='text-14 regular'>{label}</label>
-            <input type='text' className='text-17 semibold'>{input}</input>
-        </>
+        <div className='FormInput'>
+            <label htmlFor={id} className='text-14 regular'>{label}</label>
+            <input id={id} type='text' className='text-17 semibold'></input>
+        </div>
     );
 };
 export default FormInput;

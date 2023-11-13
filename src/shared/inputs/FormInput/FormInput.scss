@@ -1,0 +1,12 @@
+.FormInput {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    &>label {
+        margin-bottom: 10px;
+    }
+    &>input {
+        border: none;
+        border-bottom: var(--separator) solid 1px;
+    }
+}

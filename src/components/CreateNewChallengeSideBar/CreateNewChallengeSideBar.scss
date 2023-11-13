@@ -1,0 +1,86 @@
+.container {
+    overflow-y: scroll;
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 100%;
+    height: 100vh;
+}
+.sidebar__overlay {
+    z-index: 11000 !important;
+    width: 100%;
+    min-height: 100%;
+    top: 0;
+    left: 0;
+    background: rgba($color: #000000, $alpha: .7);
+}
+.sidebar {
+    z-index: 4 !important;
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 450px;
+    max-height: 100%;
+    background-color: var(--white);
+    color: var( --labelPrimary );
+    overflow-y: scroll;
+
+    &__header {
+        display: flex;
+        justify-content: space-between;
+        padding: 20px;
+        border-bottom: 1px solid rgba($color: #000000, $alpha: .1)
+    }
+    &__close {
+        cursor: pointer;
+        margin-bottom: 20px;
+    }
+    &__info {
+        margin: 24px 20px;
+        padding-bottom: 55px;
+        border-bottom: 1px solid var(--labelPrimary);
+    }
+    &__input {
+        padding-top: 20px;
+        margin-bottom: 20px;
+        width: 100%;
+        border: none;
+        border-bottom: 1px solid rgba($color: #000000, $alpha: .1);
+        text-decoration-color: var( --labelPrimary );
+        font-size: 18px;
+        transition: all .2s ease-in;
+        &:focus-visible {
+            outline: none;
+        }
+        &:hover {
+            border-bottom:  1px solid var(--labelPrimary);
+        }
+        &:focus::placeholder {
+            transform: translateX(-40px) translateY(-18px) scale(.8);
+            transition: all .2s ease-in;
+            
+        }
+
+    }
+    &__conditions {
+        margin: 0 20px;
+        padding-bottom: 55px;
+        border-bottom: 1px solid var(--labelPrimary);
+    }
+    &__media {
+        margin: 20px 0;
+        display: flex;
+        gap: 10px;
+    }
+    &__container {
+        margin: 20px 0;
+    }
+    &__deadlines {
+        margin: 0 20px;
+        padding-bottom: 55px;
+        
+    }
+    &::-webkit-scrollbar {
+        width: 0;
+    }
+}

@@ -1,0 +1,31 @@
+.deadlines {
+    margin: 20px 0;
+    &__title {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 30px;
+    }
+    &__img {
+        width: 16px;
+        height: 16px;
+        cursor: pointer;
+    }
+    &__inputs {
+        display: flex;
+        justify-content: space-between;
+    }
+    &__numbers {
+        border: none;
+        font-family: 'Rawline';
+        font-size: 16px;
+        text-transform: uppercase;
+
+    }
+    &__select {
+        width: 200px;
+        border: none;
+        font-family: 'Rawline';
+        font-size: 16px;
+        text-transform: uppercase;
+    }
+}

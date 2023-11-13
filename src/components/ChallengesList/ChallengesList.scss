@@ -1,9 +1,36 @@
 .ChallengesList {
     display: flex;
+    z-index: 3;
     justify-content: space-between;
     width: 88.2vw;
+    min-height: 400px;
     overflow-x: scroll;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+    &Item {
+        z-index: 3 !important;
+    }
+    & > :not(:last-child, :first-child) {
+        margin-left: 20px;
+    }
     &::-webkit-scrollbar {
         display: none;
+    }
+    & > .swiper-scrollbar {
+        margin-left: 0 !important;
+        display: flex;
+        align-items: center;
+        --swiper-scrollbar-border-radius: 10px;
+        --swiper-scrollbar-top: auto;
+        --swiper-scrollbar-bottom: 10px;
+        --swiper-scrollbar-left: auto;
+        --swiper-scrollbar-right: 40px;
+        --swiper-scrollbar-sides-offset: 30%;
+        --swiper-scrollbar-bg-color: var(--labelTertiary);
+        --swiper-scrollbar-drag-bg-color: var(--intElements);
+        --swiper-scrollbar-size: 1px;
+        & > .swiper-scrollbar-drag {
+            height: 5px;
+        }
     }
 }

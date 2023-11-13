@@ -1,4 +1,4 @@
-import React, {FC} from 'react';
+import React, {FC, useContext} from 'react';
 import './ProfileMenu.scss'
 import ProfileItem from '../../shared/profileItem/ProfileItem';
 
@@ -12,6 +12,7 @@ import log_out from '../../img/Profile/Log-out.svg'
 import { useNavigate } from 'react-router-dom';
 import useModal from '../../shared/hooks/useModal';
 import Settings from '../Settings/Settings';
+import { AuthContext } from '../../context';
 
 interface ProfileMenuProps {
     user_name: string;
@@ -21,6 +22,7 @@ interface ProfileMenuProps {
   }
 
 const ProfileMenu:FC<ProfileMenuProps> = ({isOpenMenu, toggleMenu, user_num, user_name}) => {
+    const {isAuth, setIsAuth} = useContext(AuthContext);
     const navigate = useNavigate();
 
     const navigateToProfile = () => {
@@ -31,7 +33,7 @@ const ProfileMenu:FC<ProfileMenuProps> = ({isOpenMenu, toggleMenu, user_num, use
 
     return (
         <>
-            {isOpenMenu && (
+            {isOpenMenu&&(
                 <div className="ProfileMenu-overlay" onClick={toggleMenu}>
                     <div onClick={(e) => e.stopPropagation()} className="ProfileMenu">
                         <div className="ProfileMenuName">
@@ -45,7 +47,7 @@ const ProfileMenu:FC<ProfileMenuProps> = ({isOpenMenu, toggleMenu, user_num, use
                             <ProfileItem icon={settings} title='Настройки' toggle={toggle}/>
                             <ProfileItem icon={archive} title='Архив'/>
                             <ProfileItem icon={help} title='Помощь'/>
-                            <ProfileItem icon={log_out} title='Выйти из профиля'/>
+                            <ProfileItem icon={log_out} title='Выйти из профиля' nav={setIsAuth(false)}/>
                         </div>
                         <Settings toggleSet={toggle} isOpenSet={isOpen}/>
                     </div>

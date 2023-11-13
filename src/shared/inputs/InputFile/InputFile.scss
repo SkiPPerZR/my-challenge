@@ -1,0 +1,14 @@
+.input {
+    width: 320px;
+    height: 163px;
+    margin: 20px auto;
+    border-radius: 20px;
+    background-color: var(--BG_secondary8);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    &__img {
+        width: 40px;
+        height: 40px;
+    }
+}

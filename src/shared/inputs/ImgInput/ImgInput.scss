@@ -1,0 +1,44 @@
+.ImgInput {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 40px;
+    &Avatar {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 125px;
+        height: 125px;
+        border-radius: 30px;
+        background-color: var(--BG_secondary8);
+        &>label {
+            width: 35px;
+            height: 35px;
+            border: none;
+            border-radius: 30px;
+            background: url('../../../img/Settings/addAvatarButton.svg') no-repeat 50% 50%;
+            &:hover {
+                cursor: pointer;
+            }
+        }
+    }
+    span {
+        opacity: 0.4;
+        margin-top: 3px;
+    }
+}
+
+.file-uploader__upload-button {
+    opacity: 0;
+    position: absolute;
+    z-index: -1;
+}
+
+.file-uploader {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+}
+  

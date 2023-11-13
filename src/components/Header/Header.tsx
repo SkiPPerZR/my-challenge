@@ -15,15 +15,21 @@ import SignUpButton from '../../shared/buttons/SignUpButton';
 import SignUp from '../SignUp/SignUp';
 import LogIn from '../LogIn/LogIn';
 import ProfileMenu from '../ProfileMenu/ProfileMenu';
+import CreateNewChallengeModal from '../CreateNewChallengeModal/CreateNewChallengeModal'
+import CreateNewChallengeSideBar from '../CreateNewChallengeSideBar/CreateNewChallengeSideBar'
 
 
 interface HeaderProps {
-    login: number;
+    login: boolean;
 }
 
 const Header:FC<HeaderProps> = ({login}) => {
     const {isOpen, toggle} = useModal();
-    const [toggleStatus, setToggleStatus] = useState(false)
+    const [openSignUpStatus, setOpenSignUpStatus] = useState(false)
+    const [openLogInStatus, setOpenLogInStatus] = useState(false)
+    const [openPurchStatus, setOpenPurchStatus] = useState(false)
+    const [openMiniModal, setOpenMiniModal] = useState(false)
+    const [openSideBar, setOpenSideBar] = useState(false)
 
     return (
         <header className='Header'>
@@ -33,43 +39,33 @@ const Header:FC<HeaderProps> = ({login}) => {
             </nav>
             <SearchInput width={600}/>
             {
-                login === 1 
+                login
                 ?
                 <>
                     <nav className='HeaderActionGroup'>
-                        <HeaderButton children='Создать челлендж'/>
-                        <BalanceState balance='213 124,23' toggle={toggle} toggleStatus={() => setToggleStatus(true)}/>
+                        <HeaderButton children='Создать челлендж' setOpenMiniModal={setOpenMiniModal}/>
+                        <BalanceState balance='213 124,23' toggle={toggle} toggleStatus={() => setOpenPurchStatus(true)}/>
                         <NotificationButton/>
-                        <UserProfileButton toggle={toggle} toggleStatus={() => setToggleStatus(false)}/>
+                        <UserProfileButton toggle={toggle} toggleStatus={() => setOpenPurchStatus(false)}/>
                     </nav>
                     <>
-                        {toggleStatus 
-                            ? <PurchaseSale isOpen={isOpen} toggle={toggle}/>
-                            : <ProfileMenu user_name='IvanZolo2004' user_num={12345} isOpenMenu={isOpen} toggleMenu={toggle}/>
-                        }
+                        <ProfileMenu user_name='IvanZolo2004' user_num={12345} isOpenMenu={isOpen} toggleMenu={toggle}/>
+                        {openPurchStatus && <PurchaseSale setOpenPurchStatus={setOpenPurchStatus}/>}
+                        {openMiniModal && <CreateNewChallengeModal setOpenMiniModal={setOpenMiniModal} setOpenSideBar={setOpenSideBar} />}
+                        {openSideBar && <CreateNewChallengeSideBar setOpenSideBar={setOpenSideBar}/>}
                     </>
                 </>
                 :
-                <></>
-            }
-            {
-                login === 0
-                ?
                 <>
                     <div className='HeaderActionGroup'>
-                        <LoginButton children='Вход' toggle={toggle} toggleStatus={() => setToggleStatus(false)}/>
-                        <SignUpButton children='Регистрация' toggle={toggle} toggleStatus={() => setToggleStatus(true)}/>
+                        <LoginButton children='Вход' toggle={toggle} toggleStatus={setOpenLogInStatus}/>
+                        <SignUpButton children='Регистрация' toggle={toggle} toggleStatus={setOpenSignUpStatus}/>
                     </div>
-                    <>
-                        {toggleStatus 
-                            ? <SignUp isOpen={isOpen} toggle={toggle} />
-                            : <LogIn isOpen={isOpen} toggle={toggle} />
-                        }
-                    </>
+                        {openSignUpStatus && <SignUp isOpenSignUp={setOpenSignUpStatus}/>}
+                        {openLogInStatus && <LogIn isOpenLogIn={setOpenLogInStatus}/>}
                 </>
-                :
-                <></>
             }
+
         </header>
     );
 };

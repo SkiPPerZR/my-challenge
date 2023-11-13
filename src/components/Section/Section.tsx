@@ -20,9 +20,9 @@ const Section:FC<SectionProps> = ({icon,name,count}) => {
     // const [markers, setMarkers] = useState([]);
     const [cards, setCards] = useState<ICard[]>([]);
 
-    useEffect( ()=> {
-        fetchCards()
-    }, [])
+    // useEffect( ()=> {
+    //     fetchCards()
+    // }, [])
 
     async function fetchCards() {
         let cardList : ICard[] = await PostService.getChallengeList('recommend');

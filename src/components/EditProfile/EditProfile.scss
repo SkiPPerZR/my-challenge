@@ -19,34 +19,47 @@
     background: #fff;
     width: 580px;
     height: 930px;
-    padding: 12px;
+    padding: 10px 0 40px 0;
     border-radius: 12px;
     transition: 0.2s ease-in-out;
+    &>form {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        margin-top: 40px;
+        width: 100%;
+        padding: 0 40px;
+        &>div input {
+            margin-bottom: 20px;
+        }
+    }
 }
 
-.EditProfileTitle {
+.EditProfileClose {
     display: flex;
-    align-items: center;
-    margin-top: 28px;
-    margin-bottom: 20px;
-    & h2 {
-        margin-left: 10px;
-        text-transform: uppercase;
-        padding-bottom: 3px;
-    }
-    & button {
-        z-index: 11000;
-        position: absolute;
-        top: 73px;
-        right: 770px;
+    flex-direction: row;
+    justify-content: flex-end;
+    width: 100%;
+    &>button {
+        margin-right: 10px;
         width: 28px;
         height: 28px;
-        margin-right: 16px;
         display: flex;
         align-items: center;
         justify-content: center;
         border: none;
         background-color: transparent;
         cursor: pointer;
+    }
+}
+
+.EditProfileTitle {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+    & h2 {
+        margin-left: 17px;
+        text-transform: uppercase;
+        padding-bottom: 3px;
     }
 }

@@ -1,0 +1,78 @@
+.SignUpByEmailInput, .SignUpByEmailCode {
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    & p {
+        margin-bottom: 12px;
+    }
+    & input {
+        border: none;
+        border-bottom: 1px solid var(--separator);
+        height: 28px;
+        background-color: transparent;
+        padding-left: 10px;
+        &:focus-visible {
+            border: none;
+            border-bottom: 2px solid var(--labelPrimary);
+        }
+    }
+}
+
+.SignUpByEmailInput {
+    & span {
+        display: flex;
+        justify-content: start;
+        margin-top: 10px;
+    }
+    &:nth-child(2) {
+        margin-top: 10px;
+    }
+}
+
+.SignUpByEmailCode {
+    margin-top: 20px;
+    & span {
+        display: flex;
+        justify-content: flex-end;
+        color: var(--intElements);
+        margin-top: 10px;
+    }
+}
+
+.SignUpByEmailState {
+    display: flex;
+    flex-direction: column;
+    margin-top: 15vh;
+    & div {
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        &:first-child {
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+        &:nth-child(2) span {
+            color: var(--intElements);
+        }
+        & button {
+            color: var(--Button_Label);
+            border: none;
+            border-radius: 12px;
+            background-color: var(--intElements);
+            padding: 8px 50px 9px 50px;
+            transition: 0.3s ease-in-out;
+            &:hover {
+                background-color: var(--intElementsHover);
+                transition: 0.3s ease-in-out;
+                cursor: pointer;
+            }
+            &:active {
+                background-color: var(--BG_secondary8);
+                color: var(--negativeIntElements);
+                transition: 0.1s ease-in-out;
+                cursor: pointer;
+            }
+        }
+    }
+}

@@ -1,5 +1,6 @@
-import React, {FC} from 'react';
+import React, {FC, useState} from 'react';
 import './Sidebar.scss'
+
 import SidebarButton from '../../shared/buttons/SidebarButton';
 import Contacts from '../contacts/Contacts';
 import useModal from '../../shared/hooks/useModal';
@@ -18,6 +19,9 @@ import tabletop_hover from '../../img/SidebarLg/TabletopLgHover.svg'
 import toEveryone from '../../img/SidebarLg/ToEveryoneLg.svg'
 import toEveryone_hover from '../../img/SidebarLg/ToEveryoneLgHover.svg'
 
+import like from '../../img/SidebarLg/Liked.svg'
+import like_hover from '../../img/SidebarLg/LikedHover.svg'
+
 import premium from '../../img/Challenge/Premium.svg'
 import premium_hover from '../../img/Challenge/Premium_hover.svg'
 import edit from '../../img/Challenge/Edit.svg'
@@ -31,6 +35,8 @@ import telegram from '../../img/Telegram.svg'
 import twitch from '../../img/Twitch.svg'
 import vk from '../../img/VK-menu-logo.svg'
 import { useNavigate } from 'react-router-dom';
+import SidebarUserButton from '../../shared/buttons/SidebarUserButton';
+import Favorites from '../Favorites/Favorites';
 
 interface SiderbarProps {
     backbutton: number;
@@ -38,6 +44,7 @@ interface SiderbarProps {
 
 const Sidebar:FC<SiderbarProps> = ({backbutton}) => {
     const [choosedBut, setChoosedButton] = React.useState<number|null>(null);
+    const [togAct, setTogAct] = useState(false);
     const {isOpen, toggle} = useModal();
     const navigate = useNavigate();
 
@@ -73,9 +80,14 @@ const Sidebar:FC<SiderbarProps> = ({backbutton}) => {
                     }
                     {backbutton === 0
                         ? 
-                            buttonsData.map(el=>
-                                <SidebarButton key={el.id} icon={el.icon} activeIcon={el.activeIcon} text={el.text} onClick={(event)=>setChoosedButton(el.id)} active={el.id===choosedBut}/>
-                            )
+                            <>
+                                {buttonsData.map(el=>
+                                    <SidebarButton key={el.id} icon={el.icon} activeIcon={el.activeIcon} text={el.text} onClick={(event)=>setChoosedButton(el.id)} active={el.id===choosedBut}/>
+                                )}
+                                <div className="SidebarWrapperMenuUser">
+                                    <SidebarUserButton icon={like} activeIcon={like_hover} text='Избранное' toggle={toggle} onMouseDown={(togAct) => setTogAct(false)}/>
+                                </div>
+                            </>
                         : <div></div>
                     }
                     {backbutton === 2
@@ -87,7 +99,7 @@ const Sidebar:FC<SiderbarProps> = ({backbutton}) => {
                     }
                 </div>
                 <div className='SidebarWrapperContacts'>
-                    <button className='title-18' onClick={toggle}>О компании</button>
+                    <button className='title-18' onClick={toggle} onMouseDown={(togAct) => setTogAct(true)}>О компании</button>
                     <hr color="#102B32"/>
                     <ul className='SidebarWrapperContactsSocial'>
                         <li><a href="####"><img src={telegram} alt="Telegram" /></a></li>
@@ -96,7 +108,7 @@ const Sidebar:FC<SiderbarProps> = ({backbutton}) => {
                     </ul>
                 </div>
             </div>
-            <Contacts isOpen={isOpen} toggle={toggle}/>
+            {togAct? <Contacts isOpen={isOpen} toggle={toggle}/> : <Favorites isOpen={isOpen} toggle={toggle}/>}
         </div>
     );
 };

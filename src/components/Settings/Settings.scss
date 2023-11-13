@@ -19,29 +19,20 @@
     background: #fff;
     width: 550px;
     height: 490px;
-    padding: 12px;
+    padding: 10px 0;
     border-radius: 12px;
     transition: 0.2s ease-in-out;
 }
 
-.SettingsTitle {
+.SettingsClose {
     display: flex;
-    align-items: center;
-    margin-top: 28px;
-    margin-bottom: 20px;
-    & h2 {
-        margin-left: 10px;
-        text-transform: uppercase;
-        padding-bottom: 3px;
-    }
+    flex-direction: row;
+    justify-content: flex-end;
+    width: 100%;
     & button {
-        z-index: 10000;
-        position: absolute;
-        top: 290px;
-        right: 783px;
+        margin-right: 6px;
         width: 28px;
         height: 28px;
-        margin-right: 16px;
         display: flex;
         align-items: center;
         justify-content: center;
@@ -51,10 +42,21 @@
     }
 }
 
+.SettingsTitle {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+    & h2 {
+        margin-left: 10px;
+        text-transform: uppercase;
+        padding-bottom: 3px;
+    }
+}
+
 .SettingsItems {
     display: flex;
     flex-direction: column;
-    padding: 0 30px;
+    padding: 0 40px;
     width: 100%;
     & > *:not(:last-child) {
         margin-bottom: 10px;

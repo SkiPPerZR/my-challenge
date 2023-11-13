@@ -11,7 +11,7 @@ import gold from '../../img/Gold-2.svg'
 import { ICardInfo } from '../../interfaces/ICardInfo';
 
 interface ChallengeInfoProps {
-    info: ICardInfo;
+    info?: ICardInfo;
 }
 
 const ChallengeInfo:FC<ChallengeInfoProps> = ({info}) => {
@@ -19,11 +19,11 @@ const ChallengeInfo:FC<ChallengeInfoProps> = ({info}) => {
         <div className='ChallengeInfo'>
             <div className='ChallengeInfoCard'>
                 <span className='text-14 regular'>Информация о челлендже</span>
-                <h2 className='title-25 semibold'>{info.name}</h2>
+                <h2 className='title-25 semibold'>Забить мяч 10 раз</h2>
                 <div className='ChallengeInfoCardStat'>
                     <div className='ChallengeInfoCardStatMembers'>
                         <div>
-                            <span className='title-18 semibold'>{info.user_count1}/{info.user_count2}</span>
+                            <span className='title-18 semibold'>10/12</span>
                             <img src={people} alt="Люди" />
                         </div>
                         <p className='text-14 regular'>Участников</p>
@@ -31,7 +31,7 @@ const ChallengeInfo:FC<ChallengeInfoProps> = ({info}) => {
                     <div className='ChallengeInfoCardStatBank'>
                         <div>
                             <img src={bank} alt="Банк" />
-                            <span className='title-18 semibold'>{info.cash_bank}</span>
+                            <span className='title-18 semibold'>10000</span>
                             <img src={gold} alt="Золото" />
                         </div>
                         <p className='text-14 regular'>Банк</p>

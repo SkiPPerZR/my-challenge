@@ -4,7 +4,7 @@ import avatar from '../../img/test-profile-icon.png'
 
 interface UserProfileButtonProps {
     toggleStatus: () => void;
-    toggle: any;
+    toggle: () => void;
 }
 
 const UserProfileButton:FC<UserProfileButtonProps> = ({toggle, toggleStatus}) => {

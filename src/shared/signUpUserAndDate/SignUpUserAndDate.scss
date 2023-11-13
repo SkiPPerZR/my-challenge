@@ -1,0 +1,87 @@
+.SignUpUserAndDate {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    &Group {
+        display: flex;
+        justify-content: space-between;
+        &Input {
+            width: 48.5%;
+            display: flex;
+            flex-direction: column;
+            justify-content: start;
+            & p {
+                margin-bottom: 12px;
+            }
+            & input {
+                border: none;
+                border-bottom: 1px solid var(--separator);
+                height: 28px;
+                background-color: transparent;
+                padding-left: 3px;
+                &:focus-visible {
+                    border: none;
+                    border-bottom: 2px solid var(--labelPrimary);
+                }
+            }
+        }
+    }
+    &State {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        margin-top: 5vh;
+        & div {
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            &:first-child {
+                justify-content: center;
+                margin-bottom: 20px;
+            }
+            &:nth-child(2) span {
+                color: var(--intElements);
+            }
+            & button:first-child {
+                color: var(--labelPrimary);
+                border: none;
+                border-radius: 12px;
+                background-color: var(--BG_secondary8);
+                padding: 8px 20px 9px 20px;
+                transition: 0.3s ease-in-out;
+                &:hover {
+                    color: var(--negativeIntElements);
+                    background-color: var(--BG_secondary100);
+                    transition: 0.3s ease-in-out;
+                    cursor: pointer;
+                }
+                &:active {
+                    background-color: var(--BG_secondary8);
+                    color: var(--negativeIntElements);
+                    transition: 0.1s ease-in-out;
+                    cursor: pointer;
+                }
+            }
+            & button:nth-child(2) {
+                color: var(--Button_Label);
+                border: none;
+                border-radius: 12px;
+                background-color: var(--intElements);
+                padding: 8px 30px 9px 30px;
+                transition: 0.3s ease-in-out;
+                &:hover {
+                    background-color: var(--intElementsHover);
+                    transition: 0.3s ease-in-out;
+                    cursor: pointer;
+                }
+                &:active {
+                    background-color: var(--BG_secondary8);
+                    color: var(--negativeIntElements);
+                    transition: 0.1s ease-in-out;
+                    cursor: pointer;
+                }
+            }
+        }
+    }
+}

@@ -52,10 +52,26 @@
         }
     }
 }
+
 .SignUpChoose {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+}
+
+.SignUpChooseActive {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    &Group {
+        width: 100%;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+    }
+    & span {
+        margin-top: 20px;
+    }
 }
 
 .SignUpBySocial {
