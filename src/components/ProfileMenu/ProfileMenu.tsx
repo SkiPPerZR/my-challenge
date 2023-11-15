@@ -47,7 +47,7 @@ const ProfileMenu:FC<ProfileMenuProps> = ({isOpenMenu, toggleMenu, user_num, use
                             <ProfileItem icon={settings} title='Настройки' toggle={toggle}/>
                             <ProfileItem icon={archive} title='Архив'/>
                             <ProfileItem icon={help} title='Помощь'/>
-                            <ProfileItem icon={log_out} title='Выйти из профиля' nav={setIsAuth(false)}/>
+                            <ProfileItem icon={log_out} title='Выйти из профиля'/>
                         </div>
                         <Settings toggleSet={toggle} isOpenSet={isOpen}/>
                     </div>

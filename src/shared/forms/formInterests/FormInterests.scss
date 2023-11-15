@@ -1,0 +1,28 @@
+.FormInterests {
+    display: flex;
+    flex-direction: column;
+    padding: 0 40px;
+    &Category {
+        display: flex;
+        flex-direction: column;
+        &Group {
+            margin-top: 20px;
+            &>div {
+                margin-bottom: 8px;
+            }
+        }
+    }
+    &SubCategory {
+        display: flex;
+        flex-direction: column;
+        &Group {
+            display: flex;
+            flex-direction: row;
+            flex-wrap: wrap;
+            margin-bottom: 40px;
+        }
+        & span {
+            margin-bottom: 16px;
+        }
+    }
+}

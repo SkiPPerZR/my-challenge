@@ -30,8 +30,8 @@ const DeleteProfile:FC<DeleteProfileProps> = ({toggleDel,isOpenDel,toggleStatus}
                         <div className="DeleteProfileContent">
                             <span className='text-28 light'>Вы действительно хотите удалить аккаунт? Все данные о вас могут быть удалены.</span>
                             <div className="DeleteProfileContentChoose">
-                                <DefaultButton children='Остаться' paddingWidth={60}/>
-                                <DefaultButton children='Удалить аккаунт' paddingWidth={30}/>
+                                <DefaultButton children='Остаться' paddingWidth={60} onClick={toggleDel}/>
+                                <DefaultButton children='Удалить аккаунт' paddingWidth={30} onClick={toggleDel}/>
                             </div>
                         </div>
                     </div>

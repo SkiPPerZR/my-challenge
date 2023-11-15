@@ -1,15 +1,35 @@
-import {createContext} from 'react'
+import React from 'react'
 
 interface AuthContextProps {
     isAuth: boolean;
-    setIsAuth: any; 
+    setIsAuth: React.Dispatch<React.SetStateAction<boolean>>; 
 }
 
-interface UserTokenProps {
-    token: any;
-    setToken: any;
+export const AuthContext = React.createContext<AuthContextProps>({} as AuthContextProps);
+
+interface ProfileDataProps {
+    data: any;
+    setData: React.Dispatch<React.SetStateAction<any>>; 
 }
 
-export const AuthContext = createContext<AuthContextProps>({} as AuthContextProps);
+export const ProfileData = React.createContext<ProfileDataProps>({} as ProfileDataProps);
 
-export const UserToken = createContext<UserTokenProps>({} as UserTokenProps);
+interface TokenContextProps {
+    isToken: any;
+    setIsToken: React.Dispatch<React.SetStateAction<any>>; 
+}
+
+export const TokenContext = React.createContext<TokenContextProps>({
+    isToken: '',
+    setIsToken: () => {},
+});
+
+// interface ProfileDataContextProps {
+//     data: any;
+//     setData: React.Dispatch<React.SetStateAction<any>>;
+// }
+
+// export const ProfileDataContext = React.createContext<ProfileDataContextProps>({
+//     data: '',
+//     setData: () => {},
+// });

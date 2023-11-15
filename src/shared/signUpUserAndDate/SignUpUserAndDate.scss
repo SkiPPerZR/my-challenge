@@ -2,6 +2,20 @@
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    padding: 0 40px;
+    & > .notice {
+        z-index: 11000;
+        position: absolute;
+        text-align: center;
+        margin-top: 75px;
+        margin-left: 75px;
+        & > .plusIndent {
+            margin-left: 67px;
+        }
+    }
+    & > .plusIndent {
+        margin-left: 95px !important;
+    }
     &Group {
         display: flex;
         justify-content: space-between;
@@ -30,7 +44,7 @@
         display: flex;
         flex-direction: column;
         justify-content: space-between;
-        margin-top: 5vh;
+        margin-top: 9vh;
         & div {
             width: 100%;
             display: flex;

@@ -1,14 +1,19 @@
 .DefaultButton {
-    border: none;
-    background-color: var(--intElements);
-    border-radius: 12px;
-    padding: 13px 60px 11px 60px;
     color: var(--Button_Label);
-    transition: 0.2s ease-in-out;
+    border: none;
+    border-radius: 12px;
+    background-color: var(--intElements);
+    padding: 8px 50px 9px 50px;
+    transition: 0.3s ease-in-out;
     &:hover {
-        color: var(--negativeIntElements);
+        background-color: var(--intElementsHover);
+        transition: 0.3s ease-in-out;
+        cursor: pointer;
+    }
+    &:active {
         background-color: var(--BG_secondary8);
-        transition: 0.2s ease-in-out;
+        color: var(--negativeIntElements);
+        transition: 0.1s ease-in-out;
         cursor: pointer;
     }
 }

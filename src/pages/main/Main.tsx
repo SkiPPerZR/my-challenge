@@ -5,7 +5,7 @@ import Section from '../../components/Section/Section';
 
 import games from '../../img/SidebarLg/GamesLg.svg'
 import { useLocation } from 'react-router-dom';
-import { AuthContext, UserToken } from '../../context';
+import { AuthContext } from '../../context';
 
 const Main = () => {
     const {isAuth, setIsAuth} = useContext(AuthContext);

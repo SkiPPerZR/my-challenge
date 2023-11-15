@@ -2,17 +2,17 @@ import React, { FC, useContext, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './SignUpByNumber.scss'
 import PostService from '../../api/PostService';
-import { AuthContext } from '../../context';
 import CreateChallengeSwitch from '../buttons/CreateChallengeSwitch';
+import { TokenContext } from '../../context';
 
 interface SignUpByNumberProps {
-    toggle: () => void;
+    UserDate: () => void;
 }
 
 // test number: 9046487401 code 6028
 
 // text number: 9001110933 code ****
-const SignUpByNumber:FC<SignUpByNumberProps> = ({toggle}) => {
+const SignUpByNumber:FC<SignUpByNumberProps> = ({UserDate}) => {
     const [code, setCode] = useState(false);
     const [phonePass, setPhonePass] = useState(true)
 
@@ -28,9 +28,8 @@ const SignUpByNumber:FC<SignUpByNumberProps> = ({toggle}) => {
 
     const [isBlocked, setIsBlocked] = useState(false);
     const [countdown, setCountdown] = useState(0);
-
-    const {isAuth, setIsAuth} = useContext(AuthContext);
-    const [isToken, setIsToken] = useState<any>();
+    
+    const {isToken, setIsToken} = useContext(TokenContext);
 
     const [phone, setPhone] = useState<string>('');
 
@@ -117,7 +116,7 @@ const SignUpByNumber:FC<SignUpByNumberProps> = ({toggle}) => {
             setCode(true)
             let codeConfirmed = await fetchCode(codeCheck, isToken)
             if (!codeConfirmed) {
-                console.log('Я отработал если код неверен!')
+                //console.log('Я отработал если код неверен!')
                 return true
             } else 
                 return false
@@ -140,7 +139,7 @@ const SignUpByNumber:FC<SignUpByNumberProps> = ({toggle}) => {
         }
     }
 
-    async function checkCodeConfirmed(exit = () => {}) {
+    async function checkCodeConfirmed() {
         checkTermsPrivacy()
         if (code) {
             let checkError = await checkCode()
@@ -149,8 +148,7 @@ const SignUpByNumber:FC<SignUpByNumberProps> = ({toggle}) => {
             // console.log('Проверка кода: ' + is_error_code)
             if (!checkError && !is_error_phone && code) {
                 // console.log('Ты зарегестрирован!')
-                setIsAuth(true)
-                exit()
+                UserDate()
             }
         }
     }

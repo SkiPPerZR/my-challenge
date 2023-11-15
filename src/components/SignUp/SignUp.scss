@@ -16,7 +16,7 @@
     width: 580px;
     background-color: var(--BG_secondary100);
     border-radius: 20px;
-    padding: 40px;
+    padding: 10px 0 40px 0;
     display: flex;
     flex-direction: column;
     & .SignUpCant {
@@ -29,6 +29,25 @@
         }
     }
 }
+
+.SignUpClose {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    width: 100%;
+    &>button {
+        margin-right: 10px;
+        width: 28px;
+        height: 28px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border: none;
+        background-color: transparent;
+        cursor: pointer;
+    }
+}
+
 .SignUpTitle {
     width: 100%;
     display: flex;
@@ -57,12 +76,14 @@
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+    padding: 0 40px;
 }
 
-.SignUpChooseActive {
+.SignUpChooseAfterReg {
     display: flex;
     flex-direction: column;
     align-items: center;
+    padding: 0 40px;
     &Group {
         width: 100%;
         display: flex;

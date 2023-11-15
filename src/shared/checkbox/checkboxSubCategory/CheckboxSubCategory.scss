@@ -1,0 +1,40 @@
+:root{
+    --transition: all.2s ease-in;
+}
+
+.CheckboxSubCategory {
+    user-select: none;
+    padding: 6px 16px 8px 16px;
+    margin-bottom: 8px;
+    margin-right: 8px;
+    overflow-wrap: break-word;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-radius: 12px;
+    &>label {
+        cursor: pointer;
+        transition: var(--transition)
+    }
+    &:hover {
+        background-color: var(--BG_secondary8);
+        cursor: pointer;
+    }
+    & input {
+        display: none;
+        opacity: 0;
+        z-index: 0;
+    }
+}
+.check_sub__active {
+    transition: var(--transition);
+    background-color: var(--intElements);
+    &>label {
+        transition: var(--transition);
+        color: var(--white);
+        &:hover {
+            color: var(--labelPrimary);
+            cursor: pointer;
+        }
+    }
+}

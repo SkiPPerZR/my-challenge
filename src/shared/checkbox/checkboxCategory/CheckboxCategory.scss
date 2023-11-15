@@ -1,0 +1,59 @@
+:root{
+    --transition: all.3s ease-in;
+}
+
+
+.CheckboxCategory {
+    overflow-wrap: break-word;
+
+    &Container {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        border-radius: 12px;
+        padding: 5px 10px 3px 8px;
+        &Switch {
+            &>label {
+                width: 20px;
+                height: 20px;
+                border-radius: 6.6px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                background-color: var(--BG_secondary8);
+                cursor: pointer;
+                transition: var(--transition)
+            }
+        }
+        &:hover {
+            background-color: var(--BG_secondary8);
+        }
+        & span {
+            margin: 0 !important;
+            padding-bottom: 3px;
+            color: var(--labelPrimary);
+            text-transform: uppercase;
+        }
+        & input {
+            display: none;
+            opacity: 0;
+            z-index: 0;
+        }
+    }
+    &__circle {
+        position: relative;
+        z-index: 11000;
+        width: 18px;
+        height: 18px;
+        transition: var(--transition)
+    }
+    
+}
+.check__active {
+    transition: var(--transition);
+    background-color: var(--BG_secondary8);
+}
+.cir__active {
+    background: url('../../../img/Subtract.svg') no-repeat 50% 50%;
+    transition: var(--transition)
+}

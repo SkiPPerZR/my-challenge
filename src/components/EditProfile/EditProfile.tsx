@@ -38,7 +38,7 @@ const EditProfile:FC<EditProfileProps> = ({toggleEdit,isOpenEdit,toggleStatus,na
                             <FormInput label='Steam' id='Name'/>
                             <FormInput label='Discord' id='Name'/>
                             <FormInput label='Telegram' id='Name'/>
-                            <DefaultButton children='Редактировать профиль' paddingWidth={145}/>
+                            <DefaultButton children='Редактировать профиль' paddingWidth={145} onClick={toggleEdit}/>
                         </form>
                     </div>
                 </div>

@@ -1,6 +1,7 @@
 import axios, { AxiosResponse } from "axios"
 import { ICard } from "../interfaces/ICard";
 import { ICardInfo } from "../interfaces/ICardInfo";
+import { ICategory } from "../interfaces/ICategory";
 
 export default class PostService {
     static async sendRawData(data : String, url:String) : Promise<AxiosResponse> {
@@ -103,8 +104,6 @@ export default class PostService {
         return statusCode.toString();
     }
 
-
-
     static async emailSignIn(code : String) : Promise<String> {
 
         return '';
@@ -139,11 +138,37 @@ export default class PostService {
         return statusCode.toString();
     }
 
-    static async sendNickAndDateProfile(Nickname : String, ProfileDate: String, token : String) : Promise<String> {
+    // static async sendNickAndDateProfile(Nickname : String, ProfileDate: String, token : String) : Promise<String> {
 
-        const data = '{"nick" : "'+Nickname+'", "date_of_birth" : "'+ProfileDate+'", "token" : "'+token+'"}'
+    //     const data = '{"nick" : "'+Nickname+'", "date_of_birth" : "'+ProfileDate+'", "token" : "'+token+'"}'
         
-        let responce = await PostService.sendRawData(data, 'user_profile_update.php');
+    //     let responce = await PostService.sendRawData(data, 'user_profile_update.php');
+
+    //     let statusCode = responce.status;
+
+    //     if (statusCode == 200) 
+    //         return responce.data['token'];
+    //     if (statusCode == 402)
+    //         return ''
+
+    //     return statusCode.toString();
+    // }
+
+    static async sendSettingProfile({Nickname, ProfileDate, Name, Surname, City, Vk, Steam, Discord, token}: ISetting) : Promise<String| any> {
+
+        // const data = '{"nick" : "'+Nickname+'", "date_of_birth" : "'+ProfileDate+'", "name" : "'+Name+'", "surname" : "'+Surname+'", "city" : "'+City+'", "vk" : "https://vk.com/'+Vk+'", "steam" : "https://steamcommunity.com/id/'+Steam+'", "discord" : "https://discordapp.com/users/'+Discord+' "token" : "'+token+'"}'
+        const dataCorrect = {
+            nick: Nickname,
+            date_of_birth: ProfileDate,
+            name: Name,
+            surname: Surname,
+            city: City,
+            vk: `https://vk.com/${Vk}`,
+            steam: `https://steamcommunity.com/id/${Steam}`,
+            discord: `https://discordapp.com/users/${Discord}`,
+            token: token
+        } 
+        let responce = await PostService.sendRawData(JSON.stringify(dataCorrect), 'user_profile_update.php');
 
         let statusCode = responce.status;
 
@@ -154,4 +179,32 @@ export default class PostService {
 
         return statusCode.toString();
     }
+
+    static async getCategory( token : String) : Promise<IResponse> {
+        let data = {
+            token: token
+        }
+        let response = await PostService.sendRawData(JSON.stringify(data), 'data.php');
+
+        return response.data;
+    }
+}
+interface IResponse{
+    data: IData
+}
+interface IData{
+    challenge_mode: ICategory,
+    category: ICategory,
+    category_sub: ICategory,
+}
+interface ISetting{
+    Nickname : String,
+    ProfileDate : String,
+    Name : String,
+    Surname : String,
+    City : String,
+    Vk: String,
+    Steam: String,
+    Discord: String,
+    token : String
 }

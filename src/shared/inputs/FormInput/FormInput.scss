@@ -7,6 +7,13 @@
     }
     &>input {
         border: none;
-        border-bottom: var(--separator) solid 1px;
+        border-bottom: 1px solid var(--separator);
+        height: 28px;
+        background-color: transparent;
+        padding-left: 10px;
+        &:focus-visible {
+            border: none;
+            border-bottom: 2px solid var(--labelPrimary);
+        }
     }
 }

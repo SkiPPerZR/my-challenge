@@ -1,15 +1,18 @@
 import React, { FC, useContext, useEffect, useState } from 'react';
 import './SignUpByEmail.scss'
-import { AuthContext, UserToken } from '../../context';
+
+import eye from '../../img/Eye.svg'
+import eyeSlash from '../../img/Eye-slash.svg'
 
 import PostService from '../../api/PostService';
 import CreateChallengeSwitch from '../buttons/CreateChallengeSwitch';
+import { TokenContext } from '../../context';
 
 interface SignUpByEmailProps {
-    toggle: () => void;
+    UserDate: () => void;
 }
 
-const SignUpByEmail:FC<SignUpByEmailProps> = ({toggle}) => {
+const SignUpByEmail:FC<SignUpByEmailProps> = ({UserDate}) => {
     const [code, setCode] = useState(false);
     const [emailPass, setEmailPass] = useState(true);
 
@@ -20,6 +23,7 @@ const SignUpByEmail:FC<SignUpByEmailProps> = ({toggle}) => {
     const [is_error_pass, setPassError] = useState(false);
     const [passRepeat, setPassRepeat] = useState('');
     const [is_error_pass_repeat, setPassErrorRepeat] = useState(false);
+    const [showPassword, setShowPassword] = useState(false);
     
     const [codeCheck, setCodeCheck] = useState('');
     const [is_error_code, setCodeError] = useState(false);
@@ -30,18 +34,17 @@ const SignUpByEmail:FC<SignUpByEmailProps> = ({toggle}) => {
     const [isBlocked, setIsBlocked] = useState(false);
     const [countdown, setCountdown] = useState(0);
 
-    const {isAuth, setIsAuth} = useContext(AuthContext);
-    // const {token, setToken} = useContext(UserToken);
-    const [token, setToken] = useState<any>();
+    const {isToken, setIsToken} = useContext(TokenContext);
 
     async function fetchEmail(email : string, password : string) {
         let token = await PostService.emailSignUp(email, password);
         // console.log('В отправке почты Token: '+token)
-        setToken(token)
+        setIsToken(token)
     }
 
     async function fetchCode(code : string, token : string) {
         let message = await PostService.sendEmailCode(code, token);
+        // console.log('В отправке кода Token: '+token)
         if (message === token) {
             return true
         } else {
@@ -78,6 +81,10 @@ const SignUpByEmail:FC<SignUpByEmailProps> = ({toggle}) => {
             checkEmail()
             checkPass()
         }
+    };
+
+    const handleShowPassword = () => {
+        setShowPassword(!showPassword);
     };
 
     useEffect(() => {
@@ -129,7 +136,7 @@ const SignUpByEmail:FC<SignUpByEmailProps> = ({toggle}) => {
             setEmailError(false)
             setPassError(false)
             let tokenEmail = fetchEmail(emailCheck, passCheck)
-            setToken(tokenEmail)
+            setIsToken(tokenEmail)
             setEmailPass(false)
         }
     }
@@ -139,14 +146,14 @@ const SignUpByEmail:FC<SignUpByEmailProps> = ({toggle}) => {
             let terms = '1'
             let privacy = '1'
             // console.log('Policy'+ token)
-            fetchPolicy(terms, privacy, token)
+            fetchPolicy(terms, privacy, isToken)
         }
     }
 
     async function checkCode() {
         if (codeCheck.length === 4) {
             setCode(true)
-            let codeConfirmed = await fetchCode(codeCheck, token)
+            let codeConfirmed = await fetchCode(codeCheck, isToken)
             if (!codeConfirmed) {
                 // console.log('Я отработал если код неверен!')
                 return true
@@ -162,7 +169,7 @@ const SignUpByEmail:FC<SignUpByEmailProps> = ({toggle}) => {
         }
     }
 
-    async function checkCodeConfirmed(exit = () => {}) {
+    async function checkCodeConfirmed() {
         if (code) {
             checkTermsPrivacy()
             let checkError = await checkCode()
@@ -171,14 +178,12 @@ const SignUpByEmail:FC<SignUpByEmailProps> = ({toggle}) => {
             // console.log('Проверка кода: ' + is_error_code)
             if (!checkError && !is_error_email && code) {
                 // console.log('Ты зарегестрирован!')
-                setIsAuth(true)
-                exit()
+                UserDate()
             }
         }
     }
 
     return (
-        // <UserToken.Provider value={{token, setToken}}>
         <div className='SignUpByEmail'>
             {emailPass === true
                 ?
@@ -195,7 +200,15 @@ const SignUpByEmail:FC<SignUpByEmailProps> = ({toggle}) => {
                         </div>
                         <div className='SignUpByEmailInput'>
                             <p className="text-14 regular">Пароль</p>
-                            <input type="password" className='text-17 semibold' value={passCheck} onChange={event => setPassCheck(event.target.value)}/>
+                            <div className='SignUpByEmailInputGroup'>
+                                <input type={showPassword ? 'text' : 'password'} className='text-17 semibold' value={passCheck} onChange={event => setPassCheck(event.target.value)}/>
+                                <button onClick={handleShowPassword}>
+                                    {showPassword
+                                        ? <img src={eye} alt="" />
+                                        : <img src={eyeSlash} alt="" />
+                                    }
+                                </button>
+                            </div>
                             {is_error_pass
                                 ?
                                 <span className="text-14 medium error">Пароль должен содержать только латинсикие буквы алфавита, хотя бы одну заглавную букву, одну цифру и один символ</span>
@@ -205,7 +218,15 @@ const SignUpByEmail:FC<SignUpByEmailProps> = ({toggle}) => {
                         </div>
                         <div className='SignUpByEmailInput'>
                             <p className="text-14 regular">Повторите пароль</p>
-                            <input type="password" className='text-17 semibold' value={passRepeat} onChange={event => setPassRepeat(event.target.value)}/>
+                            <div className='SignUpByEmailInputGroup'>
+                                <input type={showPassword ? 'text' : 'password'} className='text-17 semibold' value={passRepeat} onChange={event => setPassRepeat(event.target.value)}/>
+                                <button onClick={handleShowPassword}>
+                                    {showPassword
+                                        ? <img src={eye} alt="" />
+                                        : <img src={eyeSlash} alt="" />
+                                    }
+                                </button>
+                            </div>
                             {is_error_pass_repeat
                                 ?
                                 <span className="text-14 medium error">Пароли должны совпадать</span>
@@ -268,7 +289,6 @@ const SignUpByEmail:FC<SignUpByEmailProps> = ({toggle}) => {
                 : <></>
             }
         </div>
-        // </UserToken.Provider>
     );
 };
 
