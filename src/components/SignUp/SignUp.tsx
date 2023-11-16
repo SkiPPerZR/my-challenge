@@ -1,4 +1,4 @@
-import React, { FC, useContext, useState} from 'react'
+import React, { FC, useContext, useEffect, useState} from 'react'
 import './SignUp.scss'
 // import {useGoogleLogin, GoogleOAuthProvider} from '@react-oauth/google'
 import axios from 'axios'
@@ -25,6 +25,7 @@ import { AuthContext, TokenContext } from '../../context'
 import FormsSettings from '../../shared/forms/formSettings/FormsSettings'
 import FormInterests from '../../shared/forms/formInterests/FormInterests'
 import PostService from '../../api/PostService'
+import { ICategory, ICategorySub, IData, IResponse } from '../../interfaces/IResponse'
 
 {/* <GoogleOAuthProvider key='AIzaSyA6QQBIM3xnOAXkl0hTDFma615KZdLQVzQ' clientId="244707566602-vvchajhduhhbfd2jo5hrlopk43mjnu8p.apps.googleusercontent.com">...</GoogleOAuthProvider>; */}
 
@@ -35,11 +36,11 @@ interface SignUpProps {
 const SignUp:FC<SignUpProps> = ({isOpenSignUp}) => {
 
     const {isAuth, setIsAuth} = useContext(AuthContext);
-    const {isToken, setIsToken} = useContext(TokenContext)
-    
+    const {isToken, setIsToken} = useContext(TokenContext);
 
-    const [category, setCategory] = useState();
-    const [categorySub, setCategorySub] = useState();
+    const [category, setCategory] = useState<ICategory[]>([]);
+    const [categorySub, setCategorySub] = useState<ICategorySub[]>([]);
+
     const [chooseInterests, setChooseInterests] = useState(false);
     const [settingsProfile, setSettingsProfile] = useState(false);
     const [afterReg, setAfterReg] = useState(false);
@@ -60,13 +61,19 @@ const SignUp:FC<SignUpProps> = ({isOpenSignUp}) => {
         setChooseSignUp(false)
     }
     const chooseAfterReg = () => {
+        fetchCategory()
         setAfterReg(true)
     }
 
     async function fetchCategory() {
-        let cardList = await PostService.getCategory(isToken);
-        setCategory(cardList.data.category);
-        setCategorySub(cardList.data.category_sub)
+        let categoryList = await PostService.getCategory();
+        setCategory(categoryList.data.category);
+        setCategorySub(categoryList.data.category_sub);
+    }
+
+    // useEffect(()=>{
+    //     fetchCategory()
+    // },[chooseInterests])
     
     // const googleLogin = useGoogleLogin({
     //     flow: 'auth-code',
@@ -97,7 +104,7 @@ const SignUp:FC<SignUpProps> = ({isOpenSignUp}) => {
                                 <img src={icon} alt="Регистрация" />
                                 <h2 className="title-25 semibold">Ваши интересы</h2>
                             </div> 
-                            <FormInterests category={} categorySub={} onClick={closeSideBar}/>
+                            <FormInterests category={category} categorySub={categorySub} onClick={closeSideBar}/>
                         </>
                     :   
                         <>

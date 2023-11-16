@@ -1,7 +1,7 @@
 import axios, { AxiosResponse } from "axios"
 import { ICard } from "../interfaces/ICard";
 import { ICardInfo } from "../interfaces/ICardInfo";
-import { ICategory } from "../interfaces/ICategory";
+import { ICategory, ICategorySub, IData, IResponse } from "../interfaces/IResponse";
 
 export default class PostService {
     static async sendRawData(data : String, url:String) : Promise<AxiosResponse> {
@@ -154,7 +154,7 @@ export default class PostService {
     //     return statusCode.toString();
     // }
 
-    static async sendSettingProfile({Nickname, ProfileDate, Name, Surname, City, Vk, Steam, Discord, token}: ISetting) : Promise<String| any> {
+    static async sendSettingProfile({Nickname, ProfileDate, Name, Surname, City, Vk, Steam, Discord, Category, Category_sub, token}: ISetting) : Promise<String| any> {
 
         // const data = '{"nick" : "'+Nickname+'", "date_of_birth" : "'+ProfileDate+'", "name" : "'+Name+'", "surname" : "'+Surname+'", "city" : "'+City+'", "vk" : "https://vk.com/'+Vk+'", "steam" : "https://steamcommunity.com/id/'+Steam+'", "discord" : "https://discordapp.com/users/'+Discord+' "token" : "'+token+'"}'
         const dataCorrect = {
@@ -166,6 +166,8 @@ export default class PostService {
             vk: `https://vk.com/${Vk}`,
             steam: `https://steamcommunity.com/id/${Steam}`,
             discord: `https://discordapp.com/users/${Discord}`,
+            category: Category,
+            category_sub: Category_sub,
             token: token
         } 
         let responce = await PostService.sendRawData(JSON.stringify(dataCorrect), 'user_profile_update.php');
@@ -180,23 +182,16 @@ export default class PostService {
         return statusCode.toString();
     }
 
-    static async getCategory( token : String) : Promise<IResponse> {
+    static async getCategory() : Promise<IData> {
         let data = {
-            token: token
+            token: 'b8c5447421432ca77c9511aacd4c50da4b7b075db9fb7b0c5f95d648dcc179216384edbc5f03a28ea44ef6bd214c87f58d69f419f5f4f7bb58103481451d2f4b'
         }
         let response = await PostService.sendRawData(JSON.stringify(data), 'data.php');
 
         return response.data;
     }
 }
-interface IResponse{
-    data: IData
-}
-interface IData{
-    challenge_mode: ICategory,
-    category: ICategory,
-    category_sub: ICategory,
-}
+
 interface ISetting{
     Nickname : String,
     ProfileDate : String,
@@ -206,5 +201,7 @@ interface ISetting{
     Vk: String,
     Steam: String,
     Discord: String,
+    Category: ICategory,
+    Category_sub: ICategorySub,
     token : String
 }

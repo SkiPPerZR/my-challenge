@@ -1,13 +1,13 @@
 import React, { FC, useEffect, useState } from 'react';
-import './CheckboxSubCategory.scss'
+import './CheckboxSubCategory.scss';
+import { ICategorySub } from '../../../interfaces/IResponse';
 
 interface CheckboxSubCategoryProps {
-    title: string;
-    id: string;
+    categorySub: ICategorySub;
     turn: Function;
 }
 
-const CheckboxSubCategory:FC<CheckboxSubCategoryProps> = ({title,id,turn}) => {
+const CheckboxSubCategory:FC<CheckboxSubCategoryProps> = ({categorySub,turn}) => {
     const [active, setActive] = useState(false)
     const [styleSwitch, setStyleSwitch] = useState<string>('CheckboxSubCategory')
 
@@ -27,8 +27,8 @@ const CheckboxSubCategory:FC<CheckboxSubCategoryProps> = ({title,id,turn}) => {
 
     return (
         <div className={styleSwitch} onMouseDown={buttonHandler}>
-            <label htmlFor={id} className='title-18 regular'>{title}</label>
-            <input id={id} type="checkbox" onChange={event => turn(event.target.value)}/>
+            <label htmlFor='CheckBoxSub' className='title-18 regular'>{categorySub.name}</label>
+            <input id='CheckBoxSub' type="checkbox" onChange={event => turn(event.target.value)}/>
         </div>
     );
 };

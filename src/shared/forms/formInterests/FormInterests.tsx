@@ -3,15 +3,15 @@ import './FormInterests.scss'
 import { ProfileData, TokenContext } from '../../../context';
 import CheckboxCategory from '../../checkbox/checkboxCategory/CheckboxCategory';
 import CheckboxSubCategory from '../../checkbox/checkboxSubCategory/CheckboxSubCategory';
-import { ICategory } from '../../../interfaces/ICategory';
+import { ICategory, ICategorySub } from '../../../interfaces/IResponse';
 
 interface FormInterestsProps {
     category: ICategory[];
-    categorySub: ICategory[];
+    categorySub: ICategorySub[];
     onClick: ()=>void;
 }
 
-const FormInterests:FC<FormInterestsProps> = ({onClick, category}) => {
+const FormInterests:FC<FormInterestsProps> = ({onClick, category, categorySub}) => {
     const { data, setData } = useContext(ProfileData);
     const {isToken, setIsToken} = useContext(TokenContext)
     const [switcher, setSwitcher] = useState(false)
@@ -33,19 +33,20 @@ const FormInterests:FC<FormInterestsProps> = ({onClick, category}) => {
             <div className="FormInterestsCategory">
                 <span className='text-14 regular'>Выберите разделы</span>
                 <div className="FormInterestsCategoryGroup">
-                    <CheckboxCategory title='Видеоигры' key='VideoGames' turn={handleSwitcher}/>
+                    {/* <CheckboxCategory title='Видеоигры' key='VideoGames' turn={handleSwitcher}/>
                     <CheckboxCategory title='Спорт' key='Sport' turn={handleSwitcher}/>
                     <CheckboxCategory title='Настольные игры' key='BoardGames' turn={handleSwitcher}/>
                     <CheckboxCategory title='Блогеры и стримеры' key='BloggersStreamers' turn={handleSwitcher}/>
-                    <CheckboxCategory title='Другое' key='Other' turn={handleSwitcher}/>
-                    {/* {cards.map(card => {
-                        return <CheckboxCategory title={card.name} key='category.id' turn={handleSwitcher}/>
-                    })} */}
+                    <CheckboxCategory title='Другое' key='Other' turn={handleSwitcher}/> */}
+                    {category.map(category => {
+                        return <CheckboxCategory category={category} turn={handleSwitcher}/>
+                    })}
                 </div>
             </div>   
             <div className="FormInterestsSubCategory">
                 <span className='text-14 regular'>Возможно, вам будет интересно</span>
                 <div className="FormInterestsSubCategoryGroup">
+                    {/* <CheckboxSubCategory title='Другое' id='Other' turn={handleSwitcher}/>
                     <CheckboxSubCategory title='Другое' id='Other' turn={handleSwitcher}/>
                     <CheckboxSubCategory title='Другое' id='Other' turn={handleSwitcher}/>
                     <CheckboxSubCategory title='Другое' id='Other' turn={handleSwitcher}/>
@@ -53,11 +54,10 @@ const FormInterests:FC<FormInterestsProps> = ({onClick, category}) => {
                     <CheckboxSubCategory title='Другое' id='Other' turn={handleSwitcher}/>
                     <CheckboxSubCategory title='Другое' id='Other' turn={handleSwitcher}/>
                     <CheckboxSubCategory title='Другое' id='Other' turn={handleSwitcher}/>
-                    <CheckboxSubCategory title='Другое' id='Other' turn={handleSwitcher}/>
-                    <CheckboxSubCategory title='Другое' id='Other' turn={handleSwitcher}/>
-                    {/* {cards.map(card => {
-                        return <CheckboxSubCategory title={categorySub.name} key='categorySub.id' turn={handleSwitcher}/>
-                    })} */}
+                    <CheckboxSubCategory title='Другое' id='Other' turn={handleSwitcher}/> */}
+                    {categorySub.map(categorySub => {
+                        return <CheckboxSubCategory categorySub={categorySub} turn={handleSwitcher}/>
+                    })}
                 </div>
             </div>
             <button className='FormsSettingsButton text-17 semibold' onClick={onClick}>Сохранить</button>
