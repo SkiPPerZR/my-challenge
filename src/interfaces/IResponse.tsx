@@ -2,19 +2,18 @@ export interface IResponse{
     data: IData
 }
 export interface IData{
-    data: any;
-    challenge_mode: ICategory,
-    category: ICategory,
-    category_sub: ICategorySub
+    challenge_mode: ICategory[],
+    category: ICategory[],
+    category_sub: ICategorySub[]
 }
 
 export interface ICategory {
-    id: String;
-    name: String;
+    id: string;
+    name: string;
 }
 
 export interface ICategorySub {
-    id: String,
-    name: String,
-    id_category: String;
+    id: string,
+    name: string,
+    id_category: string;
 }

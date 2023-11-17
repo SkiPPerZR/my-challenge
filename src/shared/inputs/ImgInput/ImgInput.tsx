@@ -1,50 +1,86 @@
-import React, { FC, useState } from 'react';
+import React, { FC, useContext, useState } from 'react';
 import './ImgInput.scss'
 
 import icon from '../../../img/logo.svg'
-
-// interface ImgInputProps {
-    
-// }
+import { ImageContext, TokenContext } from '../../../context';
+import { resolve } from 'path';
 
 const ImgInput = () => {
-    const [image, setImage] = useState();
-    const [imageURL, setImageURL] = useState();
-    const fileReader = new FileReader();
+    const {isToken, setIsToken} = useContext(TokenContext);
+    const {image, setImage} = useContext(ImageContext);
 
-    // fileReader.onloadend = () => {
-    //     setImageURL(fileReader.result);
+    // const [file, setFile] = useState<File | undefined>(undefined)
+
+    // const handleImageSelect = (event: React.ChangeEvent<HTMLInputElement>) => {
+    //     event.preventDefault();
+    //     if (event.target.files && event.target.files.length > 0) {
+    //         const file = event.target.files[0];
+    //         setImage(file);
+    //         }
     // };
-    const handleOnChange = (e: any) => {
-        e.preventDefault();
-        if (e.target.files && e.target.files.length) {
-        const file = e.target.files[0];
-        setImage(file);
-        fileReader.readAsDataURL(file);
-        }
-    };
 
-    const handleDrop = (e: any) => {
-        e.preventDefault();
-        e.stopPropagation();
-        if (e.dataTransfer.files && e.dataTransfer.files.length) {
-        setImage(e.dataTransfer.files[0]);
-        fileReader.readAsDataURL(e.dataTransfer.files[0]);
+    class CustomCanvas {
+        private _img: HTMLCanvasElement;
+        constructor() {
+            let img = document.getElementById('file-loader-button') as HTMLCanvasElement;
+            this._img = img;
+            let cxt = document.createElement('canvas');
+            cxt.width = img.clientWidth;
+            cxt.height = img.clientHeight;
+            let context = cxt.getContext('2d');
+            //@ts-ignore
+            context.drawImage(img, 0, 0);
         }
-    };
+        public async getImage(): Promise<Blob> {
+            //@ts-ignore
+            return new Promise<Blob>(resolve => this._img.toBlob(resolve, 'image/png'))
+        }
+    }
 
-    const handleDragEmpty = (e: any) => {
-        e.preventDefault();
-        e.stopPropagation();
-    };
+    class UploadFileRequest {
+        private get _domain(): string {
+            return 'https://form.upon.ru/api/';
+        }
+        private get _fileUpload(): string {
+            return 'user_update_profile_avatar.php';
+        }
+        private _img: CustomCanvas;
+        constructor() {
+            this._img = new CustomCanvas();
+        }
+        public async upload(): Promise<Response> {
+            let options: RequestInit = {
+                method: 'POST',
+                body: await this.createBody()
+            }
+
+            let response = await fetch(`${this._domain}/${this._fileUpload}`, options)
+            // if (response.status == 200) {
+            //     let responseBody = await response.json()
+            //     // this._id = responseBody.id;
+            // }
+            // console.log('Response:');
+            // console.log(response);
+            return response;
+        }
+        private async createBody() {
+            const formData = new FormData();
+            let image = await this._img.getImage();
+            formData.append('avatar', image, 'avatar.png');
+            formData.append('token', isToken);
+            return formData;
+        }
+    }
+
+    let uploadFileRequest = new UploadFileRequest();
+    async function upload() {
+        await uploadFileRequest.upload();
+    }
 
     return (
         <div className="ImgInput">
             <div
                 className="ImgInputAvatar"
-                onDrop={handleDrop}
-                onDragEnter={handleDragEmpty}
-                onDragOver={handleDragEmpty}
                 // style={{backgroundImage: `url(${imageURL ? imageURL : icon})`}}
             >
                 <label
@@ -55,11 +91,11 @@ const ImgInput = () => {
                     id='file-loader-button'
                     type="file"
                     className='file-uploader__upload-button'
-                    onChange={handleOnChange}
+                    value={icon}
                 />
             </div>
-            <span className='text-14 regular'>Добавить фото</span>
-            <div className="file-uploader__file-name">{image ? image : ""}</div>
+            <span className='text-14 regular' onClick={upload}>Добавить фото</span>
+            <div className="file-uploader__file-name"></div>
         </div>
     );
 };

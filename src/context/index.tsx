@@ -1,4 +1,5 @@
 import React from 'react'
+import { ISetting } from '../interfaces/ISettings';
 
 interface AuthContextProps {
     isAuth: boolean;
@@ -8,8 +9,8 @@ interface AuthContextProps {
 export const AuthContext = React.createContext<AuthContextProps>({} as AuthContextProps);
 
 interface ProfileDataProps {
-    data: any;
-    setData: React.Dispatch<React.SetStateAction<any>>; 
+    data: ISetting;
+    setData: React.Dispatch<React.SetStateAction<ISetting>>; 
 }
 
 export const ProfileData = React.createContext<ProfileDataProps>({} as ProfileDataProps);
@@ -24,12 +25,9 @@ export const TokenContext = React.createContext<TokenContextProps>({
     setIsToken: () => {},
 });
 
-// interface ProfileDataContextProps {
-//     data: any;
-//     setData: React.Dispatch<React.SetStateAction<any>>;
-// }
+interface ImageContextProps {
+    image: File | undefined;
+    setImage: React.Dispatch<React.SetStateAction<File | undefined>>;
+}
 
-// export const ProfileDataContext = React.createContext<ProfileDataContextProps>({
-//     data: '',
-//     setData: () => {},
-// });
+export const ImageContext = React.createContext<ImageContextProps>({} as ImageContextProps);

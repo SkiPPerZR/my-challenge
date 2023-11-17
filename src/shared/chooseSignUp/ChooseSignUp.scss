@@ -1,9 +1,8 @@
-.ChooseSignUp {
+.ChooseSignUp, .ChooseSignUpBright {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    background-color: var(--BG_secondary8);
     border-radius: 20px;
     width: 240px;
     padding: 28px 49px;
@@ -11,10 +10,21 @@
         width: 64px;
         margin-bottom: 10px;
     }
+    &:hover {
+        cursor: pointer;
+    }
+}
+
+.ChooseSignUp {
+    background-color: var(--BG_secondary8);
     & p {
         color: var(--intElements);
     }
-    &:hover {
-        cursor: pointer;
+}
+
+.ChooseSignUpBright {
+    background-color: var(--intElements);
+    & p {
+        color: var(--white);
     }
 }

@@ -2,6 +2,10 @@ import axios, { AxiosResponse } from "axios"
 import { ICard } from "../interfaces/ICard";
 import { ICardInfo } from "../interfaces/ICardInfo";
 import { ICategory, ICategorySub, IData, IResponse } from "../interfaces/IResponse";
+import { ICity, ICityItem } from "../interfaces/ICity";
+import { ISetting } from "../interfaces/ISettings";
+
+const TOKEN = '82d586feb901a2dc7ee622cdb693240870cbe714ecaedf2edab0cda81eb7fe20302fe398c5456a72820205eb4cd41e96c6a48c1106df4cde09d054693eea7a4f'
 
 export default class PostService {
     static async sendRawData(data : String, url:String) : Promise<AxiosResponse> {
@@ -126,7 +130,7 @@ export default class PostService {
 
         const data = '{"is_terms_of_use" : "'+isTerms+'", "is_privacy_policy" : "'+isPrivacy+'", "token" : "'+token+'"}'
         
-        let responce = await PostService.sendRawData(data, 'user_profile_update.php');
+        let responce = await PostService.sendRawData(data, 'user_agreement.php');
 
         let statusCode = responce.status;
 
@@ -154,21 +158,19 @@ export default class PostService {
     //     return statusCode.toString();
     // }
 
-    static async sendSettingProfile({Nickname, ProfileDate, Name, Surname, City, Vk, Steam, Discord, Category, Category_sub, token}: ISetting) : Promise<String| any> {
+    static async sendSettingProfile({Nick, Date, Fio, City, Vk, Steam, Discord, Category, Category_sub, Token}: ISetting) : Promise<string| any> {
 
-        // const data = '{"nick" : "'+Nickname+'", "date_of_birth" : "'+ProfileDate+'", "name" : "'+Name+'", "surname" : "'+Surname+'", "city" : "'+City+'", "vk" : "https://vk.com/'+Vk+'", "steam" : "https://steamcommunity.com/id/'+Steam+'", "discord" : "https://discordapp.com/users/'+Discord+' "token" : "'+token+'"}'
         const dataCorrect = {
-            nick: Nickname,
-            date_of_birth: ProfileDate,
-            name: Name,
-            surname: Surname,
+            nick: Nick,
+            date_of_birth: Date,
+            fio: Fio,
             city: City,
             vk: `https://vk.com/${Vk}`,
             steam: `https://steamcommunity.com/id/${Steam}`,
             discord: `https://discordapp.com/users/${Discord}`,
             category: Category,
             category_sub: Category_sub,
-            token: token
+            token: TOKEN
         } 
         let responce = await PostService.sendRawData(JSON.stringify(dataCorrect), 'user_profile_update.php');
 
@@ -182,26 +184,54 @@ export default class PostService {
         return statusCode.toString();
     }
 
-    static async getCategory() : Promise<IData> {
+    static async getCategory(token : string) : Promise<IResponse> {
         let data = {
-            token: 'b8c5447421432ca77c9511aacd4c50da4b7b075db9fb7b0c5f95d648dcc179216384edbc5f03a28ea44ef6bd214c87f58d69f419f5f4f7bb58103481451d2f4b'
+            token: TOKEN
         }
         let response = await PostService.sendRawData(JSON.stringify(data), 'data.php');
 
         return response.data;
     }
-}
 
-interface ISetting{
-    Nickname : String,
-    ProfileDate : String,
-    Name : String,
-    Surname : String,
-    City : String,
-    Vk: String,
-    Steam: String,
-    Discord: String,
-    Category: ICategory,
-    Category_sub: ICategorySub,
-    token : String
+    static async getCities(token: string, letter: string) : Promise<ICity> {
+        let data = {
+            token: TOKEN,
+            letter: letter
+        };
+        let response = await PostService.sendRawData(JSON.stringify(data), 'city_by_letter.php');
+
+        return response.data;
+    }
+
+    static async setImage(avatar: ArrayBuffer | null, token: string) : Promise<string> {
+        let data = {
+            avatar: avatar,
+            token: token
+        };
+        let response = await PostService.sendRawData(JSON.stringify(data), 'user_update_profile_avatar.php');
+
+        return response.data;
+    }
+
+    // static async setImage(imageData: ArrayBuffer, token: string) : Promise<void> {
+    //     try {
+    //       const url = 'https://uponblog.ru/api/user_update_profile_avatar.php';
+
+    //       let config = {
+    //         method: 'post',
+    //         maxBodyLength: Infinity,
+    //         url: url,
+    //         headers: {
+    //             'Content-Type': 'application/octet-stream',
+    //         },
+    //             avatar : imageData,
+    //             token : token
+    //         };
+    //         const response = await axios.post(config)
+      
+    //       console.log('Image upload successful:', response.data);
+    //     } catch (error) {
+    //       console.error('Error uploading image:', error);
+    //     }
+    //   };
 }

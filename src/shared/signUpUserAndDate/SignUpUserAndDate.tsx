@@ -18,11 +18,11 @@ const SignUpUserAndDate:FC<SignUpUserAndDateProps> = ({returnToChooseSignUp, cho
     const [nicknameCheck, setNickname] = useState('');
     const [is_error_nickname, setErrorNickname] = useState(false);
 
-    const handleField1Change = (nick: string, date_of_birth: string) => {
+    const handleField1Change = (nick: string, date: string) => {
         setData((prevData: any) => ({
           ...prevData,
-          nick: nick,
-          date_of_birth: date_of_birth,
+          Nick: nick,
+          Date: date,
         }));
       };
 
@@ -66,9 +66,8 @@ const SignUpUserAndDate:FC<SignUpUserAndDateProps> = ({returnToChooseSignUp, cho
             console.log('Ты зарегестрирован!')
             chooseAfterReg()
             handleField1Change(nicknameCheck,dateCheck)
-            // fetchNickAndName(nicknameCheck, dateCheck, isToken)
         } else if (is_error_date || is_error_nickname){
-            console.log('Ты не зарегестрирован лошара!')
+            console.log('Ты не зарегестрирован!')
         }
     }
 

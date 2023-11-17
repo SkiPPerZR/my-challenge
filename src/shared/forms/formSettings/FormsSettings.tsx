@@ -1,8 +1,9 @@
-import React, { FC, useContext, useState } from 'react';
+import React, { FC, useContext, useEffect, useState } from 'react';
 import './FormsSettings.scss'
 import ImgInput from '../../inputs/ImgInput/ImgInput';
 import PostService from '../../../api/PostService';
 import { ProfileData, TokenContext } from '../../../context';
+import { ICityItem } from '../../../interfaces/ICity';
 
 interface FormsSettingsProps {
     onClick: Function;
@@ -10,72 +11,77 @@ interface FormsSettingsProps {
 
 const FormsSettings:FC<FormsSettingsProps> = ({onClick}) => {
     const { data, setData } = useContext(ProfileData);
+    const {isToken, setIsToken} = useContext(TokenContext);
+
+    const [cities, setCities] = useState<ICityItem[]>([]);
+    const [liSwitch, setLiSwitch] = useState<string>('FormsSettingsFormInputCitiesList');
+    const [visible, setVisible] = useState(false);
 
     const [isName, setIsName] = useState('')
-    const [isSurname, setIsSurname] = useState('')
     const [isCity, setIsCity] = useState('')
     const [isVK, setIsVK] = useState('')
     const [isSteam, setIsSteam] = useState('')
     const [isDiscord, setIsDiscord] = useState('')
     const [isDiscordError, setIsDiscordError] = useState(false)
 
-    const handleField1Change = (name: string, surname: string, city: string, vk: string, steam: string, discord: string) => {
+    async function fetchCities(letter: string) {
+        let citiesList = await PostService.getCities(isToken,letter)
+        setCities(citiesList.city)
+    }
+
+    const handleField1Change = (fio: string, city: string, vk: string, steam: string, discord: string, token: string) => {
         setData((prevData: any) => ({
           ...prevData,
-          name: name,
-          surname: surname,
-          city: city,
-          vk: vk,
-          steam: steam,
-          discord: discord
+          Fio: fio,
+          City: city,
+          Vk: vk,
+          Steam: steam,
+          Discord: discord,
+          Token: token
         }));
       };
 
-    // async function fetchSettingProfile(Name : String, Surname : String, City : String, Vk: String, Steam: String, Discord: String, token : String) {
-    //     await PostService.sendSettingProfile(Name, Surname, City, Vk, Steam, Discord, token);
-    // }
+    useEffect(() => {
+        buttonHandler()
+    }, [isCity])
 
-    // function checkNumber() {
-    //     if (isNumber.length !== 10) {
-    //         setIsNumberError(true)
-    //     }
-    //     setIsNumberError(false)
-    // }
+    const buttonHandler = (): void => {
+        setVisible(!visible)
+        if (visible || isCity === '') {
+            setLiSwitch('FormsSettingsFormInputCitiesList CitiesVisible')
+        }
+        else{
+            setLiSwitch('FormsSettingsFormInputCitiesList')
+        }
+    }
 
-    // function checkDiscord() {
-    //     if (isDiscord.length !== 18) {
-    //         setIsDiscordError(true)
-    //     } else {
-    //         setIsDiscordError(false)
-    //     }
-    // }
+    function citiesUpdate(event: any) {
+        let input = event.target.value;
+        setIsCity(input)
+        fetchCities(input)
+    } 
 
     function sendProfileData() {
-        // checkNumber()
-        // checkDiscord()
-        // if (isNumberError || isDiscordError) {
-            console.log('я дополнил форму')
-            // fetchSettingProfile(isName,isSurname,isCity,isNumber,isVK,isSteam,isDiscord,isToken)
-            handleField1Change(isName,isSurname,isCity,isVK,isSteam,isDiscord)
-            onClick()
-        // }
+        handleField1Change(isName,isCity,isVK,isSteam,isDiscord,isToken)
+        onClick()
     }
 
     return (
         <div className='FormsSettings'>
             <form className='FormsSettingsForm' action="">
-                <ImgInput />
+                {/* <ImgInput /> */}
                 <div className='FormsSettingsFormInput'>
-                    <label className='text-14 regular'>Имя</label>
+                    <label className='text-14 regular'>Имя и Фамилия</label>
                     <input type='text' className='text-17 semibold' value={isName} onChange={event => setIsName(event.target.value)}></input>
                 </div>
                 <div className='FormsSettingsFormInput'>
-                    <label className='text-14 regular'>Фамилия</label>
-                    <input type='text' className='text-17 semibold' value={isSurname} onChange={event => setIsSurname(event.target.value)}></input>
-                </div>
-                <div className='FormsSettingsFormInput'>
                     <label className='text-14 regular'>Город</label>
-                    <input type='text' className='text-17 semibold' value={isCity} onChange={event => setIsCity(event.target.value)}></input>
+                    <input type='text' className='text-17 semibold' value={isCity} onChange={citiesUpdate}></input>
+                    <div className={liSwitch}>
+                        {cities.map(cities => (
+                            <li className='text-14 regular' onClick={buttonHandler} onMouseDown={()=>setIsCity(cities.name)}>{cities.name}</li>
+                        ))}
+                    </div>
                 </div>
                 <div className='FormsSettingsFormInput'>
                     <label className='text-14 regular'>VK</label>

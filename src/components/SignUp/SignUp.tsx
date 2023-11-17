@@ -8,24 +8,24 @@ import close from '../../img/close.svg'
 import SignUpByNumber from '../../shared/signUpByNumber/SignUpByNumber';
 import SignUpByEmail from '../../shared/signUpByEmail/SignUpByEmail';
 import SignUpUserAndDate from '../../shared/signUpUserAndDate/SignUpUserAndDate'
-import ChooseSignUp from '../../shared/chooseSignUp/ChooseSignUp';
+import ChooseSignUp, { ChooseVariant } from '../../shared/chooseSignUp/ChooseSignUp';
 import SocialSignUp from '../../shared/socialSignUp/SocialSignUp';
 
 import number from '../../img/Call.svg'
 import email from '../../img/email-signUp.svg'
 
-import gear from '../../img/Gear.svg'
-import lightning from '../../img/Lightning.svg'
+import gear from '../../img/SettingsWhite.svg'
+import skip from '../../img/Skip.svg'
 
 import vk from '../../img/Sign_up/vk.svg'
 import ya from '../../img/Sign_up/ya.svg'
 import ap from '../../img/Sign_up/apple.svg'
 import gl from '../../img/Sign_up/gmail.svg'
-import { AuthContext, TokenContext } from '../../context'
+import { AuthContext, ImageContext, ProfileData, TokenContext } from '../../context'
 import FormsSettings from '../../shared/forms/formSettings/FormsSettings'
 import FormInterests from '../../shared/forms/formInterests/FormInterests'
 import PostService from '../../api/PostService'
-import { ICategory, ICategorySub, IData, IResponse } from '../../interfaces/IResponse'
+import { ICategory, ICategorySub, IData} from '../../interfaces/IResponse'
 
 {/* <GoogleOAuthProvider key='AIzaSyA6QQBIM3xnOAXkl0hTDFma615KZdLQVzQ' clientId="244707566602-vvchajhduhhbfd2jo5hrlopk43mjnu8p.apps.googleusercontent.com">...</GoogleOAuthProvider>; */}
 
@@ -37,43 +37,57 @@ const SignUp:FC<SignUpProps> = ({isOpenSignUp}) => {
 
     const {isAuth, setIsAuth} = useContext(AuthContext);
     const {isToken, setIsToken} = useContext(TokenContext);
+    const {data, setData} = useContext(ProfileData);
+    const {image, setImage} = useContext(ImageContext);
 
-    const [category, setCategory] = useState<ICategory[]>([]);
-    const [categorySub, setCategorySub] = useState<ICategorySub[]>([]);
+    const [dataCategory, setDataCategory] = useState<IData>({
+        challenge_mode: [],
+        category: [],
+        category_sub: []
+    });
 
     const [chooseInterests, setChooseInterests] = useState(false);
     const [settingsProfile, setSettingsProfile] = useState(false);
     const [afterReg, setAfterReg] = useState(false);
-    const [UserDateinput, setUserDateInput] = useState(false);
+    const [UserDateinput, setUserDateInput] = useState(true);
     const [chooseSignUp, setChooseSignUp] = useState(false);
     const [signUpVar, setSignUpVar] = useState(false);
 
     const closeSideBar = () => {
         if (afterReg) {
             isOpenSignUp(false)
+            fetchProfileData()
+            fetchImageUpload()
             setIsAuth(true)
-        } else {
+        } else (
             isOpenSignUp(false)
-        }
+        )
     }
     const returnToChooseSignUp = () => {
         setUserDateInput(false)
         setChooseSignUp(false)
     }
     const chooseAfterReg = () => {
-        fetchCategory()
+        fetchCategory(isToken)
         setAfterReg(true)
     }
 
-    async function fetchCategory() {
-        let categoryList = await PostService.getCategory();
-        setCategory(categoryList.data.category);
-        setCategorySub(categoryList.data.category_sub);
+    async function fetchImageUpload() {
+        // const bin = await image?.arrayBuffer();
+        // console.log(bin)
+        // if (bin) {
+        //     await PostService.setImage(bin, isToken)
+        // }
+    };
+
+    async function fetchCategory(token: string) {
+        let categoryList = await PostService.getCategory(token);
+        setDataCategory(categoryList.data)
     }
 
-    // useEffect(()=>{
-    //     fetchCategory()
-    // },[chooseInterests])
+    async function fetchProfileData() {
+        await PostService.sendSettingProfile(data);
+    }
     
     // const googleLogin = useGoogleLogin({
     //     flow: 'auth-code',
@@ -104,7 +118,7 @@ const SignUp:FC<SignUpProps> = ({isOpenSignUp}) => {
                                 <img src={icon} alt="Регистрация" />
                                 <h2 className="title-25 semibold">Ваши интересы</h2>
                             </div> 
-                            <FormInterests category={category} categorySub={categorySub} onClick={closeSideBar}/>
+                            <FormInterests dataCat={dataCategory} onClick={closeSideBar}/>
                         </>
                     :   
                         <>
@@ -138,8 +152,8 @@ const SignUp:FC<SignUpProps> = ({isOpenSignUp}) => {
                                                     </div> 
                                                     <div className='SignUpChooseAfterReg'>
                                                         <div className="SignUpChooseAfterRegGroup">
-                                                            <ChooseSignUp icon={gear} name='Настроить профиль' choose={() => setSettingsProfile(true)}/>
-                                                            <ChooseSignUp icon={lightning} name='Принять вызов' choose={closeSideBar}/>
+                                                            <ChooseSignUp theme={ChooseVariant.standart} icon={skip} name='Пропустить' choose={closeSideBar}/>
+                                                            <ChooseSignUp theme={ChooseVariant.bright} icon={gear} name='Настроить профиль' choose={() => setSettingsProfile(true)}/>
                                                         </div>
                                                         <span className="text-14 medium notice">Вы можете всегда настроить профиль позже</span>
                                                     </div>
@@ -193,8 +207,8 @@ const SignUp:FC<SignUpProps> = ({isOpenSignUp}) => {
                                                                         <h2 className="title-25 semibold">Регистрация</h2>
                                                                     </div>
                                                                     <div className='SignUpChoose'>
-                                                                        <ChooseSignUp icon={number} name='По номеру телефона' choose={() => setChooseSignUp(true)} type={() => setSignUpVar(true)}/>
-                                                                        <ChooseSignUp icon={email} name='По почте' choose={() => setChooseSignUp(true)} type={() => setSignUpVar(false)}/>
+                                                                        <ChooseSignUp theme={ChooseVariant.standart} icon={number} name='По номеру телефона' choose={() => setChooseSignUp(true)} type={() => setSignUpVar(true)}/>
+                                                                        <ChooseSignUp theme={ChooseVariant.standart} icon={email} name='По почте' choose={() => setChooseSignUp(true)} type={() => setSignUpVar(false)}/>
                                                                     </div>
                                                                     {/* <div className="SignUpBySocial">
                                                                         <div className="SignUpBySocialGroup">

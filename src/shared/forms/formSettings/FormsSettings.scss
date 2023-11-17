@@ -13,6 +13,25 @@
             flex-direction: column;
             width: 100%;
             margin-bottom: 20px;
+            &CitiesList {
+                margin-top: 60px;
+                position: absolute;
+                background-color: var(--BG_challenge_menu);
+                border-radius: 7px;
+                & li {
+                    padding: 2px 5px;
+                    list-style-type: none;
+                    &:hover {
+                        cursor: pointer;
+                    }
+                    &:first-child {
+                        padding-top: 5px;
+                    }
+                    &:last-child {
+                        padding-bottom: 5px;
+                    }
+                }
+            }
             &>label {
                 margin-bottom: 10px;
             }
@@ -54,4 +73,8 @@
     &>span {
         margin-top: 10px;
     }
+}
+
+.CitiesVisible {
+    display: none;
 }

@@ -7,7 +7,7 @@ import number from '../../img/Call.svg'
 import email from '../../img/email-signUp.svg'
 
 import { useNavigate } from 'react-router-dom';
-import ChooseSignUp from '../../shared/chooseSignUp/ChooseSignUp';
+import ChooseSignUp, { ChooseVariant } from '../../shared/chooseSignUp/ChooseSignUp';
 import LogInByEmail from '../../shared/logInByEmail/LogInByEmail'
 import LogInByNumber from '../../shared/logInByNumber/LogInByNumber'
 
@@ -49,8 +49,8 @@ const LogIn:FC<LogInProps> = ({isOpenLogIn}) => {
                     :
                     <>
                         <div className='SignUpChoose'>
-                            <ChooseSignUp icon={number} name='По номеру телефона' choose={() => setChooseLogIn(true)} type={() => setLogInVar(true)}/>
-                            <ChooseSignUp icon={email} name='По почте' choose={() => setChooseLogIn(true)} type={() => setLogInVar(false)}/>
+                            <ChooseSignUp theme={ChooseVariant.standart} icon={number} name='По номеру телефона' choose={() => setChooseLogIn(true)} type={() => setLogInVar(true)}/>
+                            <ChooseSignUp theme={ChooseVariant.standart} icon={email} name='По почте' choose={() => setChooseLogIn(true)} type={() => setLogInVar(false)}/>
                         </div>
                         {/* <div className="SignUpBySocial">
                             <div className="SignUpBySocialGroup">
