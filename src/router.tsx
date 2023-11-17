@@ -20,16 +20,16 @@ function Router() {
   const [isAuth, setIsAuth] = useState(false);
   const [isToken, setIsToken] = useState('');
   const [data, setData] = useState<ISetting>({
-    Nick : '',
-    Date : '',
-    Fio : '',
-    City : '',
-    Vk: '',
-    Steam: '',
-    Discord: '',
-    Category: [],
-    Category_sub: [],
-    Token : ''
+    nick : '',
+    date_of_birth : '',
+    fio : '',
+    city : '',
+    vk: '',
+    steam: '',
+    discord: '',
+    category: [],
+    category_sub: [],
+    token : ''
   });
   const [image, setImage] = useState<File | undefined>(undefined);
 

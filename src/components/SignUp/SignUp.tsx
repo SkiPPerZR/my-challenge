@@ -49,7 +49,7 @@ const SignUp:FC<SignUpProps> = ({isOpenSignUp}) => {
     const [chooseInterests, setChooseInterests] = useState(false);
     const [settingsProfile, setSettingsProfile] = useState(false);
     const [afterReg, setAfterReg] = useState(false);
-    const [UserDateinput, setUserDateInput] = useState(true);
+    const [UserDateinput, setUserDateInput] = useState(false);
     const [chooseSignUp, setChooseSignUp] = useState(false);
     const [signUpVar, setSignUpVar] = useState(false);
 
@@ -58,6 +58,7 @@ const SignUp:FC<SignUpProps> = ({isOpenSignUp}) => {
             isOpenSignUp(false)
             fetchProfileData()
             fetchImageUpload()
+            console.log('Нынешний токен: '+ isToken)
             setIsAuth(true)
         } else (
             isOpenSignUp(false)

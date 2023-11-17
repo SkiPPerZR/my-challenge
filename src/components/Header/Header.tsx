@@ -1,4 +1,4 @@
-import React, { FC, useState } from 'react';
+import React, { FC, useContext, useEffect, useState } from 'react';
 import './Header.scss'
 
 import useModal from '../../shared/hooks/useModal';
@@ -17,6 +17,9 @@ import LogIn from '../LogIn/LogIn';
 import ProfileMenu from '../ProfileMenu/ProfileMenu';
 import CreateNewChallengeModal from '../CreateNewChallengeModal/CreateNewChallengeModal'
 import CreateNewChallengeSideBar from '../CreateNewChallengeSideBar/CreateNewChallengeSideBar'
+import PostService from '../../api/PostService';
+import { TokenContext } from '../../context';
+import { ISetting } from '../../interfaces/ISettings';
 
 
 interface HeaderProps {
@@ -25,11 +28,25 @@ interface HeaderProps {
 
 const Header:FC<HeaderProps> = ({login}) => {
     const {isOpen, toggle} = useModal();
-    const [openSignUpStatus, setOpenSignUpStatus] = useState(false)
-    const [openLogInStatus, setOpenLogInStatus] = useState(false)
-    const [openPurchStatus, setOpenPurchStatus] = useState(false)
-    const [openMiniModal, setOpenMiniModal] = useState(false)
-    const [openSideBar, setOpenSideBar] = useState(false)
+
+    const {isToken, setIsToken} = useContext(TokenContext);
+    const [profData, setProfData] = useState<ISetting | null>(null);
+
+    const [openProfileStatus, setOpenProfileStatus] = useState(false);
+    const [openSignUpStatus, setOpenSignUpStatus] = useState(false);
+    const [openLogInStatus, setOpenLogInStatus] = useState(false);
+    const [openPurchStatus, setOpenPurchStatus] = useState(false);
+    const [openMiniModal, setOpenMiniModal] = useState(false);
+    const [openSideBar, setOpenSideBar] = useState(false);
+
+    async function fetchProfileData(token: string) {
+        let profData = await PostService.getProfileData(isToken);
+        setProfData(profData);
+    }
+
+    useEffect(()=>{
+        fetchProfileData(isToken)
+    }, [openProfileStatus])
 
     return (
         <header className='Header'>
@@ -46,10 +63,10 @@ const Header:FC<HeaderProps> = ({login}) => {
                         <HeaderButton children='Создать челлендж' setOpenMiniModal={setOpenMiniModal}/>
                         <BalanceState balance='213 124,23' toggle={toggle} toggleStatus={() => setOpenPurchStatus(true)}/>
                         <NotificationButton/>
-                        <UserProfileButton toggle={toggle} toggleStatus={() => setOpenPurchStatus(false)}/>
+                        <UserProfileButton toggle={toggle} toggleStatus={()=>setOpenProfileStatus(true)}/>
                     </nav>
                     <>
-                        <ProfileMenu user_name='IvanZolo2004' user_num={12345} isOpenMenu={isOpen} toggleMenu={toggle}/>
+                        {openProfileStatus && profData && <ProfileMenu profData={profData} setOpenProfileStatus={setOpenProfileStatus}/>}
                         {openPurchStatus && <PurchaseSale setOpenPurchStatus={setOpenPurchStatus}/>}
                         {openMiniModal && <CreateNewChallengeModal setOpenMiniModal={setOpenMiniModal} setOpenSideBar={setOpenSideBar} />}
                         {openSideBar && <CreateNewChallengeSideBar setOpenSideBar={setOpenSideBar}/>}

@@ -1,4 +1,4 @@
-import React, {FC, useContext} from 'react';
+import React, {FC, useContext, useState} from 'react';
 import './ProfileMenu.scss'
 import ProfileItem from '../../shared/profileItem/ProfileItem';
 
@@ -13,47 +13,45 @@ import { useNavigate } from 'react-router-dom';
 import useModal from '../../shared/hooks/useModal';
 import Settings from '../Settings/Settings';
 import { AuthContext } from '../../context';
+import { ISetting } from '../../interfaces/ISettings';
 
 interface ProfileMenuProps {
-    user_name: string;
-    user_num: number;
-    isOpenMenu: boolean;
-    toggleMenu: () => void;
+    profData: ISetting;
+    setOpenProfileStatus: Function;
   }
 
-const ProfileMenu:FC<ProfileMenuProps> = ({isOpenMenu, toggleMenu, user_num, user_name}) => {
+const ProfileMenu:FC<ProfileMenuProps> = ({setOpenProfileStatus, profData}) => {
     const {isAuth, setIsAuth} = useContext(AuthContext);
     const navigate = useNavigate();
-
     const navigateToProfile = () => {
       navigate('/profile');
     }
-
+    const [openSettings, setOpenSetting] = useState(false);
     const {isOpen, toggle} = useModal();
 
+    const closeSideBar = () => {
+        setOpenProfileStatus(false)
+      }
+
     return (
-        <>
-            {isOpenMenu&&(
-                <div className="ProfileMenu-overlay" onClick={toggleMenu}>
-                    <div onClick={(e) => e.stopPropagation()} className="ProfileMenu">
-                        <div className="ProfileMenuName">
-                            <span className='title-18 semibold'>{user_name}</span>
-                            <span className='text-14 regular'>#{user_num}</span>
-                        </div>
-                        <div className="ProfileMenuItems">
-                            <ProfileItem icon={profile} title='Профиль' nav={navigateToProfile}/>
-                            <ProfileItem icon={premium} title='Премиум'/>
-                            <ProfileItem icon={gift} title='Подарить золото'/>
-                            <ProfileItem icon={settings} title='Настройки' toggle={toggle}/>
-                            <ProfileItem icon={archive} title='Архив'/>
-                            <ProfileItem icon={help} title='Помощь'/>
-                            <ProfileItem icon={log_out} title='Выйти из профиля'/>
-                        </div>
-                        <Settings toggleSet={toggle} isOpenSet={isOpen}/>
-                    </div>
+        <div className="ProfileMenu-overlay" onClick={closeSideBar}>
+            <div onClick={(e) => e.stopPropagation()} className="ProfileMenu">
+                <div className="ProfileMenuName">
+                    <span className='title-18 semibold'>{profData.nick}</span>
+                    <span className='text-14 regular'>#1234 API</span>
                 </div>
-            )}
-        </>
+                <div className="ProfileMenuItems">
+                    <ProfileItem icon={profile} title='Профиль' nav={navigateToProfile}/>
+                    <ProfileItem icon={premium} title='Премиум'/>
+                    <ProfileItem icon={gift} title='Подарить золото'/>
+                    <ProfileItem icon={settings} title='Настройки' nav={()=>setOpenSetting(true)}/>
+                    <ProfileItem icon={archive} title='Архив'/>
+                    <ProfileItem icon={help} title='Помощь'/>
+                    <ProfileItem icon={log_out} title='Выйти из профиля'/>
+                </div>
+                {openSettings && <Settings setOpenSetting={()=>setOpenSetting(false)}/>}
+            </div>
+        </div>
     );
 };
 

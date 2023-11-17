@@ -9,41 +9,35 @@ import DefaultButton from '../../shared/buttons/DefaultButton';
 
 interface EditProfileProps {
     name: string;
-    toggleEdit: () => void;
-    isOpenEdit: boolean;
-    toggleStatus: () => void;
+    setEditProfile: () => void;
 }
 
-const EditProfile:FC<EditProfileProps> = ({toggleEdit,isOpenEdit,toggleStatus,name}) => {
+const EditProfile:FC<EditProfileProps> = ({setEditProfile,name}) => {
     return(
-        <>
-            {isOpenEdit&&(
-                <div className="EditProfile-overlay" onClick={toggleEdit} onMouseDown={toggleStatus}>
-                    <div className="EditProfile-box" onClick={(e)=>e.stopPropagation()} onMouseDown={(e)=>e.stopPropagation()}>
-                        <div className="EditProfileClose">
-                            <button onClick={toggleEdit} onMouseDown={toggleStatus}>
-                                <img src={close} alt="Закрыть" />
-                            </button>
-                        </div>
-                        <div className="EditProfileTitle">
-                            <img src={defIcon} alt="Иконка" />
-                            <h2 className="title-25 semibold">{name}</h2>
-                        </div>
-                        <form action="">
-                            <ImgInput />
-                            <FormInput label='Имя Фамилия' id='Name'/>
-                            <FormInput label='Город' id='Name'/>
-                            <FormInput label='Контактный номер' id='Name'/>
-                            <FormInput label='VK' id='Name'/>
-                            <FormInput label='Steam' id='Name'/>
-                            <FormInput label='Discord' id='Name'/>
-                            <FormInput label='Telegram' id='Name'/>
-                            <DefaultButton children='Редактировать профиль' paddingWidth={145} onClick={toggleEdit}/>
-                        </form>
-                    </div>
+        <div className="EditProfile-overlay" onMouseDown={setEditProfile}>
+            <div className="EditProfile-box" onMouseDown={(e)=>e.stopPropagation()}>
+                <div className="EditProfileClose">
+                    <button onClick={setEditProfile}>
+                        <img src={close} alt="Закрыть" />
+                    </button>
                 </div>
-            )}        
-        </>
+                <div className="EditProfileTitle">
+                    <img src={defIcon} alt="Иконка" />
+                    <h2 className="title-25 semibold">{name}</h2>
+                </div>
+                <form action="">
+                    {/* <ImgInput /> */}
+                    <FormInput label='Имя Фамилия' id='Name'/>
+                    <FormInput label='Город' id='Name'/>
+                    <FormInput label='Контактный номер' id='Name'/>
+                    <FormInput label='VK' id='Name'/>
+                    <FormInput label='Steam' id='Name'/>
+                    <FormInput label='Discord' id='Name'/>
+                    <FormInput label='Telegram' id='Name'/>
+                    <DefaultButton children='Редактировать профиль' paddingWidth={145} onClick={setEditProfile}/>
+                </form>
+            </div>
+        </div>
     );
 };
 

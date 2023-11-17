@@ -16,56 +16,40 @@ import { number } from 'yargs';
 import EditProfile from '../EditProfile/EditProfile';
 
 interface SettingsProps{
-    toggleSet: () => void;
-    isOpenSet: boolean;
+    setOpenSetting: () => void;
 }
 
-const Settings:FC<SettingsProps> = ({toggleSet, isOpenSet}) => {
-    const {isOpen, toggle} = useModal();
-    const [toggleStatus, setToggleStatus] = useState<number>(0);
-    const status = (toggleStatus: number) => {
-        setToggleStatus(toggleStatus)
-    }
+const Settings:FC<SettingsProps> = ({setOpenSetting}) => {
+    const [editProfile, setEditProfile] = useState(false);
+    const [number, setNumber] = useState(false);
+    const [emailPass, setEmailPass] = useState(false);
+    const [blogVer, setblogVer] = useState(false);
+    const [deleteProf, setDeleteProf] = useState(false);
+
     return (
         <>
-            {isOpenSet && (
-                <div className="Settings-overlay" onClick={toggleSet}>
-                    <div className="Settings-box" onClick={(e) => e.stopPropagation()}>
-                        <div className="SettingsClose">
-                            <button onClick={toggleSet}>
-                                <img src={close} alt="Закрыть" />
-                            </button>
-                        </div>
-                        <div className="SettingsTitle">
-                            <img src={settings} alt="Настройки" />
-                            <h2 className="title-25 semibold">Настройки</h2>
-                        </div>
-                        <div className="SettingsItems">
-                            <SettingsItem name='Информация о пользователе' icon={info} theme={ItemTheme.standart} func={toggle} toggle={() => status(2)}/>
-                            <SettingsItem name='Номер телефона' icon={phone} theme={ItemTheme.standart}/>
-                            <SettingsItem name='Почта и пароль' icon={email} theme={ItemTheme.standart}/>
-                            <SettingsItem name='Верификация для блогеров' icon={blogger} theme={ItemTheme.blogger}/>
-                            <SettingsItem name='Удалить аккаунт' icon={del} theme={ItemTheme.delete} func={toggle} toggle={() => status(1)}/>
-                        </div>
-                        {toggleStatus === 1
-                            ? <DeleteProfile toggleDel={toggle} isOpenDel={isOpen} toggleStatus={() => status(0)}/>
-                            : <></>
-                        }
-                        {toggleStatus === 2
-                            ? <EditProfile name='Редактирование профиля' toggleEdit={toggle} isOpenEdit={isOpen} toggleStatus={() => status(0)}/>
-                            : <></>
-                        }
-                        {/* {toggleStatus == 3
-                            ? <></>
-                            : 
-                        }
-                        {toggleStatus == 4
-                            ? <></>
-                            : 
-                        } */}
+            <div className="Settings-overlay" onClick={setOpenSetting}>
+                <div className="Settings-box" onClick={(e) => e.stopPropagation()}>
+                    <div className="SettingsClose">
+                        <button onClick={setOpenSetting}>
+                            <img src={close} alt="Закрыть" />
+                        </button>
+                    </div>
+                    <div className="SettingsTitle">
+                        <img src={settings} alt="Настройки" />
+                        <h2 className="title-25 semibold">Настройки</h2>
+                    </div>
+                    <div className="SettingsItems">
+                        <SettingsItem name='Информация о пользователе' icon={info} theme={ItemTheme.standart} func={()=>{}}/>
+                        <SettingsItem name='Номер телефона' icon={phone} theme={ItemTheme.standart} func={()=>{}}/>
+                        <SettingsItem name='Почта и пароль' icon={email} theme={ItemTheme.standart} func={()=>{}}/>
+                        <SettingsItem name='Верификация для блогеров' icon={blogger} theme={ItemTheme.blogger} func={()=>{}}/>
+                        <SettingsItem name='Удалить аккаунт' icon={del} theme={ItemTheme.delete} func={()=>setDeleteProf(true)}/>
                     </div>
                 </div>
-            )}
+            </div>
+            {deleteProf && <DeleteProfile setDeleteProf={()=>setDeleteProf(false)}/>}
+            {editProfile && <EditProfile name='Редактирование профиля' setEditProfile={()=>setEditProfile(false)}/>}
         </>
     );
 };
