@@ -95,6 +95,16 @@ export default class PostService {
         return statusCode.toString();
     }
 
+    static async sendPhoneCodeAgain (token : String) : Promise<String> {
+
+        let data = {
+            token: token
+        }
+        let responce = await PostService.sendRawData(JSON.stringify(data), 'user_registration_by_phone_repeat_code.php');
+
+        return responce.data;
+    }
+
     static async sendEmailCode(code : String, token : String) : Promise<String> {
 
         let data = '{"email_code" : "'+ code + '", "token" : "' + token + '"}';
@@ -109,9 +119,13 @@ export default class PostService {
         return statusCode.toString();
     }
 
-    static async emailSignIn(code : String) : Promise<String> {
-
-        return '';
+    static async emailLogin(email: string, password: string) : Promise<String> {
+        let data = {
+            email: email,
+            password: password
+        }
+        let response = await PostService.sendRawData(JSON.stringify(data), 'user_login_by_email.php');
+        return response.data;
     }
 
     static async emailSignUp(email : String, password : String) : Promise<String> {

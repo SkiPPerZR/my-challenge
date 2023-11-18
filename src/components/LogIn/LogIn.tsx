@@ -29,13 +29,15 @@ const LogIn:FC<LogInProps> = ({isOpenLogIn}) => {
     return (
         <div className='LogIn_overlay' onClick={closeSideBar}>
             <div onClick={(e) => e.stopPropagation()} className='LogIn_box'>
-                <div className="LogInTitle">
-                    <img src={icon} alt="Регистрация" />
-                    <h2 className="title-25 semibold">Вход</h2>
+                <div className="SignUpClose">
                     <button onClick={closeSideBar}>
                         <img src={close} alt="Закрыть" />
                     </button>
                 </div>
+                <div className="SignUpTitle">
+                    <img src={icon} alt="Вход" />
+                    <h2 className="title-25 semibold">Вход</h2>
+                </div> 
                 {chooseLogIn
                     ?
                     <>
@@ -48,7 +50,7 @@ const LogIn:FC<LogInProps> = ({isOpenLogIn}) => {
                     </>
                     :
                     <>
-                        <div className='SignUpChoose'>
+                        <div className='LogInChoose'>
                             <ChooseSignUp theme={ChooseVariant.standart} icon={number} name='По номеру телефона' choose={() => setChooseLogIn(true)} type={() => setLogInVar(true)}/>
                             <ChooseSignUp theme={ChooseVariant.standart} icon={email} name='По почте' choose={() => setChooseLogIn(true)} type={() => setLogInVar(false)}/>
                         </div>

@@ -16,10 +16,37 @@
     width: 580px;
     background-color: var(--BG_secondary100);
     border-radius: 20px;
-    padding: 40px;
+    padding: 10px 0 40px 0;
     display: flex;
     flex-direction: column;
+    & .SignUpCant {
+        margin-top: 20px;
+        color: var(--intElements);
+        border: none;
+        background-color: transparent;
+        &:hover {
+            cursor: pointer;
+        }
+    }
 }
+.LogInClose {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    width: 100%;
+    &>button {
+        margin-right: 10px;
+        width: 28px;
+        height: 28px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border: none;
+        background-color: transparent;
+        cursor: pointer;
+    }
+}
+
 .LogInTitle {
     width: 100%;
     display: flex;
@@ -33,48 +60,22 @@
     & button {
         position: relative;
         top: -40px;
-        right: -187px;
+        right: -132px;
         border: none;
         background-color: transparent;
+        transition: 0.2s ease-in-out;
         &:hover {
             cursor: pointer;
+            transition: 0.2s ease-in-out;
         }
     }
 }
 
-.LogInInput, .LogInCode {
-        display: flex;
-        flex-direction: column;
-        justify-content: start;
-        & input {
-            margin-top: 12px;
-            border: none;
-            border-bottom: 1px solid var(--separator);
-            height: 28px;
-            background-color: transparent;
-            &:focus-visible {
-                border: none;
-                border-bottom: 2px solid var(--labelPrimary);
-            }
-        }
-}
-
-.LogInInput {
-    & span {
-        display: flex;
-        justify-content: start;
-        margin-top: 10px;
-    }
-}
-
-.LogInCode {
-    margin-top: 20px;
-    & span {
-        display: flex;
-        justify-content: flex-end;
-        color: var(--intElements);
-        margin-top: 10px;
-    }
+.LogInChoose {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 0 40px;
 }
 
 .LogInState {

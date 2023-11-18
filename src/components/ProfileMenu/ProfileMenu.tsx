@@ -47,7 +47,7 @@ const ProfileMenu:FC<ProfileMenuProps> = ({setOpenProfileStatus, profData}) => {
                     <ProfileItem icon={settings} title='Настройки' nav={()=>setOpenSetting(true)}/>
                     <ProfileItem icon={archive} title='Архив'/>
                     <ProfileItem icon={help} title='Помощь'/>
-                    <ProfileItem icon={log_out} title='Выйти из профиля'/>
+                    <ProfileItem icon={log_out} title='Выйти из профиля' nav={()=>setIsAuth(false)}/>
                 </div>
                 {openSettings && <Settings setOpenSetting={()=>setOpenSetting(false)}/>}
             </div>

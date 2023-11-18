@@ -35,14 +35,20 @@ const SignUpByNumber:FC<SignUpByNumberProps> = ({UserDate}) => {
 
     async function fetchPhone(e: string) {
         let token : String = await PostService.sendPhone(e);
-        // if (token === 'Данный телефон уже есть в системе') {
-        //     setIsNotice(isNotice)
-        // }
         setIsToken(token)
     }
 
     async function fetchCode(code : string, token : string) {
         let message = await PostService.sendPhoneCode(code, token);
+        if (message === isToken) {
+            return true
+        } else {
+            return false
+        }
+    }
+
+    async function fetchCodeAgain(token : string) {
+        let message = await PostService.sendPhoneCodeAgain(token);
         if (message === isToken) {
             return true
         } else {
@@ -76,8 +82,7 @@ const SignUpByNumber:FC<SignUpByNumberProps> = ({UserDate}) => {
             setTimeout(() => {
                 setIsBlocked(false);
             }, 30000);
-            // TODO: Разобраться с повторным запросом кода для телефона
-            // checkPhone()
+            fetchCodeAgain(isToken)
         }
     };
 
@@ -97,17 +102,25 @@ const SignUpByNumber:FC<SignUpByNumberProps> = ({UserDate}) => {
 
     function checkPhone() {
         // console.log('Я вызвался!' + phoneCheck.length)
-        if (phoneCheck.length != 10) { 
-            setCode(false)
-            setPhoneError(true)
-        }
-        if (isTerms === false || isPrivacy === false) {
-            setCode(false)
-        } else {
+        let cleanNumber = phoneCheck.replace(/\D/g, '');
+        if (/^[78]9\d{9}$/.test(cleanNumber)) { 
+            cleanNumber = "+7" + cleanNumber.slice(1);
             setCode(true)
             setPhoneError(false)
             setPhonePass(false)
-            fetchPhone('+7' + phoneCheck)
+            // console.log('Я вызвался!' + cleanNumber)
+            fetchPhone(cleanNumber)
+        } else if (isTerms === false || isPrivacy === false) {
+            setCode(false)
+        } else if (isTerms === true && isPrivacy === true && cleanNumber) {
+            setCode(false)
+            setPhoneError(true)
+            setPhonePass(true)
+        } else {
+            // console.log('Отработал на ошибке' + cleanNumber)
+            setCode(false)
+            setPhoneError(true)
+            setPhonePass(true)
         }
     }
 
@@ -160,19 +173,13 @@ const SignUpByNumber:FC<SignUpByNumberProps> = ({UserDate}) => {
                     <>
                     <div className='SignUpByNumberInput'>
                         <p className="text-14 regular">Телефон</p>
-                        <input type="number" className='text-17 semibold' value={phoneCheck} onChange={event => setPhoneCheck(event.target.value)}/>
+                        <input type="number" className='text-17 semibold' placeholder='+7/8' value={phoneCheck} onChange={event => setPhoneCheck(event.target.value)}/>
                         {is_error_phone
                             ?
-                            <span className="text-14 medium error">Ошибка: Неверный формат номера, введите номер без +7 \ 8</span>
+                            <span className="text-14 medium error">Ошибка: Неверный формат номера введите с +7 / 8 и код должен начинаться с цифры 9</span>
                             :
                             <></>
                         }
-                        {/* {isNotice != null
-                            ?
-                            <span className="text-14 medium notice">{isNotice}</span>
-                            :
-                            <></>
-                        } */}
                     </div>
                     <div className='SignUpByNumberInput'>
                         <p className="text-14 regular"></p>
@@ -188,7 +195,7 @@ const SignUpByNumber:FC<SignUpByNumberProps> = ({UserDate}) => {
                     </>
                 :   <></>
             }
-            {code === true
+            {code
                 ?
                 <div className='SignUpByNumberCode'>
                     <p className="text-14 regular">Код</p>

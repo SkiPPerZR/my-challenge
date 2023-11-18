@@ -1,6 +1,8 @@
 import React, { FC, useContext, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-// import './LogInByEmail.scss'
+import './LogInByEmail.scss'
+import eye from '../../img/Eye.svg'
+import eyeSlash from '../../img/Eye-slash.svg'
 import { AuthContext } from '../../context';
 import PostService from '../../api/PostService';
 
@@ -11,18 +13,58 @@ interface LogInByEmailProps {
 const LogInByEmail:FC<LogInByEmailProps> = ({toggle}) => {
     const [emailCheck, setEmailCheck] = useState('');
     const [is_error_email, setEmailError] = useState(false);
+
     const [passCheck, setPassCheck] = useState('');
     const [is_error_pass, setPassError] = useState(false);
+    const [showPassword, setShowPassword] = useState(false);
+    
+    const [codeCheck, setCodeCheck] = useState('');
+    const [is_error_code, setCodeError] = useState(false);
+
+    const [isBlocked, setIsBlocked] = useState(false);
+    const [countdown, setCountdown] = useState(0);
 
     const {isAuth, setIsAuth} = useContext(AuthContext);
     const [isToken, setIsToken] = useState<any>('');
 
     const navigate = useNavigate();
 
-    async function fetchEmail(email : string, password : string) {
-        let token = await PostService.emailSignUp(email, password);
+    async function fetchLogin(email : string, password : string) {
+        let token = await PostService.emailLogin(email, password);
+        console.log('В отправке почты и пароля Token: '+token)
+        
         setIsToken(token)
     }
+
+    const handleClick = () => {
+        if (!isBlocked) {
+            setIsBlocked(true);
+            setCountdown(30);
+            setTimeout(() => {
+                setIsBlocked(false);
+            }, 30000);
+            checkEmail()
+            checkPass()
+        }
+    };
+
+    const handleShowPassword = () => {
+        setShowPassword(!showPassword);
+    };
+
+    useEffect(() => {
+        let timer: NodeJS.Timeout | null = null;
+        if (isBlocked) {
+        timer = setInterval(() => {
+            setCountdown((prevCountdown) => prevCountdown - 1);
+        }, 1000);
+        }
+        return () => {
+            if (timer) {
+                clearInterval(timer);
+            }
+        };
+    }, [isBlocked]);
 
     function checkEmail() {
         setEmailCheck(emailCheck)
@@ -40,23 +82,30 @@ const LogInByEmail:FC<LogInByEmailProps> = ({toggle}) => {
         const re = /(?=.*[0-9])(?=.*[!@#$%^&*])(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z!@#$%^&*]{8,}/g
         if (!re.test(String(passCheck))) {
             setPassError(true)
-        } else {
+        } else if (passCheck === '') {
+            setEmailError(true)
+            setPassError(true)
+         } else {
             setEmailError(false)
             setPassError(false)
-            fetchEmail(emailCheck, passCheck)
+            let tokenEmail = fetchLogin(emailCheck, passCheck)
+            setIsToken(tokenEmail)
         }
     }
 
-    function checkData(exit = () => {}) {
-        if (!is_error_email && !is_error_pass) {
-            setIsAuth(true)
-            exit()
+
+    function checkEmailConfirmed() {
+        checkEmail()
+        checkPass()
+        if (!is_error_email) {
+            console.log('Ты вошел!')
+            toggle()
         }
     }
 
     return (
-        <div className='SignUpByEmail'>
-            <div className='SignUpByEmailInput'>
+        <div className='LogInByEmail'>
+            <div className='LogInByEmailInput'>
                 <p className="text-14 regular">Электронная почта</p>
                 <input type="text" className='text-17 semibold' value={emailCheck} onChange={event => setEmailCheck(event.target.value)}/>
                 {is_error_email
@@ -66,23 +115,28 @@ const LogInByEmail:FC<LogInByEmailProps> = ({toggle}) => {
                     <></>
                 }
             </div>
-            <div className='SignUpByEmailInput'>
+            <div className='LogInByEmailInput'>
                 <p className="text-14 regular">Пароль</p>
-                <input type="password" className='text-17 semibold' value={passCheck} onChange={event => setPassCheck(event.target.value)}/>
+                <div className='LogInByEmailInputGroup'>
+                    <input type={showPassword ? 'text' : 'password'} className='text-17 semibold' value={passCheck} onChange={event => setPassCheck(event.target.value)}/>
+                    <button onClick={handleShowPassword}>
+                        {showPassword
+                            ? <img src={eye} alt="" />
+                            : <img src={eyeSlash} alt="" />
+                        }
+                    </button>
+                </div>
                 {is_error_pass
                     ?
-                    <span className="text-14 medium error">Пароль должен содержать только латинсикие буквы алфавита, хотя бы одну заглавную букву, одну цифру и один символ</span>
+                    <span className="text-14 medium error">Пароль не верный</span>
                     :
                     <></>
                 }
             </div>
-            <div className='SignUpByEmailState'>
+            <div className='LogInByEmailState'>
                 <div>
-                    <span className='text-14 regular'>Шаг 1 из 2</span>
-                </div>
-                <div>
-                    <span className='text-14 regular'>У вас уже есть аккаунт? Войти</span>
-                    <button className='text-17 semibold' onClick={() => checkData(() => toggle)}>Отправить код</button>
+                    <span className='text-14 regular'>У вас нет аккаунта? Зарегистрируйтесь</span> 
+                    <button className='text-17 semibold' onClick={() => checkEmailConfirmed()}>Войти</button>
                 </div>
             </div>
         </div>
