@@ -60,6 +60,7 @@ const SignUp:FC<SignUpProps> = ({isOpenSignUp}) => {
             fetchImageUpload()
             console.log('Нынешний токен: '+ isToken)
             setIsAuth(true)
+            getProfileData(isToken)
         } else (
             isOpenSignUp(false)
         )
@@ -88,6 +89,12 @@ const SignUp:FC<SignUpProps> = ({isOpenSignUp}) => {
 
     async function fetchProfileData() {
         await PostService.sendSettingProfile(data);
+        console.log('Отправка данных юзера'+JSON.stringify(data))
+    }
+
+    async function getProfileData(token: string) {
+        setData(await PostService.getProfileData(token));
+        console.log('Получение данных юзера'+JSON.stringify(data))
     }
     
     // const googleLogin = useGoogleLogin({

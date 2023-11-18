@@ -30,10 +30,10 @@ const LogInByEmail:FC<LogInByEmailProps> = ({toggle}) => {
     const navigate = useNavigate();
 
     async function fetchLogin(email : string, password : string) {
-        let token = await PostService.emailLogin(email, password);
-        console.log('В отправке почты и пароля Token: '+token)
-        
-        setIsToken(token)
+        let message = await PostService.emailLogin(email, password);
+        // console.log('В отправке почты и пароля Token: '+message.token)
+        sessionStorage.setItem('isToken', message.token);
+        setIsToken(message.token)
     }
 
     const handleClick = () => {
@@ -79,17 +79,13 @@ const LogInByEmail:FC<LogInByEmailProps> = ({toggle}) => {
 
     function checkPass() {
         setPassCheck(passCheck)
-        const re = /(?=.*[0-9])(?=.*[!@#$%^&*])(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z!@#$%^&*]{8,}/g
-        if (!re.test(String(passCheck))) {
-            setPassError(true)
-        } else if (passCheck === '') {
+        if (passCheck === '') {
             setEmailError(true)
             setPassError(true)
          } else {
             setEmailError(false)
             setPassError(false)
-            let tokenEmail = fetchLogin(emailCheck, passCheck)
-            setIsToken(tokenEmail)
+            fetchLogin(emailCheck, passCheck)
         }
     }
 
@@ -99,6 +95,7 @@ const LogInByEmail:FC<LogInByEmailProps> = ({toggle}) => {
         checkPass()
         if (!is_error_email) {
             console.log('Ты вошел!')
+            setIsAuth(true)
             toggle()
         }
     }

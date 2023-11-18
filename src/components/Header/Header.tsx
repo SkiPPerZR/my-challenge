@@ -18,7 +18,7 @@ import ProfileMenu from '../ProfileMenu/ProfileMenu';
 import CreateNewChallengeModal from '../CreateNewChallengeModal/CreateNewChallengeModal'
 import CreateNewChallengeSideBar from '../CreateNewChallengeSideBar/CreateNewChallengeSideBar'
 import PostService from '../../api/PostService';
-import { TokenContext } from '../../context';
+import { ProfileData, TokenContext } from '../../context';
 import { ISetting } from '../../interfaces/ISettings';
 
 
@@ -30,6 +30,7 @@ const Header:FC<HeaderProps> = ({login}) => {
     const {isOpen, toggle} = useModal();
 
     const {isToken, setIsToken} = useContext(TokenContext);
+    const {data, setData} = useContext(ProfileData)
     const [profData, setProfData] = useState<ISetting | null>(null);
 
     const [openProfileStatus, setOpenProfileStatus] = useState(false);
@@ -40,15 +41,29 @@ const Header:FC<HeaderProps> = ({login}) => {
     const [openSideBar, setOpenSideBar] = useState(false);
 
     async function fetchProfileData(token: string) {
-        let profData = await PostService.getProfileData(isToken);
-        setProfData(profData);
+        let profileData = await PostService.getProfileData(token);
+        console.log('Инфа о пользователе при открытии меню: ' + JSON.stringify(profileData))
+        setProfData(profileData);
+    }
+
+    function openProfileMenu() {
+        const temporaryToken = localStorage.getItem('isToken');
+        setIsToken(temporaryToken)
+        console.log('Токен при открытии меню: ' + temporaryToken)
+        if (temporaryToken) 
+            fetchProfileData(temporaryToken)
+        setOpenProfileStatus(true)
     }
 
     useEffect(()=>{
-        if (login) {
-            fetchProfileData(isToken)
-        }
-    }, [openProfileStatus])
+        // if (login) {
+        //     // setProfData(data)
+            
+        //     console.log('Обработка данных юзера: '+JSON.stringify(profData))
+        // } else {
+        //     console.log('Обработка данных юзера: '+JSON.stringify(profData))
+        // }
+    }, [])
 
     return (
         <header className='Header'>
@@ -65,7 +80,7 @@ const Header:FC<HeaderProps> = ({login}) => {
                         <HeaderButton children='Создать челлендж' setOpenMiniModal={setOpenMiniModal}/>
                         <BalanceState balance='213 124,23' toggle={toggle} toggleStatus={() => setOpenPurchStatus(true)}/>
                         <NotificationButton/>
-                        <UserProfileButton toggle={toggle} toggleStatus={()=>setOpenProfileStatus(true)}/>
+                        <UserProfileButton toggle={toggle} toggleStatus={openProfileMenu}/>
                     </nav>
                     <>
                         {openProfileStatus && profData && <ProfileMenu profData={profData} setOpenProfileStatus={setOpenProfileStatus}/>}

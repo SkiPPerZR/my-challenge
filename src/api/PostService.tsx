@@ -4,6 +4,7 @@ import { ICardInfo } from "../interfaces/ICardInfo";
 import { ICategory, ICategorySub, IData, IResponse } from "../interfaces/IResponse";
 import { ICity, ICityItem } from "../interfaces/ICity";
 import { ISetting } from "../interfaces/ISettings";
+import { ILogin } from "../interfaces/ILogin";
 
 const TOKEN = '82d586feb901a2dc7ee622cdb693240870cbe714ecaedf2edab0cda81eb7fe20302fe398c5456a72820205eb4cd41e96c6a48c1106df4cde09d054693eea7a4f'
 const MYTOKEN = 'e34f97d1101324465c469fc942616caccd208bf619e2833cf6b4f66a9caf117ed7f0ac7491c848ccba3e0b78ff0e55f23e46086614d2c40f14f3fcdece588c94'
@@ -119,7 +120,7 @@ export default class PostService {
         return statusCode.toString();
     }
 
-    static async emailLogin(email: string, password: string) : Promise<String> {
+    static async emailLogin(email: string, password: string) : Promise<ILogin> {
         let data = {
             email: email,
             password: password
@@ -185,7 +186,7 @@ export default class PostService {
 
     static async getProfileData(token : string) : Promise<ISetting> {
         let data = {
-            token: TOKEN
+            token: token
         }
         let response = await PostService.sendRawData(JSON.stringify(data), 'user_profile_info.php');
 
@@ -194,7 +195,7 @@ export default class PostService {
 
     static async getCategory(token : string) : Promise<IResponse> {
         let data = {
-            token: TOKEN
+            token: token
         }
         let response = await PostService.sendRawData(JSON.stringify(data), 'data.php');
 
@@ -203,7 +204,7 @@ export default class PostService {
 
     static async getCities(token: string, letter: string) : Promise<ICity> {
         let data = {
-            token: TOKEN,
+            token: token,
             letter: letter
         };
         let response = await PostService.sendRawData(JSON.stringify(data), 'city_by_letter.php');

@@ -1,4 +1,4 @@
-import React, { FC, useState } from 'react'
+import React, { FC, useContext, useState } from 'react'
 import './LogIn.scss'
 
 import icon from '../../img/iconSignUp.svg'
@@ -10,21 +10,28 @@ import { useNavigate } from 'react-router-dom';
 import ChooseSignUp, { ChooseVariant } from '../../shared/chooseSignUp/ChooseSignUp';
 import LogInByEmail from '../../shared/logInByEmail/LogInByEmail'
 import LogInByNumber from '../../shared/logInByNumber/LogInByNumber'
+import PostService from '../../api/PostService'
+import { ProfileData } from '../../context'
 
 interface LogInProps {
     isOpenLogIn: Function;
 }
 
 const LogIn:FC<LogInProps> = ({isOpenLogIn}) => {
-
+    const {data, setData} = useContext(ProfileData);
     const [chooseLogIn, setChooseLogIn] = useState(false);
     const [logInVar, setLogInVar] = useState(false);
 
     const closeSideBar = () => {
+        fetchProfileData()
         isOpenLogIn(false)
     }
 
     const navigate = useNavigate();
+
+    async function fetchProfileData() {
+        await PostService.sendSettingProfile(data);
+    }
 
     return (
         <div className='LogIn_overlay' onClick={closeSideBar}>
