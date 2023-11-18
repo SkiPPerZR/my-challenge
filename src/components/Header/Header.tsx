@@ -45,7 +45,9 @@ const Header:FC<HeaderProps> = ({login}) => {
     }
 
     useEffect(()=>{
-        fetchProfileData(isToken)
+        if (login) {
+            fetchProfileData(isToken)
+        }
     }, [openProfileStatus])
 
     return (

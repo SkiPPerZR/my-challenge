@@ -1,7 +1,7 @@
 import React, { FC, useContext, useState } from 'react';
 import './DeleteProfile.scss'
 
-import close from '../../img/close.svg'
+import closeIcon from '../../img/close.svg'
 import DefaultButton from '../../shared/buttons/DefaultButton';
 import PostService from '../../api/PostService';
 import { TokenContext } from '../../context';
@@ -9,9 +9,10 @@ import { setTimeout } from 'timers/promises';
 
 interface DeleteProfileProps {
     setDeleteProf: () => void;
+    close: ()=>void;
 }
 
-const DeleteProfile:FC<DeleteProfileProps> = ({setDeleteProf}) => {
+const DeleteProfile:FC<DeleteProfileProps> = ({setDeleteProf, close}) => {
     const {isToken, setIsToken} = useContext(TokenContext)
     const [del, setDel] = useState('')
 
@@ -24,6 +25,11 @@ const DeleteProfile:FC<DeleteProfileProps> = ({setDeleteProf}) => {
         }
     }
 
+    function closeWindow() {
+        setDeleteProf()
+        close()
+    }
+
     // function deleteAccout() {
     //     fetchDeleteAccount(isToken);
     //     setTimeout(() => {
@@ -32,11 +38,11 @@ const DeleteProfile:FC<DeleteProfileProps> = ({setDeleteProf}) => {
     // }
 
     return (
-        <div className='DeleteProfile-overlay' onMouseDown={setDeleteProf}>
+        <div className='DeleteProfile-overlay' onMouseDown={closeWindow}>
             <div className="DeleteProfile-box" onMouseDown={(e)=>e.stopPropagation()}>
                 <div className="DeleteProfileClose">
-                    <button onClick={setDeleteProf}>
-                        <img src={close} alt="Закрыть" />
+                    <button onClick={closeWindow}>
+                        <img src={closeIcon} alt="Закрыть" />
                     </button>
                 </div>
                 <div className="DeleteProfileTitle">

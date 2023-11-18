@@ -21,8 +21,8 @@ const SignUpUserAndDate:FC<SignUpUserAndDateProps> = ({returnToChooseSignUp, cho
     const handleField1Change = (nick: string, date: string) => {
         setData((prevData: any) => ({
           ...prevData,
-          Nick: nick,
-          Date: date,
+          nick: nick,
+          date_of_birth: date,
         }));
       };
 

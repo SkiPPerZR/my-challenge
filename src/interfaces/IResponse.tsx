@@ -15,5 +15,5 @@ export interface ICategory {
 export interface ICategorySub {
     id: string,
     name: string,
-    id_category: string;
+    id_category: string
 }

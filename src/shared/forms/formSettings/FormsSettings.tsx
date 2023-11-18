@@ -32,12 +32,12 @@ const FormsSettings:FC<FormsSettingsProps> = ({onClick}) => {
     const handleField1Change = (fio: string, city: string, vk: string, steam: string, discord: string, token: string) => {
         setData((prevData: any) => ({
           ...prevData,
-          Fio: fio,
-          City: city,
-          Vk: vk,
-          Steam: steam,
-          Discord: discord,
-          Token: token
+          fio: fio,
+          city: city,
+          vk: vk,
+          steam: steam,
+          discord: discord,
+          token: token
         }));
       };
 
@@ -57,13 +57,13 @@ const FormsSettings:FC<FormsSettingsProps> = ({onClick}) => {
 
     function citiesUpdate(event: any) {
         let input = event.target.value;
-        setIsCity(input)
-        fetchCities(input)
+        setIsCity(input);
+        fetchCities(isCity);
     } 
 
     function sendProfileData() {
-        handleField1Change(isName,isCity,isVK,isSteam,isDiscord,isToken)
-        onClick()
+        handleField1Change(isName,isCity,isVK,isSteam,isDiscord,isToken);
+        onClick();
     }
 
     return (

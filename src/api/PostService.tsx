@@ -6,7 +6,7 @@ import { ICity, ICityItem } from "../interfaces/ICity";
 import { ISetting } from "../interfaces/ISettings";
 
 const TOKEN = '82d586feb901a2dc7ee622cdb693240870cbe714ecaedf2edab0cda81eb7fe20302fe398c5456a72820205eb4cd41e96c6a48c1106df4cde09d054693eea7a4f'
-const MYTOKEN = '9b7f6dd2c69aabd57e2d1d4be5b66b7e4577f648b45b944f6d4158c4ab596a5f91b1b42658038c3a132d73090f51dfa5e8722bd99dbf7bda82bd58a94d2906c5'
+const MYTOKEN = 'e34f97d1101324465c469fc942616caccd208bf619e2833cf6b4f66a9caf117ed7f0ac7491c848ccba3e0b78ff0e55f23e46086614d2c40f14f3fcdece588c94'
 
 export default class PostService {
     static async sendRawData(data : String, url:String) : Promise<AxiosResponse> {
@@ -155,7 +155,7 @@ export default class PostService {
             discord: `https://discordapp.com/users/${discord}`,
             category: category,
             category_sub: category_sub,
-            token: token
+            token: TOKEN
         } 
         let responce = await PostService.sendRawData(JSON.stringify(dataCorrect), 'user_profile_update.php');
 
@@ -171,7 +171,7 @@ export default class PostService {
 
     static async getProfileData(token : string) : Promise<ISetting> {
         let data = {
-            token: MYTOKEN
+            token: TOKEN
         }
         let response = await PostService.sendRawData(JSON.stringify(data), 'user_profile_info.php');
 
@@ -180,7 +180,7 @@ export default class PostService {
 
     static async getCategory(token : string) : Promise<IResponse> {
         let data = {
-            token: token
+            token: TOKEN
         }
         let response = await PostService.sendRawData(JSON.stringify(data), 'data.php');
 
@@ -189,7 +189,7 @@ export default class PostService {
 
     static async getCities(token: string, letter: string) : Promise<ICity> {
         let data = {
-            token: token,
+            token: TOKEN,
             letter: letter
         };
         let response = await PostService.sendRawData(JSON.stringify(data), 'city_by_letter.php');

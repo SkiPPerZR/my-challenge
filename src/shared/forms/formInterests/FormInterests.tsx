@@ -22,28 +22,36 @@ const FormInterests:FC<FormInterestsProps> = ({onClick, dataCat}) => {
     const [categorySub, setCategorySub] = useState<ICategorySub[]>([]);
 
     const addValue = (field: string, value: string) => {
-        // @ts-ignore
-        // console.log(data[field])
+        console.log(data)
         setData((prevData: any) => ({
             ...prevData,
             [field]: [...prevData[field], value]
         }));
     };
 
-    useEffect(() => {
+    useEffect(()=>{
         setDataCategory(dataCat)
+    },[])
+
+    useEffect(() => {
         if (dataCategory && category) {
-          const filteredCategorySub = dataCategory.category_sub.filter(
-            (item: ICategorySub) => item.id_category === category.id
-          );
-          setCategorySub(filteredCategorySub);
-        }
-      }, [switcher, category]);
+            const filteredCategorySub = dataCategory.category_sub.filter(
+              (item: ICategorySub) => item.id_category === category.id
+            );
+            setCategorySub(filteredCategorySub);
+          }
+    }, [dataCategory, category]);
     
-      const handleCategoryChange = (category: ICategory) => {
-        setSwitcher(!switcher)
-        setCategory(category);
-      };
+    const handleCategoryChange = (categoryID: ICategory) => {
+    setSwitcher(!switcher)
+    setCategory(categoryID);
+    if (switcher && dataCategory && category) {
+        const filteredCategorySub = dataCategory.category_sub.filter(
+            (item: ICategorySub) => item.id_category === category.id
+        );
+        setCategorySub(filteredCategorySub);
+    }
+    };
 
     const handleSwitcher = () => {
         setSwitcherSub(!switcherSub)
@@ -57,7 +65,7 @@ const FormInterests:FC<FormInterestsProps> = ({onClick, dataCat}) => {
                     {dataCategory && (
                         <>
                             {dataCategory.category.map((category) => (
-                                <CheckboxCategory key={category.id} category={category} turn={() => handleCategoryChange(category)} onClick={()=>{addValue('Category', category.id)}}/>
+                                <CheckboxCategory key={category.id} category={category} turn={() => handleCategoryChange(category)} onClick={()=>{addValue('category', category.id)}}/>
                             ))}
                         </>
                     )}
@@ -68,8 +76,8 @@ const FormInterests:FC<FormInterestsProps> = ({onClick, dataCat}) => {
                 <div className="FormInterestsSubCategoryGroup">
                     {category && (
                         <>
-                            {categorySub.map((categorySub) => (
-                                <CheckboxSubCategory key={categorySub.id_category} categorySub={categorySub} turn={()=>handleSwitcher()} onClick={()=>{addValue('Category_sub', categorySub.id)}}/>
+                            {categorySub.map((category_sub) => (
+                                <CheckboxSubCategory key={category_sub.id} categorySub={category_sub} turn={() => handleSwitcher()} onClick={()=>{addValue('category_sub', category_sub.id)}}/>
                             ))}
                         </>
                     )}
