@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import Sidebar from '../../components/Sidebar/Sidebar';
 import Header from '../../components/Header/Header';
 import { useLocation } from 'react-router-dom';
@@ -8,10 +8,18 @@ import SignUp from '../../components/SignUp/SignUp';
 
 const Test = () => {
     const {isAuth, setIsAuth} = useContext(AuthContext);
-    // const location = useLocation();
-    // let login = 0;
-    // if (location.state != null)
-    //     login = location.state.login
+    function Auth() {
+        const newAuth = sessionStorage.getItem('isAuth')
+        if (newAuth === 'true') {
+            setIsAuth(true)
+        } else {
+            setIsAuth(false)
+        }
+    }
+
+    useEffect(()=>{
+        Auth()
+    }, [isAuth])
 
     const [isOpenSignUp, setIsOpenSignUp] = useState(false);
 

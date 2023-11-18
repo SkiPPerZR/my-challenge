@@ -79,6 +79,42 @@ export default class PostService {
         return statusCode.toString();
     }
 
+    static async sendPhoneLogin(phone : string) : Promise<string> {
+
+        let data = '{"phone" : "'+ phone +'"}';
+
+        let responce = await PostService.sendRawData(data, 'user_login_by_phone.php');
+
+        let statusCode = responce.status;
+
+        if (statusCode == 200) {
+            return responce.data["token"];
+        }
+        if ((statusCode == 401)) {
+            return responce.data["error"];
+         }
+
+        return responce.data;
+    }
+
+    static async sendPhoneCodeLogin(code : String, token : String) : Promise<String> {
+
+        let data = '{"phone_code" : "'+ code + '", "token" : "' + token + '"}';
+
+        let responce = await PostService.sendRawData(data, 'user_registration_by_phone.php');
+
+        let statusCode = responce.status;
+
+        if (statusCode == 200)
+            return responce.data['token'];
+
+        if (statusCode == 401)
+            return responce.data['message'];
+
+        return statusCode.toString();
+    }
+
+
     static async sendPhoneCode(code : String, token : String) : Promise<String> {
 
         let data = '{"phone_code" : "'+ code + '", "token" : "' + token + '"}';
@@ -195,7 +231,7 @@ export default class PostService {
 
     static async getCategory(token : string) : Promise<IResponse> {
         let data = {
-            token: token
+            token: MYTOKEN
         }
         let response = await PostService.sendRawData(JSON.stringify(data), 'data.php');
 
@@ -204,7 +240,7 @@ export default class PostService {
 
     static async getCities(token: string, letter: string) : Promise<ICity> {
         let data = {
-            token: token,
+            token: MYTOKEN,
             letter: letter
         };
         let response = await PostService.sendRawData(JSON.stringify(data), 'city_by_letter.php');

@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import Header from '../../components/Header/Header';
 import Sidebar from '../../components/Sidebar/Sidebar';
 import Section from '../../components/Section/Section';
@@ -10,10 +10,18 @@ import { AuthContext } from '../../context';
 const Main = () => {
     const {isAuth, setIsAuth} = useContext(AuthContext);
 
-    // const location = useLocation();
-    // let login = 0;
-    // if (location.state != null)
-    //     login = location.state.login
+    function Auth() {
+        const newAuth = sessionStorage.getItem('isAuth')
+        if (newAuth === 'true') {
+            setIsAuth(true)
+        } else {
+            setIsAuth(false)
+        }
+    }
+
+    useEffect(()=>{
+        Auth()
+    }, [isAuth])
     return (
         <div className='Main'>
             <Sidebar backbutton={0}/>

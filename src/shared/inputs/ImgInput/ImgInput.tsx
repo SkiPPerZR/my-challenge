@@ -9,7 +9,7 @@ const ImgInput = () => {
     const {isToken, setIsToken} = useContext(TokenContext);
     const {image, setImage} = useContext(ImageContext);
 
-    // const [file, setFile] = useState<File | undefined>(undefined)
+    const [file, setFile] = useState<File | undefined>(undefined)
 
     // const handleImageSelect = (event: React.ChangeEvent<HTMLInputElement>) => {
     //     event.preventDefault();
@@ -19,63 +19,63 @@ const ImgInput = () => {
     //         }
     // };
 
-    class CustomCanvas {
-        private _img: HTMLCanvasElement;
-        constructor() {
-            let img = document.getElementById('file-loader-button') as HTMLCanvasElement;
-            this._img = img;
-            let cxt = document.createElement('canvas');
-            cxt.width = img.clientWidth;
-            cxt.height = img.clientHeight;
-            let context = cxt.getContext('2d');
-            //@ts-ignore
-            context.drawImage(img, 0, 0);
-        }
-        public async getImage(): Promise<Blob> {
-            //@ts-ignore
-            return new Promise<Blob>(resolve => this._img.toBlob(resolve, 'image/png'))
-        }
-    }
+    // class CustomCanvas {
+    //     private _img: HTMLCanvasElement;
+    //     constructor() {
+    //         let img = document.getElementById('file-loader-button') as HTMLCanvasElement;
+    //         this._img = img;
+    //         let cxt = document.createElement('canvas');
+    //         cxt.width = img.clientWidth;
+    //         cxt.height = img.clientHeight;
+    //         let context = cxt.getContext('2d');
+    //         //@ts-ignore
+    //         context.drawImage(img, 0, 0);
+    //     }
+    //     public async getImage(): Promise<Blob> {
+    //         //@ts-ignore
+    //         return new Promise<Blob>(resolve => this._img.toBlob(resolve, 'image/png'))
+    //     }
+    // }
 
-    class UploadFileRequest {
-        private get _domain(): string {
-            return 'https://form.upon.ru/api/';
-        }
-        private get _fileUpload(): string {
-            return 'user_update_profile_avatar.php';
-        }
-        private _img: CustomCanvas;
-        constructor() {
-            this._img = new CustomCanvas();
-        }
-        public async upload(): Promise<Response> {
-            let options: RequestInit = {
-                method: 'POST',
-                body: await this.createBody()
-            }
+    // class UploadFileRequest {
+    //     private get _domain(): string {
+    //         return 'https://form.upon.ru/api/';
+    //     }
+    //     private get _fileUpload(): string {
+    //         return 'user_update_profile_avatar.php';
+    //     }
+    //     private _img: CustomCanvas;
+    //     constructor() {
+    //         this._img = new CustomCanvas();
+    //     }
+    //     public async upload(): Promise<Response> {
+    //         let options: RequestInit = {
+    //             method: 'POST',
+    //             body: await this.createBody()
+    //         }
 
-            let response = await fetch(`${this._domain}/${this._fileUpload}`, options)
-            // if (response.status == 200) {
-            //     let responseBody = await response.json()
-            //     // this._id = responseBody.id;
-            // }
-            // console.log('Response:');
-            // console.log(response);
-            return response;
-        }
-        private async createBody() {
-            const formData = new FormData();
-            let image = await this._img.getImage();
-            formData.append('avatar', image, 'avatar.png');
-            formData.append('token', isToken);
-            return formData;
-        }
-    }
+    //         let response = await fetch(`${this._domain}/${this._fileUpload}`, options)
+    //         // if (response.status == 200) {
+    //         //     let responseBody = await response.json()
+    //         //     // this._id = responseBody.id;
+    //         // }
+    //         // console.log('Response:');
+    //         // console.log(response);
+    //         return response;
+    //     }
+    //     private async createBody() {
+    //         const formData = new FormData();
+    //         let image = await this._img.getImage();
+    //         formData.append('avatar', image, 'avatar.png');
+    //         formData.append('token', isToken);
+    //         return formData;
+    //     }
+    // }
 
-    let uploadFileRequest = new UploadFileRequest();
-    async function upload() {
-        await uploadFileRequest.upload();
-    }
+    // let uploadFileRequest = new UploadFileRequest();
+    // async function upload() {
+    //     await uploadFileRequest.upload();
+    // } 
 
     return (
         <div className="ImgInput">
@@ -94,7 +94,7 @@ const ImgInput = () => {
                     value={icon}
                 />
             </div>
-            <span className='text-14 regular' onClick={upload}>Добавить фото</span>
+            <span className='text-14 regular' >Добавить фото</span>
             <div className="file-uploader__file-name"></div>
         </div>
     );

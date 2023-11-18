@@ -26,12 +26,21 @@ const ProfileMenu:FC<ProfileMenuProps> = ({setOpenProfileStatus, profData}) => {
     const navigateToProfile = () => {
       navigate('/profile');
     }
+    const navigateToMain = () => {
+        navigate('/');
+      }
     const [openSettings, setOpenSetting] = useState(false);
     const {isOpen, toggle} = useModal();
 
     const closeSideBar = () => {
         setOpenProfileStatus(false)
       }
+
+    const exitAuth = () => {
+        setIsAuth(false)
+        sessionStorage.setItem('isAuth', 'false')
+        navigateToMain()
+    }
 
     return (
         <div className="ProfileMenu-overlay" onClick={closeSideBar}>
@@ -47,7 +56,7 @@ const ProfileMenu:FC<ProfileMenuProps> = ({setOpenProfileStatus, profData}) => {
                     <ProfileItem icon={settings} title='Настройки' nav={()=>setOpenSetting(true)}/>
                     <ProfileItem icon={archive} title='Архив'/>
                     <ProfileItem icon={help} title='Помощь'/>
-                    <ProfileItem icon={log_out} title='Выйти из профиля' nav={()=>setIsAuth(false)}/>
+                    <ProfileItem icon={log_out} title='Выйти из профиля' nav={exitAuth}/>
                 </div>
                 {openSettings && <Settings setOpenSetting={()=>setOpenSetting(false)}/>}
             </div>

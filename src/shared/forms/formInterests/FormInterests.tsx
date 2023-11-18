@@ -43,14 +43,14 @@ const FormInterests:FC<FormInterestsProps> = ({onClick, dataCat}) => {
     }, [dataCategory, category]);
     
     const handleCategoryChange = (categoryID: ICategory) => {
-    setSwitcher(!switcher)
-    setCategory(categoryID);
-    if (switcher && dataCategory && category) {
-        const filteredCategorySub = dataCategory.category_sub.filter(
-            (item: ICategorySub) => item.id_category === category.id
-        );
-        setCategorySub(filteredCategorySub);
-    }
+        setSwitcher(!switcher)
+        setCategory(categoryID);
+        if (switcher && dataCategory && category) {
+            const filteredCategorySub = dataCategory.category_sub.filter(
+                (item: ICategorySub) => item.id_category === category.id
+            );
+            setCategorySub(filteredCategorySub);
+        }
     };
 
     const handleSwitcher = () => {

@@ -40,6 +40,7 @@ const SignUpByEmail:FC<SignUpByEmailProps> = ({UserDate}) => {
         let token = await PostService.emailSignUp(email, password);
         let newToken = token
         sessionStorage.setItem('isToken', newToken)
+        sessionStorage.setItem('isAuth', 'true')
         setIsToken(newToken)
     }
 

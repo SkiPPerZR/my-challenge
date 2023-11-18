@@ -34,6 +34,7 @@ const LogInByEmail:FC<LogInByEmailProps> = ({toggle}) => {
         // console.log('В отправке почты и пароля Token: '+message.token)
         let newToken = message.token
         sessionStorage.setItem('isToken', newToken)
+        sessionStorage.setItem('isAuth', 'true')
         // console.log('Запись данных в хранилище сессии: '+ newToken);
         setIsToken(newToken)
     }

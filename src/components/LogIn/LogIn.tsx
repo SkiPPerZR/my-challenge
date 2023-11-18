@@ -23,7 +23,6 @@ const LogIn:FC<LogInProps> = ({isOpenLogIn}) => {
     const [logInVar, setLogInVar] = useState(false);
 
     const closeSideBar = () => {
-        // fetchProfileData()
         isOpenLogIn(false)
     }
 
@@ -46,9 +45,9 @@ const LogIn:FC<LogInProps> = ({isOpenLogIn}) => {
                     <>
                         {logInVar
                             ?
-                                <LogInByNumber toggle={closeSideBar}/>
+                                <LogInByNumber toggle={() => setChooseLogIn(false)}/>
                             :
-                                <LogInByEmail toggle={closeSideBar}/>
+                                <LogInByEmail toggle={() => setChooseLogIn(false)}/>
                         }
                     </>
                     :

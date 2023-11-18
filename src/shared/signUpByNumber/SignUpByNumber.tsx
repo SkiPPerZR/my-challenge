@@ -18,7 +18,6 @@ const SignUpByNumber:FC<SignUpByNumberProps> = ({UserDate}) => {
 
     const [phoneCheck, setPhoneCheck] = useState('');
     const [is_error_phone, setPhoneError] = useState(false);
-    const [isNotice, setIsNotice] = useState();
 
     const [codeCheck, setCodeCheck] = useState('');
     const [is_error_code, setCodeError] = useState(false);
@@ -31,12 +30,11 @@ const SignUpByNumber:FC<SignUpByNumberProps> = ({UserDate}) => {
     
     const {isToken, setIsToken} = useContext(TokenContext);
 
-    const [phone, setPhone] = useState<string>('');
-
     async function fetchPhone(e: string) {
         let token : string = await PostService.sendPhone(e);
         let newToken = token
         sessionStorage.setItem('isToken', newToken)
+        sessionStorage.setItem('isAuth', 'true')
         setIsToken(token)
     }
 
@@ -105,24 +103,25 @@ const SignUpByNumber:FC<SignUpByNumberProps> = ({UserDate}) => {
     function checkPhone() {
         // console.log('Я вызвался!' + phoneCheck.length)
         let cleanNumber = phoneCheck.replace(/\D/g, '');
-        if (/^[78]9\d{9}$/.test(cleanNumber)) { 
-            cleanNumber = "+7" + cleanNumber.slice(1);
-            setCode(true)
-            setPhoneError(false)
-            setPhonePass(false)
-            // console.log('Я вызвался!' + cleanNumber)
-            fetchPhone(cleanNumber)
+        const re = /^(\+7|8)9\d{9}$/
+        if (!re.test(cleanNumber)) {
+            // console.log('Я вызвался снова!') 
+            setPhoneError(true)
+        } else if (phoneCheck.length > 11 || phoneCheck.length < 10) {
+            // console.log('Я вызвался снова и снова!') 
+            setPhoneError(true)
         } else if (isTerms === false || isPrivacy === false) {
             setCode(false)
-        } else if (isTerms === true && isPrivacy === true && cleanNumber) {
+        } else if (isTerms === true && isPrivacy === true && is_error_phone) {
             setCode(false)
-            setPhoneError(true)
-            setPhonePass(true)
+            setPhoneError(false)
         } else {
-            // console.log('Отработал на ошибке' + cleanNumber)
-            setCode(false)
-            setPhoneError(true)
-            setPhonePass(true)
+            cleanNumber = "+7" + cleanNumber.slice(1);
+            setPhoneError(false)
+            setPhonePass(false)
+            setCode(true)
+            fetchPhone(cleanNumber)
+            // console.log('Я вызвался!' + cleanNumber)
         }
     }
 
@@ -142,8 +141,6 @@ const SignUpByNumber:FC<SignUpByNumberProps> = ({UserDate}) => {
         if (isTerms === true && isPrivacy === true) {
             let terms = '1'
             let privacy = '1'
-            // console.log('Policy'+ isToken)
-            // let token = 'fad05019408802c1f0dbfa13244e952bf011b5d6ea0b482b2267ccdaa9c2dcd048d18bb46e04d256b2ea9f4bbf2ea0b45ac9405e64b0874b5a5212d4afaf9985';
             fetchPolicy(terms, privacy, isToken)
         }
     }
@@ -170,66 +167,74 @@ const SignUpByNumber:FC<SignUpByNumberProps> = ({UserDate}) => {
 
     return (
         <div className='SignUpByNumber'>
-            {phonePass === true
+            {phonePass
                 ?
                     <>
-                    <div className='SignUpByNumberInput'>
-                        <p className="text-14 regular">Телефон</p>
-                        <input type="number" className='text-17 semibold' placeholder='+7/8' value={phoneCheck} onChange={event => setPhoneCheck(event.target.value)}/>
-                        {is_error_phone
-                            ?
-                            <span className="text-14 medium error">Ошибка: Неверный формат номера введите с +7 / 8 и код должен начинаться с цифры 9</span>
-                            :
-                            <></>
-                        }
-                    </div>
-                    <div className='SignUpByNumberInput'>
-                        <p className="text-14 regular"></p>
-                        <CreateChallengeSwitch id='isTerms' docUrl='/terms/Consent_to_distribution.html' title='Пользовательское соглашение' turn={handleChangeTerms}/>
-                        <CreateChallengeSwitch id='isPrivacy' docUrl='/terms/Personal_Data_Processing_and_Privacy_Policy.html' title='Политика конфиденциальности' turn={handleChangePrivacy}/>
-                        {!isTerms || !isPrivacy
-                            ?
-                            <span className="text-14 medium notice">Для продолжения вам необходимо согласиться с<br/> условиями пользования площадки</span>
-                            :
-                            <></>
-                        }
-                    </div>
+                        <div className='SignUpByNumberInput'>
+                            <p className="text-14 regular">Телефон</p>
+                            <input type="number" className='text-17 semibold' placeholder='+7/8' value={phoneCheck} onChange={event => setPhoneCheck(event.target.value)}/>
+                            {is_error_phone
+                                ?
+                                <span className="text-14 medium error">Ошибка: Неверный формат номера введите с +7 / 8 и код должен начинаться с цифры 9</span>
+                                :
+                                <></>
+                            }
+                        </div>
+                        <div className='SignUpByNumberInput'>
+                            <p className="text-14 regular"></p>
+                            <CreateChallengeSwitch id='isTerms' docUrl='/terms/Consent_to_distribution.html' title='Пользовательское соглашение' turn={handleChangeTerms}/>
+                            <CreateChallengeSwitch id='isPrivacy' docUrl='/terms/Personal_Data_Processing_and_Privacy_Policy.html' title='Политика конфиденциальности' turn={handleChangePrivacy}/>
+                            {!isTerms || !isPrivacy
+                                ?
+                                <span className="text-14 medium notice">Для продолжения вам необходимо согласиться с<br/> условиями пользования площадки</span>
+                                :
+                                <></>
+                            }
+                        </div>
+                        <div className='SignUpByNumberState'>
+                            <div>
+                                <span className='text-14 regular'>Шаг 1 из 2</span>
+                            </div>
+                            <div>
+                                <span className='text-14 regular'>У вас уже есть аккаунт? Войти</span>
+                                <button className='text-17 semibold' onClick={() => checkPhoneConfirmed()}>Зарегистрировать</button>
+                            </div>
+                        </div>
                     </>
                 :   <></>
             }
             {code
                 ?
-                <div className='SignUpByNumberCode'>
-                    <p className="text-14 regular">Код</p>
-                    <input type="number" className='text-17 semibold' value={codeCheck} onChange={event => setCodeCheck(event.target.value)}/>
-                    {is_error_code
-                        ?
-                        <span className="text-14 medium error">Ошибка: Неверный код</span>
-                        :
-                        <></>
-                    }
-                    <button className="text-14 regular" onClick={() => handleClick()} disabled={isBlocked}>
-                        {isBlocked
-                            ? `${countdown} сек осталось до повторного запроса кода`
-                            : 'Отправить код повторно'
+                <>
+                    <div className='SignUpByNumberCode'>
+                        <p className="text-14 regular">Код</p>
+                        <input type="number" className='text-17 semibold' value={codeCheck} onChange={event => setCodeCheck(event.target.value)}/>
+                        {is_error_code
+                            ?
+                            <span className="text-14 medium error">Ошибка: Неверный код</span>
+                            :
+                            <></>
                         }
-                    </button>
-                </div>
+                        <button className="text-14 regular" onClick={() => handleClick()} disabled={isBlocked}>
+                            {isBlocked
+                                ? `${countdown} сек осталось до повторного запроса кода`
+                                : 'Отправить код повторно'
+                            }
+                        </button>
+                    </div>
+                    <div className='SignUpByNumberState'>
+                        <div>
+                            <span className='text-14 regular'>Шаг 1 из 2</span>
+                        </div>
+                        <div>
+                            <span className='text-14 regular'>У вас уже есть аккаунт? Войти</span>
+                            <button className='text-17 semibold' onClick={() => checkCodeConfirmed()}>Отправить код</button>
+                        </div>
+                    </div>
+                </>
                 :
                 <></>
             }
-            <div className='SignUpByNumberState'>
-                <div>
-                    <span className='text-14 regular'>Шаг {code ? '2': '1'} из 2</span>
-                </div>
-                <div>
-                    <span className='text-14 regular'>У вас уже есть аккаунт? Войти</span>
-                    {!code
-                        ? <button className='text-17 semibold' onClick={() => checkPhoneConfirmed()}>Зарегистрировать</button>
-                        : <button className='text-17 semibold' onClick={() => checkCodeConfirmed()}>Отправить код</button>
-                    }
-                </div>
-            </div>
         </div>
     );
 };

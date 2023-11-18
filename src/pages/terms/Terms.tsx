@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import Header from '../../components/Header/Header';
 import Sidebar from '../../components/Sidebar/Sidebar';
 import TermsPolicy from '../../components/TermsPolicy/TermsPolicy';
@@ -12,6 +12,20 @@ type Params = {
 const Terms: React.FC = () => {
     const {isAuth, setIsAuth} = useContext(AuthContext);
     const { value } = useParams<Params>();
+
+    function Auth() {
+        const newAuth = sessionStorage.getItem('isAuth')
+        if (newAuth === 'true') {
+            setIsAuth(true)
+        } else {
+            setIsAuth(false)
+        }
+    }
+
+    useEffect(()=>{
+        Auth()
+    }, [isAuth])
+
     return (
         <div className='Main'>
             <Sidebar backbutton={1}/>
