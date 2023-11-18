@@ -34,7 +34,9 @@ const SignUpByNumber:FC<SignUpByNumberProps> = ({UserDate}) => {
     const [phone, setPhone] = useState<string>('');
 
     async function fetchPhone(e: string) {
-        let token : String = await PostService.sendPhone(e);
+        let token : string = await PostService.sendPhone(e);
+        let newToken = token
+        sessionStorage.setItem('isToken', newToken)
         setIsToken(token)
     }
 

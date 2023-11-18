@@ -42,12 +42,12 @@ const Header:FC<HeaderProps> = ({login}) => {
 
     async function fetchProfileData(token: string) {
         let profileData = await PostService.getProfileData(token);
-        console.log('Инфа о пользователе при открытии меню: ' + JSON.stringify(profileData))
+        // console.log('Инфа о пользователе при открытии меню: ' + JSON.stringify(profileData))
         setProfData(profileData);
     }
 
     function openProfileMenu() {
-        const temporaryToken = localStorage.getItem('isToken');
+        const temporaryToken = sessionStorage.getItem('isToken');
         setIsToken(temporaryToken)
         console.log('Токен при открытии меню: ' + temporaryToken)
         if (temporaryToken) 

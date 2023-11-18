@@ -94,7 +94,7 @@ const SignUp:FC<SignUpProps> = ({isOpenSignUp}) => {
 
     async function getProfileData(token: string) {
         setData(await PostService.getProfileData(token));
-        console.log('Получение данных юзера'+JSON.stringify(data))
+        // console.log('Получение данных юзера'+JSON.stringify(data))
     }
     
     // const googleLogin = useGoogleLogin({

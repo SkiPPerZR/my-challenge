@@ -23,25 +23,21 @@ const LogIn:FC<LogInProps> = ({isOpenLogIn}) => {
     const [logInVar, setLogInVar] = useState(false);
 
     const closeSideBar = () => {
-        fetchProfileData()
+        // fetchProfileData()
         isOpenLogIn(false)
     }
 
     const navigate = useNavigate();
 
-    async function fetchProfileData() {
-        await PostService.sendSettingProfile(data);
-    }
-
     return (
         <div className='LogIn_overlay' onClick={closeSideBar}>
             <div onClick={(e) => e.stopPropagation()} className='LogIn_box'>
-                <div className="SignUpClose">
+                <div className="LogInClose">
                     <button onClick={closeSideBar}>
                         <img src={close} alt="Закрыть" />
                     </button>
                 </div>
-                <div className="SignUpTitle">
+                <div className="LogInTitle">
                     <img src={icon} alt="Вход" />
                     <h2 className="title-25 semibold">Вход</h2>
                 </div> 

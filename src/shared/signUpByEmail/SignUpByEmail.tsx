@@ -38,8 +38,9 @@ const SignUpByEmail:FC<SignUpByEmailProps> = ({UserDate}) => {
 
     async function fetchEmail(email : string, password : string) {
         let token = await PostService.emailSignUp(email, password);
-        // console.log('В отправке почты Token: '+token)
-        setIsToken(token)
+        let newToken = token
+        sessionStorage.setItem('isToken', newToken)
+        setIsToken(newToken)
     }
 
     async function fetchCode(code : string, token : string) {
@@ -135,8 +136,7 @@ const SignUpByEmail:FC<SignUpByEmailProps> = ({UserDate}) => {
             setCode(true)
             setEmailError(false)
             setPassError(false)
-            let tokenEmail = fetchEmail(emailCheck, passCheck)
-            setIsToken(tokenEmail)
+            fetchEmail(emailCheck, passCheck)
             setEmailPass(false)
         }
     }

@@ -32,8 +32,10 @@ const LogInByEmail:FC<LogInByEmailProps> = ({toggle}) => {
     async function fetchLogin(email : string, password : string) {
         let message = await PostService.emailLogin(email, password);
         // console.log('В отправке почты и пароля Token: '+message.token)
-        sessionStorage.setItem('isToken', message.token);
-        setIsToken(message.token)
+        let newToken = message.token
+        sessionStorage.setItem('isToken', newToken)
+        // console.log('Запись данных в хранилище сессии: '+ newToken);
+        setIsToken(newToken)
     }
 
     const handleClick = () => {
