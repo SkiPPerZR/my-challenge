@@ -15,19 +15,33 @@ const FormInterests:FC<FormInterestsProps> = ({onClick, dataCat}) => {
     const {isToken, setIsToken} = useContext(TokenContext);
     const [switcher, setSwitcher] = useState(false);
     const [switcherSub, setSwitcherSub] = useState(false);
-    const [idForSub, setIdForSub] = useState('')
+    const [checked, setChecked] = useState([]);
 
     const [dataCategory, setDataCategory] = useState<IData>()
     const [category, setCategory] = useState<ICategory | null>(null);
     const [categorySub, setCategorySub] = useState<ICategorySub[]>([]);
 
     const addValue = (field: string, value: string) => {
-        console.log(data)
+        // console.log(data)
         setData((prevData: any) => ({
             ...prevData,
             [field]: [...prevData[field], value]
         }));
     };
+
+    // const handleCheck = (event: React.ChangeEvent<HTMLInputElement>): void => {
+    //     let updatedList: string[] = [...checked];
+    //     const value : string = event.target.value
+      
+    //     if (event.target.checked) {
+    //         updatedList = [...checked, value];
+    //       } else {
+    //         updatedList.splice(checked.indexOf(value), 1);
+    //       }
+    //     }
+    //     setChecked(updatedList);
+    //     console.log("Проверка списка категорий: "+JSON.stringify(updatedList))
+    //   };
 
     useEffect(()=>{
         setDataCategory(dataCat)
@@ -65,8 +79,11 @@ const FormInterests:FC<FormInterestsProps> = ({onClick, dataCat}) => {
                     {dataCategory && (
                         <>
                             {dataCategory.category.map((category) => (
-                                <CheckboxCategory key={category.id} category={category} turn={() => handleCategoryChange(category)} onClick={()=>{addValue('category', category.id)}}/>
+                                <CheckboxCategory key={category.id} category={category} value={category.name} turn={() => handleCategoryChange(category)} onClick={()=>{addValue('category', category.id)}}/>
                             ))}
+                            {/* {dataCategory.category.map((category, item) => (
+                                <CheckboxCategory key={category.id} category={category} value={item} turn={()=>handleCheck} onClick={()=>{addValue('category', category.id)}}/>
+                            ))} */}
                         </>
                     )}
                 </div>

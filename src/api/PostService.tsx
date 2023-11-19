@@ -7,7 +7,7 @@ import { ISetting } from "../interfaces/ISettings";
 import { ILogin } from "../interfaces/ILogin";
 
 const TOKEN = '82d586feb901a2dc7ee622cdb693240870cbe714ecaedf2edab0cda81eb7fe20302fe398c5456a72820205eb4cd41e96c6a48c1106df4cde09d054693eea7a4f'
-const MYTOKEN = '2a040f2e44c002c9ee46e44e3cc43c74dfa2e8c4f4969ba956003b95f13ffd149eacbf5b3679c05e7a36438a14138a5f879142888116b7c52189a4c5335b127b'
+const MYTOKEN = '016679a85c971d20b4d00215e3fd2a24f5cddf09e70751e3b49d803f33777ad6e9be56be4c27bf341c3a6dbd5aed958e748ab95664be85e6264f4718de75e46a'
 
 export default class PostService {
     static async sendRawData(data : String, url:String) : Promise<AxiosResponse> {
@@ -220,7 +220,7 @@ export default class PostService {
         return statusCode.toString();
     }
 
-    static async getProfileData(token : string) : Promise<ISetting> {
+    static async getProfileData(token : string | null) : Promise<ISetting> {
         let data = {
             token: token
         }

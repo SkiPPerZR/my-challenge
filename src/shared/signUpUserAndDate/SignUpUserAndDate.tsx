@@ -1,7 +1,7 @@
-import React, { FC, createContext, useContext, useEffect, useState } from 'react';
+import React, { FC, useContext, useReducer, useState } from 'react';
 import './SignUpUserAndDate.scss'
 import PostService from '../../api/PostService';
-import { ProfileData, TokenContext } from '../../context';
+import { AuthContext, ProfileData, TokenContext } from '../../context';
 
 interface SignUpUserAndDateProps {
     returnToChooseSignUp: () => void;
@@ -10,23 +10,28 @@ interface SignUpUserAndDateProps {
 
 const SignUpUserAndDate:FC<SignUpUserAndDateProps> = ({returnToChooseSignUp, chooseAfterReg}) => {
     const { data, setData } = useContext(ProfileData);
+    const {isToken, setIsToken} = useContext(TokenContext);
+    const {isAuth, setIsAuth} = useContext(AuthContext);
 
     const [dateCheck, setCheckDate] = useState('');
-    const [errorDate, setErrorDate] = useState(false);
+    // const [errorDate, setErrorDate] = useState(false);
+    let checkStatusDate : boolean = false;
     const currentDay: string = new Date().toISOString().split('T')[0];
 
     const [nicknameCheck, setNickname] = useState('');
-    const [errorNickname, setErrorNickname] = useState(false);
+    // const [errorNickname, setErrorNickname] = useState(false);
+    let checkStatusNickname : boolean = false;
 
     function checkNick() {
         setNickname(nicknameCheck)
         // console.log("Проверка ввода Ника: " + nicknameCheck)
         const usernameRegex = /^[a-zA-Z0-9_-]{3,16}$/;
         if (!usernameRegex.test(String(nicknameCheck))) {
-            setErrorNickname(true)
-            // console.log("Ошибка ника" + errorNickname)
+            // setErrorNickname(true)
+            checkStatusNickname = true;
+            console.log("Ошибка ника" + checkStatusNickname)
         } else {
-            setErrorNickname(false)
+            checkStatusNickname = false;
         }
     }
 
@@ -44,10 +49,12 @@ const SignUpUserAndDate:FC<SignUpUserAndDateProps> = ({returnToChooseSignUp, cho
         const isDateValid = inputDate >= minDateFormatted;
 
         if (isDateValid) {
-            setErrorDate(true)
-            // console.log("Ошибка даты" + errorDate)
+            // setErrorDate(true)
+            checkStatusDate = true;
+            console.log("Ошибка даты" + checkStatusDate)
         } else {
-            setErrorDate(false)
+            // setErrorDate(false)
+            checkStatusDate = false;
         }
     };
 
@@ -64,11 +71,11 @@ const SignUpUserAndDate:FC<SignUpUserAndDateProps> = ({returnToChooseSignUp, cho
         checkDate()
         // console.log('значение проверки ника: ' + errorNickname)
         // console.log('значение проверки даты: ' + errorDate)
-        if (!errorDate && !errorNickname) {
+        if (checkStatusDate === false && checkStatusNickname === false) {
             console.log('Ты зарегестрирован!')
             chooseAfterReg()
             handleField1Change(nicknameCheck,dateCheck)
-        } else if (errorDate || errorNickname){
+        } else if (checkStatusDate === true || checkStatusNickname === true){
             console.log('Ты не зарегестрирован!')
         }
     }
@@ -86,16 +93,16 @@ const SignUpUserAndDate:FC<SignUpUserAndDateProps> = ({returnToChooseSignUp, cho
                 </div>
             </div>
             <span className="text-14 medium notice">
-                {errorNickname && errorDate
+                {!checkStatusNickname && !checkStatusDate
                     ?   
                         <>Ник должен быть длинной от 3 до 16 символов, <br/> может содержать символы _ и -<br/><br/>Вы должны быть старше 14 лет</>
                     :  
                         <>
-                            {errorNickname
+                            {!checkStatusNickname
                                 ? <>Ник должен быть длинной от 3 до 16 символов, <br/> может содержать символы _ и -<br/><br/></>
                                 : <></>
                             }
-                            {errorDate
+                            {!checkStatusDate
                                 ? <div className='plusIndent'>Вы должны быть старше 14 лет</div>
                                 : <></>
                             }

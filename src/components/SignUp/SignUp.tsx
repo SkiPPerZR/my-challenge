@@ -50,7 +50,7 @@ const SignUp:FC<SignUpProps> = ({isOpenSignUp, reChoose}) => {
     const [chooseInterests, setChooseInterests] = useState(false);
     const [settingsProfile, setSettingsProfile] = useState(false);
     const [afterReg, setAfterReg] = useState(false);
-    const [UserDateinput, setUserDateInput] = useState(true);
+    const [UserDateinput, setUserDateInput] = useState(false);
     const [chooseSignUp, setChooseSignUp] = useState(false);
     const [signUpVar, setSignUpVar] = useState(false);
 
@@ -66,7 +66,10 @@ const SignUp:FC<SignUpProps> = ({isOpenSignUp, reChoose}) => {
             fetchImageUpload()
             // console.log('Нынешний токен: '+ isToken)
             setIsAuth(true)
-            getProfileData(isToken)
+            let newToken = sessionStorage.getItem('isToken')
+            getProfileData(newToken)
+            // eslint-disable-next-line no-restricted-globals
+            location.reload()
         } else (
             isOpenSignUp(false)
         )
@@ -95,10 +98,10 @@ const SignUp:FC<SignUpProps> = ({isOpenSignUp, reChoose}) => {
 
     async function fetchProfileData() {
         await PostService.sendSettingProfile(data);
-        console.log('Отправка данных юзера'+JSON.stringify(data))
+        // console.log('Отправка данных юзера'+JSON.stringify(data))
     }
 
-    async function getProfileData(token: string) {
+    async function getProfileData(token: string | null) {
         setData(await PostService.getProfileData(token));
         // console.log('Получение данных юзера'+JSON.stringify(data))
     }

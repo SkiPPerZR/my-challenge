@@ -48,6 +48,8 @@ const ProfileMenu:FC<ProfileMenuProps> = ({setOpenProfileStatus, profData}) => {
         setIsAuth(false)
         sessionStorage.setItem('isAuth', 'false')
         navigateToMain()
+        // eslint-disable-next-line no-restricted-globals
+        location.reload()
     }
 
     return (
