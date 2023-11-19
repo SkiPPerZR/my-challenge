@@ -74,6 +74,9 @@
         }
         &:nth-child(2) span {
             color: var(--intElements);
+            &:hover {
+                cursor: pointer;
+            }
         }
         & button {
             color: var(--Button_Label);

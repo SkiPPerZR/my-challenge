@@ -95,8 +95,8 @@ const Header:FC<HeaderProps> = ({login}) => {
                         <LoginButton children='Вход' toggle={toggle} toggleStatus={setOpenLogInStatus}/>
                         <SignUpButton children='Регистрация' toggle={toggle} toggleStatus={setOpenSignUpStatus}/>
                     </div>
-                        {openSignUpStatus && <SignUp isOpenSignUp={setOpenSignUpStatus}/>}
-                        {openLogInStatus && <LogIn isOpenLogIn={setOpenLogInStatus}/>}
+                        {openSignUpStatus && <SignUp isOpenSignUp={setOpenSignUpStatus} reChoose={setOpenLogInStatus}/>}
+                        {openLogInStatus && <LogIn isOpenLogIn={setOpenLogInStatus} reChoose={setOpenSignUpStatus}/>}
                 </>
             }
 

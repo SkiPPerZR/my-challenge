@@ -8,9 +8,10 @@ import PostService from '../../api/PostService';
 
 interface LogInByEmailProps {
     toggle: () => void;
+    reChoose: Function;
 }
 
-const LogInByEmail:FC<LogInByEmailProps> = ({toggle}) => {
+const LogInByEmail:FC<LogInByEmailProps> = ({toggle, reChoose}) => {
     const [emailCheck, setEmailCheck] = useState('');
     const [is_error_email, setEmailError] = useState(false);
 
@@ -34,7 +35,6 @@ const LogInByEmail:FC<LogInByEmailProps> = ({toggle}) => {
         // console.log('В отправке почты и пароля Token: '+message.token)
         let newToken = message.token
         sessionStorage.setItem('isToken', newToken)
-        sessionStorage.setItem('isAuth', 'true')
         // console.log('Запись данных в хранилище сессии: '+ newToken);
         setIsToken(newToken)
     }
@@ -98,7 +98,10 @@ const LogInByEmail:FC<LogInByEmailProps> = ({toggle}) => {
         checkPass()
         if (!is_error_email) {
             console.log('Ты вошел!')
-            setIsAuth(true)
+            sessionStorage.setItem('isAuth', 'true')
+            // eslint-disable-next-line no-restricted-globals
+            location.reload()
+            console.log('isAuth: '+isAuth)
             toggle()
         }
     }
@@ -135,7 +138,7 @@ const LogInByEmail:FC<LogInByEmailProps> = ({toggle}) => {
             </div>
             <div className='LogInByEmailState'>
                 <div>
-                    <span className='text-14 regular'>У вас нет аккаунта? Зарегистрируйтесь</span> 
+                    <span className='text-14 regular' onClick={()=>reChoose()}>У вас нет аккаунта? Зарегистрируйтесь</span> 
                     <button className='text-17 semibold' onClick={() => checkEmailConfirmed()}>Войти</button>
                 </div>
             </div>

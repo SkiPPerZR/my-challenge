@@ -31,9 +31,10 @@ import { ICategory, ICategorySub, IData} from '../../interfaces/IResponse'
 
 interface SignUpProps {
     isOpenSignUp: Function;
+    reChoose: Function;
 }
  
-const SignUp:FC<SignUpProps> = ({isOpenSignUp}) => {
+const SignUp:FC<SignUpProps> = ({isOpenSignUp, reChoose}) => {
 
     const {isAuth, setIsAuth} = useContext(AuthContext);
     const {isToken, setIsToken} = useContext(TokenContext);
@@ -53,12 +54,17 @@ const SignUp:FC<SignUpProps> = ({isOpenSignUp}) => {
     const [chooseSignUp, setChooseSignUp] = useState(false);
     const [signUpVar, setSignUpVar] = useState(false);
 
+    const reChooseFunc = () => {
+        isOpenSignUp(false)
+        reChoose(true)
+    }
+
     const closeSideBar = () => {
         if (afterReg) {
             isOpenSignUp(false)
             fetchProfileData()
             fetchImageUpload()
-            console.log('Нынешний токен: '+ isToken)
+            // console.log('Нынешний токен: '+ isToken)
             setIsAuth(true)
             getProfileData(isToken)
         } else (
@@ -198,9 +204,9 @@ const SignUp:FC<SignUpProps> = ({isOpenSignUp}) => {
                                                                     </div> 
                                                                     {signUpVar
                                                                         ?
-                                                                            <SignUpByNumber UserDate={() => setUserDateInput(true)}/>
+                                                                            <SignUpByNumber UserDate={() => setUserDateInput(true)} reChoose={reChooseFunc}/>
                                                                         :
-                                                                            <SignUpByEmail UserDate={() => setUserDateInput(true)}/>
+                                                                            <SignUpByEmail UserDate={() => setUserDateInput(true)} reChoose={reChooseFunc}/>
                                                                     }
                                                                 </>
                                                                 :

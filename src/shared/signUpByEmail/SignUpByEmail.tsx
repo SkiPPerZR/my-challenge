@@ -10,9 +10,10 @@ import { TokenContext } from '../../context';
 
 interface SignUpByEmailProps {
     UserDate: () => void;
+    reChoose: Function;
 }
 
-const SignUpByEmail:FC<SignUpByEmailProps> = ({UserDate}) => {
+const SignUpByEmail:FC<SignUpByEmailProps> = ({UserDate, reChoose}) => {
     const [code, setCode] = useState(false);
     const [emailPass, setEmailPass] = useState(true);
 
@@ -251,7 +252,7 @@ const SignUpByEmail:FC<SignUpByEmailProps> = ({UserDate}) => {
                                 <span className='text-14 regular'>Шаг 1 из 2</span>
                             </div>
                             <div>
-                                <span className='text-14 regular'>У вас уже есть аккаунт? Войти</span> 
+                                <span className='text-14 regular' onClick={()=>reChoose()}>У вас уже есть аккаунт? Войти</span> 
                                 <button className='text-17 semibold' onClick={() => checkEmailConfirmed()}>Зарегистрировать</button>
                             </div>
                         </div>
@@ -282,7 +283,7 @@ const SignUpByEmail:FC<SignUpByEmailProps> = ({UserDate}) => {
                                 <span className='text-14 regular'>Шаг 1 из 2</span>
                             </div>
                             <div>
-                                <span className='text-14 regular'>У вас уже есть аккаунт? Войти</span>
+                            <span className='text-14 regular' onClick={()=>reChoose()}>У вас уже есть аккаунт? Войти</span> 
                                 <button className='text-17 semibold' onClick={() => checkCodeConfirmed()}>Отправить код</button>
                             </div>
                         </div>

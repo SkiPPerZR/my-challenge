@@ -12,19 +12,11 @@ const SignUpUserAndDate:FC<SignUpUserAndDateProps> = ({returnToChooseSignUp, cho
     const { data, setData } = useContext(ProfileData);
 
     const [dateCheck, setCheckDate] = useState('');
-    const [is_error_date, setErrorDate] = useState(false);
+    const [errorDate, setErrorDate] = useState(false);
     const currentDay: string = new Date().toISOString().split('T')[0];
 
     const [nicknameCheck, setNickname] = useState('');
-    const [is_error_nickname, setErrorNickname] = useState(false);
-
-    const handleField1Change = (nick: string, date: string) => {
-        setData((prevData: any) => ({
-          ...prevData,
-          nick: nick,
-          date_of_birth: date,
-        }));
-      };
+    const [errorNickname, setErrorNickname] = useState(false);
 
     function checkNick() {
         setNickname(nicknameCheck)
@@ -32,7 +24,7 @@ const SignUpUserAndDate:FC<SignUpUserAndDateProps> = ({returnToChooseSignUp, cho
         const usernameRegex = /^[a-zA-Z0-9_-]{3,16}$/;
         if (!usernameRegex.test(String(nicknameCheck))) {
             setErrorNickname(true)
-            console.log("Ошибка ника")
+            // console.log("Ошибка ника" + errorNickname)
         } else {
             setErrorNickname(false)
         }
@@ -52,21 +44,31 @@ const SignUpUserAndDate:FC<SignUpUserAndDateProps> = ({returnToChooseSignUp, cho
         const isDateValid = inputDate >= minDateFormatted;
 
         if (isDateValid) {
-            console.log("Ошибка даты")
             setErrorDate(true)
+            // console.log("Ошибка даты" + errorDate)
         } else {
             setErrorDate(false)
         }
     };
 
+    const handleField1Change = (nick: string, date: string) => {
+        setData((prevData: any) => ({
+          ...prevData,
+          nick: nick,
+          date_of_birth: date,
+        }));
+      };
+
     function sendNickDate () {
         checkNick()
         checkDate()
-        if (!is_error_date && !is_error_nickname) {
+        // console.log('значение проверки ника: ' + errorNickname)
+        // console.log('значение проверки даты: ' + errorDate)
+        if (!errorDate && !errorNickname) {
             console.log('Ты зарегестрирован!')
             chooseAfterReg()
             handleField1Change(nicknameCheck,dateCheck)
-        } else if (is_error_date || is_error_nickname){
+        } else if (errorDate || errorNickname){
             console.log('Ты не зарегестрирован!')
         }
     }
@@ -84,16 +86,16 @@ const SignUpUserAndDate:FC<SignUpUserAndDateProps> = ({returnToChooseSignUp, cho
                 </div>
             </div>
             <span className="text-14 medium notice">
-                {is_error_nickname && is_error_date
+                {errorNickname && errorDate
                     ?   
                         <>Ник должен быть длинной от 3 до 16 символов, <br/> может содержать символы _ и -<br/><br/>Вы должны быть старше 14 лет</>
                     :  
                         <>
-                            {is_error_nickname
+                            {errorNickname
                                 ? <>Ник должен быть длинной от 3 до 16 символов, <br/> может содержать символы _ и -<br/><br/></>
                                 : <></>
                             }
-                            {is_error_date
+                            {errorDate
                                 ? <div className='plusIndent'>Вы должны быть старше 14 лет</div>
                                 : <></>
                             }

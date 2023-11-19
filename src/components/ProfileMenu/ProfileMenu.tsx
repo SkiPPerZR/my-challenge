@@ -22,6 +22,10 @@ interface ProfileMenuProps {
 
 const ProfileMenu:FC<ProfileMenuProps> = ({setOpenProfileStatus, profData}) => {
     const {isAuth, setIsAuth} = useContext(AuthContext);
+
+    const [coverProfMenu, setCoverProfMenu] = useState(true);
+    const [openSettings, setOpenSetting] = useState(false);
+
     const navigate = useNavigate();
     const navigateToProfile = () => {
       navigate('/profile');
@@ -29,12 +33,16 @@ const ProfileMenu:FC<ProfileMenuProps> = ({setOpenProfileStatus, profData}) => {
     const navigateToMain = () => {
         navigate('/');
       }
-    const [openSettings, setOpenSetting] = useState(false);
     const {isOpen, toggle} = useModal();
 
     const closeSideBar = () => {
         setOpenProfileStatus(false)
       }
+
+    const navSettingsBar = () => {
+        setCoverProfMenu(false)
+        setOpenSetting(true)
+    }
 
     const exitAuth = () => {
         setIsAuth(false)
@@ -43,24 +51,33 @@ const ProfileMenu:FC<ProfileMenuProps> = ({setOpenProfileStatus, profData}) => {
     }
 
     return (
-        <div className="ProfileMenu-overlay" onClick={closeSideBar}>
-            <div onClick={(e) => e.stopPropagation()} className="ProfileMenu">
-                <div className="ProfileMenuName">
-                    <span className='title-18 semibold'>{profData.nick}</span>
-                    <span className='text-14 regular'>#1234 API</span>
-                </div>
-                <div className="ProfileMenuItems">
-                    <ProfileItem icon={profile} title='Профиль' nav={navigateToProfile}/>
-                    <ProfileItem icon={premium} title='Премиум'/>
-                    <ProfileItem icon={gift} title='Подарить золото'/>
-                    <ProfileItem icon={settings} title='Настройки' nav={()=>setOpenSetting(true)}/>
-                    <ProfileItem icon={archive} title='Архив'/>
-                    <ProfileItem icon={help} title='Помощь'/>
-                    <ProfileItem icon={log_out} title='Выйти из профиля' nav={exitAuth}/>
-                </div>
-                {openSettings && <Settings setOpenSetting={()=>setOpenSetting(false)}/>}
-            </div>
-        </div>
+        <>
+            {coverProfMenu
+                ?
+                    <div className="ProfileMenu-overlay" onClick={closeSideBar}>
+                        <div onClick={(e) => e.stopPropagation()} className="ProfileMenu">
+                            <div className="ProfileMenuName">
+                                <span className='title-18 semibold'>{profData.nick}</span>
+                                <span className='text-14 regular'>#1234 API</span>
+                            </div>
+                            <div className="ProfileMenuItems">
+                                <ProfileItem icon={profile} title='Профиль' nav={navigateToProfile}/>
+                                <ProfileItem icon={premium} title='Премиум'/>
+                                <ProfileItem icon={gift} title='Подарить золото'/>
+                                <ProfileItem icon={settings} title='Настройки' nav={navSettingsBar}/>
+                                <ProfileItem icon={archive} title='Архив'/>
+                                <ProfileItem icon={help} title='Помощь'/>
+                                <ProfileItem icon={log_out} title='Выйти из профиля' nav={exitAuth}/>
+                            </div>
+                            
+                        </div>
+                    </div>
+                :   
+                    <>
+                        {openSettings && <Settings setOpenSetting={()=>setOpenSetting(false)}/>}
+                    </>
+            }
+        </>
     );
 };
 

@@ -7,12 +7,13 @@ import { TokenContext } from '../../context';
 
 interface SignUpByNumberProps {
     UserDate: () => void;
+    reChoose: Function;
 }
 
 // test number: 9046487401 code 6028
 
 // text number: 9001110933 code ****
-const SignUpByNumber:FC<SignUpByNumberProps> = ({UserDate}) => {
+const SignUpByNumber:FC<SignUpByNumberProps> = ({UserDate,reChoose}) => {
     const [code, setCode] = useState(false);
     const [phonePass, setPhonePass] = useState(true)
 
@@ -103,12 +104,9 @@ const SignUpByNumber:FC<SignUpByNumberProps> = ({UserDate}) => {
     function checkPhone() {
         // console.log('Я вызвался!' + phoneCheck.length)
         let cleanNumber = phoneCheck.replace(/\D/g, '');
-        const re = /^(\+7|8)9\d{9}$/
-        if (!re.test(cleanNumber)) {
+        const re = /^[78]9\d{9}$/
+        if (!re.test(cleanNumber) || cleanNumber.length > 11 || cleanNumber.length < 10) {
             // console.log('Я вызвался снова!') 
-            setPhoneError(true)
-        } else if (phoneCheck.length > 11 || phoneCheck.length < 10) {
-            // console.log('Я вызвался снова и снова!') 
             setPhoneError(true)
         } else if (isTerms === false || isPrivacy === false) {
             setCode(false)
@@ -196,7 +194,7 @@ const SignUpByNumber:FC<SignUpByNumberProps> = ({UserDate}) => {
                                 <span className='text-14 regular'>Шаг 1 из 2</span>
                             </div>
                             <div>
-                                <span className='text-14 regular'>У вас уже есть аккаунт? Войти</span>
+                                <span className='text-14 regular' onClick={()=>reChoose()}>У вас уже есть аккаунт? Войти</span>
                                 <button className='text-17 semibold' onClick={() => checkPhoneConfirmed()}>Зарегистрировать</button>
                             </div>
                         </div>
@@ -227,7 +225,7 @@ const SignUpByNumber:FC<SignUpByNumberProps> = ({UserDate}) => {
                             <span className='text-14 regular'>Шаг 1 из 2</span>
                         </div>
                         <div>
-                            <span className='text-14 regular'>У вас уже есть аккаунт? Войти</span>
+                        <span className='text-14 regular' onClick={()=>reChoose()}>У вас уже есть аккаунт? Войти</span>
                             <button className='text-17 semibold' onClick={() => checkCodeConfirmed()}>Отправить код</button>
                         </div>
                     </div>

@@ -75,6 +75,9 @@
         align-items: center;
         & span {
             color: var(--intElements);
+            &:hover {
+                cursor: pointer;
+            }
         }
         & button {
             color: var(--Button_Label);

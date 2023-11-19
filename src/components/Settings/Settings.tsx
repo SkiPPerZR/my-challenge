@@ -52,12 +52,17 @@ const Settings:FC<SettingsProps> = ({setOpenSetting}) => {
         }
     }
 
+    function openDelItem() {
+        setCoverSettings(true)
+        setDeleteProf(true)
+    }
+
     return (
         <>
             {coverSettings 
                 ?
                     <>
-                        {isOpen && <DeleteProfile setDeleteProf={toggle} close={()=>setCoverSettings(false)}/>}
+                        {deleteProf && <DeleteProfile setDeleteProf={toggle} close={()=>setCoverSettings(false)}/>}
                         {editProfile && <EditProfile name='Редактирование профиля' setEditProfile={()=>setEditProfile(false)}/>}
                     </>
                 :   
@@ -77,7 +82,7 @@ const Settings:FC<SettingsProps> = ({setOpenSetting}) => {
                                 <SettingsItem name='Номер телефона' icon={phone} theme={ItemTheme.standart} func={()=>{}}/>
                                 <SettingsItem name='Почта и пароль' icon={email} theme={ItemTheme.standart} func={()=>{}}/>
                                 <SettingsItem name='Верификация для блогеров' icon={blogger} theme={ItemTheme.blogger} func={()=>{}}/>
-                                <SettingsItem name='Удалить аккаунт' icon={del} theme={ItemTheme.delete} func={toggle}/>
+                                <SettingsItem name='Удалить аккаунт' icon={del} theme={ItemTheme.delete} func={()=>openDelItem}/>
                             </div>
                         </div>
                     </div>

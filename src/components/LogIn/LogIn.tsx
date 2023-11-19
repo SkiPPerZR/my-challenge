@@ -15,22 +15,30 @@ import { ProfileData } from '../../context'
 
 interface LogInProps {
     isOpenLogIn: Function;
+    reChoose: Function;
 }
 
-const LogIn:FC<LogInProps> = ({isOpenLogIn}) => {
+const LogIn:FC<LogInProps> = ({isOpenLogIn, reChoose}) => {
     const {data, setData} = useContext(ProfileData);
     const [chooseLogIn, setChooseLogIn] = useState(false);
     const [logInVar, setLogInVar] = useState(false);
 
+    const reChooseFunc = () => {
+        isOpenLogIn(false)
+        reChoose(true)
+    }
+
     const closeSideBar = () => {
+        if (chooseLogIn === true) {
+            setChooseLogIn(false)
+            isOpenLogIn(false)
+        }
         isOpenLogIn(false)
     }
 
-    const navigate = useNavigate();
-
     return (
-        <div className='LogIn_overlay' onClick={closeSideBar}>
-            <div onClick={(e) => e.stopPropagation()} className='LogIn_box'>
+        <div className='LogIn_overlay' onMouseDown={closeSideBar}>
+            <div onMouseDown={(e) => e.stopPropagation()} className='LogIn_box'>
                 <div className="LogInClose">
                     <button onClick={closeSideBar}>
                         <img src={close} alt="Закрыть" />
@@ -45,9 +53,9 @@ const LogIn:FC<LogInProps> = ({isOpenLogIn}) => {
                     <>
                         {logInVar
                             ?
-                                <LogInByNumber toggle={() => setChooseLogIn(false)}/>
+                                <LogInByNumber toggle={closeSideBar} reChoose={reChooseFunc}/>
                             :
-                                <LogInByEmail toggle={() => setChooseLogIn(false)}/>
+                                <LogInByEmail toggle={closeSideBar} reChoose={reChooseFunc}/>
                         }
                     </>
                     :

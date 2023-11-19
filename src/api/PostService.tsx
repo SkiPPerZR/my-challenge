@@ -231,7 +231,7 @@ export default class PostService {
 
     static async getCategory(token : string) : Promise<IResponse> {
         let data = {
-            token: MYTOKEN
+            token: token
         }
         let response = await PostService.sendRawData(JSON.stringify(data), 'data.php');
 
@@ -240,7 +240,7 @@ export default class PostService {
 
     static async getCities(token: string, letter: string) : Promise<ICity> {
         let data = {
-            token: MYTOKEN,
+            token: token,
             letter: letter
         };
         let response = await PostService.sendRawData(JSON.stringify(data), 'city_by_letter.php');

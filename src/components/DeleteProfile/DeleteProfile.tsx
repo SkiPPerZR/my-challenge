@@ -14,16 +14,16 @@ interface DeleteProfileProps {
 
 const DeleteProfile:FC<DeleteProfileProps> = ({setDeleteProf, close}) => {
     const {isToken, setIsToken} = useContext(TokenContext)
-    const [del, setDel] = useState('')
+    const [deleteProfile, setDeleteProfile] = useState('')
 
-    async function fetchDeleteAccount(token: string){
-        let deleteAc = await PostService.deleteAccount(token)
-        if (deleteAc === token) {
-            setDel('Ваш аккаунт успешно удален. Если захотите, вы сможите его восстановить в течение года')
-        } else {
-            console.log('Что-то пошло не так и аккаунт пользователя не удалился')
-        }
-    }
+    // async function fetchDeleteAccount(token: string){
+    //     let deleteAc = await PostService.deleteAccount(token)
+    //     if (deleteAc === token) {
+    //         console.log('Ваш аккаунт успешно удален. Если захотите, вы сможите его восстановить в течение года')
+    //     } else {
+    //         console.log('Что-то пошло не так и аккаунт пользователя не удалился')
+    //     }
+    // }
 
     function closeWindow() {
         setDeleteProf()
@@ -32,9 +32,7 @@ const DeleteProfile:FC<DeleteProfileProps> = ({setDeleteProf, close}) => {
 
     // function deleteAccout() {
     //     fetchDeleteAccount(isToken);
-    //     setTimeout(() => {
-    //         setDeleteProf()
-    //     }, 5000);
+    //     setDeleteProf()
     // }
 
     return (

@@ -6,10 +6,11 @@ import { AuthContext, TokenContext } from '../../context';
 
 interface LogInByNumberProps {
     toggle: () => void;
+    reChoose: Function;
 }
 
 
-const LogInByNumber:FC<LogInByNumberProps> = ({toggle}) => {
+const LogInByNumber:FC<LogInByNumberProps> = ({toggle, reChoose}) => {
     const [code, setCode] = useState(false);
     const [phonePass, setPhonePass] = useState(true)
 
@@ -85,12 +86,9 @@ const LogInByNumber:FC<LogInByNumberProps> = ({toggle}) => {
     function checkPhone() {
         // console.log('Я вызвался!' + phoneCheck.length)
         let cleanNumber = phoneCheck.replace(/\D/g, '');
-        const re = /^(\+7|8)9\d{9}$/
-        if (!re.test(cleanNumber)) {
+        const re = /^[78]9\d{9}$/
+        if (!re.test(cleanNumber) || cleanNumber.length > 11 || cleanNumber.length < 10) {
             // console.log('Я вызвался снова!') 
-            setPhoneError(true)
-        } else if (phoneCheck.length > 11 || phoneCheck.length < 10) {
-            // console.log('Я вызвался снова и снова!') 
             setPhoneError(true)
         } else if (is_error_phone_base === true) {
             setPhonePass(true)
@@ -129,8 +127,11 @@ const LogInByNumber:FC<LogInByNumberProps> = ({toggle}) => {
             // console.log('Проверка checkError: ' + checkError)
             // console.log('Проверка кода: ' + is_error_code)
             if (!checkError && !is_error_phone && code) {
-                // console.log('Ты зарегестрирован!')
-                setIsAuth(true)
+                console.log('Ты вошел!')
+                sessionStorage.setItem('isAuth', 'true')
+                // eslint-disable-next-line no-restricted-globals
+                location.reload()
+                console.log('isAuth: '+isAuth)
                 toggle()
             }
         }
@@ -159,8 +160,8 @@ const LogInByNumber:FC<LogInByNumberProps> = ({toggle}) => {
                     </div>
                     <div className='LogInByNumberState'>
                         <div>
-                            <span className='text-14 regular'>У вас уже есть аккаунт? Войти</span>
-                            <button className='text-17 semibold' onClick={() => checkPhoneConfirmed()}>Зарегистрировать</button>
+                        <span className='text-14 regular' onClick={()=>reChoose()}>У вас нет аккаунта? Зарегистрируйтесь</span>
+                            <button className='text-17 semibold' onClick={() => checkPhoneConfirmed()}>Вход</button>
                         </div>
                     </div>
                 </>
@@ -188,7 +189,7 @@ const LogInByNumber:FC<LogInByNumberProps> = ({toggle}) => {
                     </div>
                     <div className='LogInByNumberState'>
                         <div>
-                            <span className='text-14 regular'>У вас нет аккаунта? Зарегистрируйтесь</span>
+                            <span className='text-14 regular' onClick={()=>reChoose()}>У вас нет аккаунта? Зарегистрируйтесь</span> 
                             <button className='text-17 semibold' onClick={() => checkCodeConfirmed()}>Отправить код</button>
                         </div>
                     </div>

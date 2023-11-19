@@ -28,7 +28,7 @@ const Test = () => {
             <Sidebar backbutton={0}/>
             <div className='Container'>
                 {/* <Header login={isAuth}/> */}
-                <SignUp isOpenSignUp={setIsOpenSignUp}/>
+                {/* <SignUp isOpenSignUp={setIsOpenSignUp}/> */}
             </div>
         </div>
     );
