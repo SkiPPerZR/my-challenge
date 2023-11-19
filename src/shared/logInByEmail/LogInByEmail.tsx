@@ -35,6 +35,7 @@ const LogInByEmail:FC<LogInByEmailProps> = ({toggle, reChoose}) => {
         // console.log('В отправке почты и пароля Token: '+message.token)
         let newToken = message.token
         sessionStorage.setItem('isToken', newToken)
+        sessionStorage.setItem('isAuth', 'true')
         // console.log('Запись данных в хранилище сессии: '+ newToken);
         setIsToken(newToken)
     }
@@ -98,7 +99,6 @@ const LogInByEmail:FC<LogInByEmailProps> = ({toggle, reChoose}) => {
         checkPass()
         if (!is_error_email) {
             console.log('Ты вошел!')
-            sessionStorage.setItem('isAuth', 'true')
             // eslint-disable-next-line no-restricted-globals
             location.reload()
             console.log('isAuth: '+isAuth)

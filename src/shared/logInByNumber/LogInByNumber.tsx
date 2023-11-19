@@ -128,7 +128,6 @@ const LogInByNumber:FC<LogInByNumberProps> = ({toggle, reChoose}) => {
             // console.log('Проверка кода: ' + is_error_code)
             if (!checkError && !is_error_phone && code) {
                 console.log('Ты вошел!')
-                sessionStorage.setItem('isAuth', 'true')
                 // eslint-disable-next-line no-restricted-globals
                 location.reload()
                 console.log('isAuth: '+isAuth)

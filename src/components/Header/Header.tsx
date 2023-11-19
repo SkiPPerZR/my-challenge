@@ -83,7 +83,7 @@ const Header:FC<HeaderProps> = ({login}) => {
                         <UserProfileButton toggle={toggle} toggleStatus={openProfileMenu}/>
                     </nav>
                     <>
-                        {openProfileStatus && profData && <ProfileMenu profData={profData} setOpenProfileStatus={setOpenProfileStatus}/>}
+                        {openProfileStatus && <ProfileMenu profData={profData} setOpenProfileStatus={setOpenProfileStatus}/>}
                         {openPurchStatus && <PurchaseSale setOpenPurchStatus={setOpenPurchStatus}/>}
                         {openMiniModal && <CreateNewChallengeModal setOpenMiniModal={setOpenMiniModal} setOpenSideBar={setOpenSideBar} />}
                         {openSideBar && <CreateNewChallengeSideBar setOpenSideBar={setOpenSideBar}/>}

@@ -50,7 +50,7 @@ const SignUp:FC<SignUpProps> = ({isOpenSignUp, reChoose}) => {
     const [chooseInterests, setChooseInterests] = useState(false);
     const [settingsProfile, setSettingsProfile] = useState(false);
     const [afterReg, setAfterReg] = useState(false);
-    const [UserDateinput, setUserDateInput] = useState(false);
+    const [UserDateinput, setUserDateInput] = useState(true);
     const [chooseSignUp, setChooseSignUp] = useState(false);
     const [signUpVar, setSignUpVar] = useState(false);
 

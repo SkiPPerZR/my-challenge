@@ -16,7 +16,7 @@ import { AuthContext } from '../../context';
 import { ISetting } from '../../interfaces/ISettings';
 
 interface ProfileMenuProps {
-    profData: ISetting;
+    profData: ISetting | null;
     setOpenProfileStatus: Function;
   }
 
@@ -57,7 +57,7 @@ const ProfileMenu:FC<ProfileMenuProps> = ({setOpenProfileStatus, profData}) => {
                     <div className="ProfileMenu-overlay" onClick={closeSideBar}>
                         <div onClick={(e) => e.stopPropagation()} className="ProfileMenu">
                             <div className="ProfileMenuName">
-                                <span className='title-18 semibold'>{profData.nick}</span>
+                                <span className='title-18 semibold'>{profData ? profData.nick : <></>}</span>
                                 <span className='text-14 regular'>#1234 API</span>
                             </div>
                             <div className="ProfileMenuItems">
