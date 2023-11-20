@@ -15,33 +15,55 @@ const FormInterests:FC<FormInterestsProps> = ({onClick, dataCat}) => {
     const {isToken, setIsToken} = useContext(TokenContext);
     const [switcher, setSwitcher] = useState(false);
     const [switcherSub, setSwitcherSub] = useState(false);
-    const [checked, setChecked] = useState([]);
+    const [checkCategory, setCheckCategory] = useState<string[]>([]);
+    const [checkCategorySub, setCheckCategorySub] = useState<string[]>([]);
 
     const [dataCategory, setDataCategory] = useState<IData>()
-    const [category, setCategory] = useState<ICategory | null>(null);
+    const [category, setCategory] = useState<ICategory[]>([]);
     const [categorySub, setCategorySub] = useState<ICategorySub[]>([]);
 
-    const addValue = (field: string, value: string) => {
-        // console.log(data)
+    const addValue = (category: string, category_sub: string) => {
+        //console.log(data)
         setData((prevData: any) => ({
             ...prevData,
-            [field]: [...prevData[field], value]
+            category: [category],
+            category_sub: [category_sub]
         }));
     };
 
-    // const handleCheck = (event: React.ChangeEvent<HTMLInputElement>): void => {
-    //     let updatedList: string[] = [...checked];
-    //     const value : string = event.target.value
+    const handleCategoryCheck = (event: React.ChangeEvent<HTMLInputElement>) => {
+        let updatedList: string[] = [...checkCategory];
+        const value : string = event.target.value;
       
-    //     if (event.target.checked) {
-    //         updatedList = [...checked, value];
-    //       } else {
-    //         updatedList.splice(checked.indexOf(value), 1);
-    //       }
-    //     }
-    //     setChecked(updatedList);
-    //     console.log("Проверка списка категорий: "+JSON.stringify(updatedList))
-    //   };
+        if (event.target.checked) {
+            updatedList = [...checkCategory, value];
+          } else {
+            updatedList.splice(checkCategory.indexOf(value), 1);
+          }
+          //@ts-ignore
+        // const newArray : string[] = checkCategory.map((item) =>{
+        //     return {id: item, name: ''}
+        // })
+        
+        setCheckCategory(updatedList);
+        //console.log(JSON.stringify(categorySub))
+        console.log("Проверка списка категорий: "+JSON.stringify(checkCategory))
+    };
+
+    const handleCategorySubCheck = (event: React.ChangeEvent<HTMLInputElement>) => {
+        let updatedList: string[] = [...checkCategorySub];
+        const value : string = event.target.value;
+      
+        if (event.target.checked) {
+            updatedList = [...checkCategorySub, value];
+          } else {
+            updatedList.splice(checkCategorySub.indexOf(value), 1);
+          }
+        
+        setCheckCategorySub(updatedList);
+        // console.log(JSON.stringify(data))
+        console.log("Проверка списка подкатегорий: "+JSON.stringify(checkCategorySub))
+    };
 
     useEffect(()=>{
         setDataCategory(dataCat)
@@ -50,26 +72,27 @@ const FormInterests:FC<FormInterestsProps> = ({onClick, dataCat}) => {
     useEffect(() => {
         if (dataCategory && category) {
             const filteredCategorySub = dataCategory.category_sub.filter(
-              (item: ICategorySub) => item.id_category === category.id
-            );
+                (item: ICategorySub) => item.id_category = checkCategory[1]
+            )
             setCategorySub(filteredCategorySub);
+            console.log(JSON.stringify(filteredCategorySub))
           }
-    }, [dataCategory, category]);
+    }, [dataCategory, category, checkCategory]);
     
-    const handleCategoryChange = (categoryID: ICategory) => {
-        setSwitcher(!switcher)
-        setCategory(categoryID);
-        if (switcher && dataCategory && category) {
-            const filteredCategorySub = dataCategory.category_sub.filter(
-                (item: ICategorySub) => item.id_category === category.id
-            );
-            setCategorySub(filteredCategorySub);
-        }
-    };
+    // const handleCategoryChange = (categoryID: ICategory) => {
+    //     setSwitcher(!switcher)
+    //     setCategory(categoryID);
+    //     if (switcher && dataCategory && category) {
+    //         const filteredCategorySub = dataCategory.category_sub.filter(
+    //             (item: ICategorySub) => item.id_category === category.id
+    //         );
+    //         setCategorySub(filteredCategorySub);
+    //     }
+    // };
 
-    const handleSwitcher = () => {
-        setSwitcherSub(!switcherSub)
-    }
+    // const handleSwitcher = () => {
+    //     setSwitcherSub(!switcherSub)
+    // }
 
     return (
         <div className='FormInterests'>
@@ -78,12 +101,16 @@ const FormInterests:FC<FormInterestsProps> = ({onClick, dataCat}) => {
                 <div className="FormInterestsCategoryGroup">
                     {dataCategory && (
                         <>
-                            {dataCategory.category.map((category) => (
+                            {/* {dataCategory.category.map((category) => (
                                 <CheckboxCategory key={category.id} category={category} value={category.name} turn={() => handleCategoryChange(category)} onClick={()=>{addValue('category', category.id)}}/>
-                            ))}
-                            {/* {dataCategory.category.map((category, item) => (
-                                <CheckboxCategory key={category.id} category={category} value={item} turn={()=>handleCheck} onClick={()=>{addValue('category', category.id)}}/>
                             ))} */}
+                            {dataCategory.category.map((category) => (
+                                // <CheckboxCategory key={category.id} category={category} turn={handleCheck} onClick={()=>{addValue('category', category.id)}}/>
+                                <div key={category.id}>
+                                    <input type="checkbox" value={category.id} onChange={handleCategoryCheck}/>
+                                    <span>{category.name}</span>
+                                </div>
+                            ))}
                         </>
                     )}
                 </div>
@@ -91,13 +118,28 @@ const FormInterests:FC<FormInterestsProps> = ({onClick, dataCat}) => {
             <div className="FormInterestsSubCategory">
                 <span className='text-14 regular'>Возможно, вам будет интересно</span>
                 <div className="FormInterestsSubCategoryGroup">
-                    {category && (
+                    {checkCategory && (
                         <>
+                            {/* {categorySub.map((category_sub) => (
+                                <CheckboxSubCategory key={category_sub.id} categorySub={category_sub} turn={handleSwitcher} onClick={()=>{addValue('category_sub', category_sub.id)}}/>
+                            ))} */}
+                            {/* {categorySub.map((category_sub) => (
+                                <div key={category_sub.id}>
+                                    <input type="checkbox" value={category_sub.id} onChange={handleCategorySubCheck}/>
+                                    <span>{category_sub.name}</span>
+                                </div>
+                            ))} */}
                             {categorySub.map((category_sub) => (
-                                <CheckboxSubCategory key={category_sub.id} categorySub={category_sub} turn={() => handleSwitcher()} onClick={()=>{addValue('category_sub', category_sub.id)}}/>
+                                <div key={category_sub.id}>
+                                    <input type="checkbox" value={category_sub.id} onChange={handleCategorySubCheck}/>
+                                    <span>{category_sub.name}</span>
+                                </div>
                             ))}
                         </>
                     )}
+                    {/* <div>
+                        {`Items checked are: ${checkedItems}`}
+                    </div> */}
                 </div>
             </div>
             <button className='FormsSettingsButton text-17 semibold' onClick={onClick}>Сохранить</button>

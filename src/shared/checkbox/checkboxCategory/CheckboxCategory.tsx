@@ -4,12 +4,11 @@ import { ICategory } from '../../../interfaces/IResponse';
 
 interface CheckboxCategoryProps {
     category: ICategory;
-    turn: ()=>void;
-    value: any;
+    turn: Function;
     onClick: ()=>void;
 }
 
-const CheckboxCategory:FC<CheckboxCategoryProps> = ({category, turn, onClick, value}) => {
+const CheckboxCategory:FC<CheckboxCategoryProps> = ({category, turn, onClick}) => {
     const [active, setActive] = useState(false)
     const [styleSwitch, setStyleSwitch] = useState<string>('CheckboxCategoryContainer')
     const [styleCircle, setStyleCircle] = useState<string>('CheckboxCategory__circle')
@@ -42,7 +41,7 @@ const CheckboxCategory:FC<CheckboxCategoryProps> = ({category, turn, onClick, va
                         onMouseDown={buttonHandler}>
                         <div className={styleCircle}></div>
                     </label>
-                    <input id={category.id} value={value} type="checkbox" onChange={turn}/>
+                    <input id={category.id} type="checkbox" onChange={(event)=>turn(event.target.value)}/>
                 </div>
             </div>
         </div>

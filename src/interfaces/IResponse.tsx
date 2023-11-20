@@ -8,8 +8,8 @@ export interface IData{
 }
 
 export interface ICategory {
-    id: string;
-    name: string;
+    id: string,
+    name: string
 }
 
 export interface ICategorySub {

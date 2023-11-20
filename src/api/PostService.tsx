@@ -7,7 +7,7 @@ import { ISetting } from "../interfaces/ISettings";
 import { ILogin } from "../interfaces/ILogin";
 
 const TOKEN = '82d586feb901a2dc7ee622cdb693240870cbe714ecaedf2edab0cda81eb7fe20302fe398c5456a72820205eb4cd41e96c6a48c1106df4cde09d054693eea7a4f'
-const MYTOKEN = '016679a85c971d20b4d00215e3fd2a24f5cddf09e70751e3b49d803f33777ad6e9be56be4c27bf341c3a6dbd5aed958e748ab95664be85e6264f4718de75e46a'
+const MYTOKEN = 'd875845675a0affbc47a11c3e4997b180849ab397a93bdc0e445bdccc0d6021c1868902abece3465e04c063e11b907604340f99099fe37524f1202c5ff36c974'
 
 export default class PostService {
     static async sendRawData(data : String, url:String) : Promise<AxiosResponse> {
@@ -231,7 +231,7 @@ export default class PostService {
 
     static async getCategory(token : string) : Promise<IResponse> {
         let data = {
-            token: token
+            token: MYTOKEN
         }
         let response = await PostService.sendRawData(JSON.stringify(data), 'data.php');
 
@@ -240,7 +240,7 @@ export default class PostService {
 
     static async getCities(token: string, letter: string) : Promise<ICity> {
         let data = {
-            token: token,
+            token: MYTOKEN,
             letter: letter
         };
         let response = await PostService.sendRawData(JSON.stringify(data), 'city_by_letter.php');
@@ -248,14 +248,35 @@ export default class PostService {
         return response.data;
     }
 
-    static async setImage(avatar: ArrayBuffer | null, token: string) : Promise<string> {
-        let data = {
-            avatar: avatar,
-            token: token
-        };
-        let response = await PostService.sendRawData(JSON.stringify(data), 'user_update_profile_avatar.php');
+    static async setImage(avatar: any, token: string) : Promise<any> {
 
-        return response.data;
+        // const formData = new FormData();
+        //     formData.append('avatar', avatar);
+        //     formData.append('token', MYTOKEN);
+        //     console.log(formData)
+        let data = {
+            token: MYTOKEN,
+            avatar: avatar
+        };
+        let config = {
+            method: 'post',
+            maxBodyLength: Infinity,
+            url: 'https://uponblog.ru/api/user_update_profile_avatar.php',
+            headers: { 
+            'Content-Type': 'multipart/form-data' //application/json
+        },
+            data : data
+        };
+
+
+            try {
+                const response = await axios.request(config);
+                console.log(response.data);
+                // Дополнительная обработка успешной загрузки изображения
+            } catch (error) {
+                console.error(error);
+                // Обработка ошибок загрузки изображения
+            }
     }
 
     static async deleteAccount(token: string) : Promise<string> {

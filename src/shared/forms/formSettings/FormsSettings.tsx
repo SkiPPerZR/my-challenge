@@ -69,7 +69,7 @@ const FormsSettings:FC<FormsSettingsProps> = ({onClick}) => {
     return (
         <div className='FormsSettings'>
             <form className='FormsSettingsForm' action="">
-                {/* <ImgInput /> */}
+                <ImgInput />
                 <div className='FormsSettingsFormInput'>
                     <label className='text-14 regular'>Имя и Фамилия</label>
                     <input type='text' className='text-17 semibold' value={isName} onChange={event => setIsName(event.target.value)}></input>
