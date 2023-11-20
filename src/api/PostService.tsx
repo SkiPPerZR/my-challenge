@@ -206,7 +206,7 @@ export default class PostService {
             discord: `https://discordapp.com/users/${discord}`,
             category: category,
             category_sub: category_sub,
-            token: MYTOKEN
+            token: token
         } 
         let responce = await PostService.sendRawData(JSON.stringify(dataCorrect), 'user_profile_update.php');
 
@@ -222,7 +222,7 @@ export default class PostService {
 
     static async getProfileData(token : string | null) : Promise<ISetting> {
         let data = {
-            token: MYTOKEN
+            token: token
         }
         let response = await PostService.sendRawData(JSON.stringify(data), 'user_profile_info.php');
 
@@ -231,7 +231,7 @@ export default class PostService {
 
     static async getCategory(token : string) : Promise<IResponse> {
         let data = {
-            token: MYTOKEN
+            token: token
         }
         let response = await PostService.sendRawData(JSON.stringify(data), 'data.php');
 
@@ -240,7 +240,7 @@ export default class PostService {
 
     static async getCities(token: string, letter: string) : Promise<ICity> {
         let data = {
-            token: MYTOKEN,
+            token: token,
             letter: letter
         };
         let response = await PostService.sendRawData(JSON.stringify(data), 'city_by_letter.php');
@@ -255,7 +255,7 @@ export default class PostService {
         //     formData.append('token', MYTOKEN);
         //     console.log(formData)
         let data = {
-            token: MYTOKEN,
+            token: token,
             avatar: avatar
         };
         let config = {

@@ -99,9 +99,10 @@ const LogInByEmail:FC<LogInByEmailProps> = ({toggle, reChoose}) => {
         checkPass()
         if (!is_error_email) {
             console.log('Ты вошел!')
+            setIsAuth(true)
+            console.log('isAuth: '+isAuth)
             // eslint-disable-next-line no-restricted-globals
             location.reload()
-            console.log('isAuth: '+isAuth)
             toggle()
         }
     }
