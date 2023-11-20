@@ -206,7 +206,7 @@ export default class PostService {
             discord: `https://discordapp.com/users/${discord}`,
             category: category,
             category_sub: category_sub,
-            token: token
+            token: MYTOKEN
         } 
         let responce = await PostService.sendRawData(JSON.stringify(dataCorrect), 'user_profile_update.php');
 
@@ -222,7 +222,7 @@ export default class PostService {
 
     static async getProfileData(token : string | null) : Promise<ISetting> {
         let data = {
-            token: token
+            token: MYTOKEN
         }
         let response = await PostService.sendRawData(JSON.stringify(data), 'user_profile_info.php');
 

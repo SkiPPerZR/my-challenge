@@ -1,14 +1,13 @@
-import React, { FC, useEffect, useState } from 'react';
+import React, { ChangeEventHandler, FC, useEffect, useState } from 'react';
 import './CheckboxCategory.scss'
 import { ICategory } from '../../../interfaces/IResponse';
 
 interface CheckboxCategoryProps {
     category: ICategory;
     turn: Function;
-    onClick: ()=>void;
 }
 
-const CheckboxCategory:FC<CheckboxCategoryProps> = ({category, turn, onClick}) => {
+const CheckboxCategory:FC<CheckboxCategoryProps> = ({category, turn}) => {
     const [active, setActive] = useState(false)
     const [styleSwitch, setStyleSwitch] = useState<string>('CheckboxCategoryContainer')
     const [styleCircle, setStyleCircle] = useState<string>('CheckboxCategory__circle')
@@ -36,12 +35,10 @@ const CheckboxCategory:FC<CheckboxCategoryProps> = ({category, turn, onClick}) =
                 <span className='title-18 semibold'>{category.name}</span>
                 <div className="CheckboxCategoryContainerSwitch">
                     <label 
-                        htmlFor={category.id}
-                        onClick={onClick}
-                        onMouseDown={buttonHandler}>
+                        htmlFor={category.id}>
                         <div className={styleCircle}></div>
                     </label>
-                    <input id={category.id} type="checkbox" onChange={(event)=>turn(event.target.value)}/>
+                    <input id={category.id} type="checkbox" onChange={event => turn(event.target.value)}/>
                 </div>
             </div>
         </div>

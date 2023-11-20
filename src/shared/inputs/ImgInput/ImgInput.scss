@@ -26,6 +26,9 @@
     span {
         opacity: 0.4;
         margin-top: 3px;
+        &:hover {
+            cursor: pointer;
+        }
     }
 }
 

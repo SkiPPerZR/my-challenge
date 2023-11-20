@@ -1,4 +1,4 @@
-import React, { FC, useContext, useEffect, useState } from 'react';
+import React, { ChangeEvent, ChangeEventHandler, FC, useContext, useEffect, useState } from 'react';
 import './FormInterests.scss'
 import { ProfileData, TokenContext } from '../../../context';
 import CheckboxCategory from '../../checkbox/checkboxCategory/CheckboxCategory';
@@ -15,84 +15,80 @@ const FormInterests:FC<FormInterestsProps> = ({onClick, dataCat}) => {
     const {isToken, setIsToken} = useContext(TokenContext);
     const [switcher, setSwitcher] = useState(false);
     const [switcherSub, setSwitcherSub] = useState(false);
-    const [checkCategory, setCheckCategory] = useState<string[]>([]);
+    const [checkCategory, setCheckCategory] = useState<ICategory[]>([]);
+    const [categoryForForm, setCategoryForForm] = useState<string[]>([]);
     const [checkCategorySub, setCheckCategorySub] = useState<string[]>([]);
 
     const [dataCategory, setDataCategory] = useState<IData>()
     const [category, setCategory] = useState<ICategory[]>([]);
     const [categorySub, setCategorySub] = useState<ICategorySub[]>([]);
 
-    const addValue = (category: string, category_sub: string) => {
+    const addValue = (category: string[], category_sub: string[]) => {
         //console.log(data)
         setData((prevData: any) => ({
             ...prevData,
             category: [category],
             category_sub: [category_sub]
         }));
+        console.log(JSON.stringify(data))
     };
 
-    const handleCategoryCheck = (event: React.ChangeEvent<HTMLInputElement>) => {
-        let updatedList: string[] = [...checkCategory];
-        const value : string = event.target.value;
-      
-        if (event.target.checked) {
-            updatedList = [...checkCategory, value];
+    const handleCategoryCheck = (event : ChangeEvent<HTMLInputElement>) : void => {
+        const value: string = event.target.value;
+    
+        setCheckCategory(prevList => {
+          if (event.target.checked) {
+            return [...prevList, { id: value, name: '' }]; // добавление нового элемента
           } else {
-            updatedList.splice(checkCategory.indexOf(value), 1);
+            return prevList.filter(item => item.id !== value); // удаление элемента
           }
-          //@ts-ignore
-        // const newArray : string[] = checkCategory.map((item) =>{
-        //     return {id: item, name: ''}
-        // })
-        
-        setCheckCategory(updatedList);
-        //console.log(JSON.stringify(categorySub))
-        console.log("Проверка списка категорий: "+JSON.stringify(checkCategory))
-    };
-
-    const handleCategorySubCheck = (event: React.ChangeEvent<HTMLInputElement>) => {
-        let updatedList: string[] = [...checkCategorySub];
-        const value : string = event.target.value;
-      
-        if (event.target.checked) {
-            updatedList = [...checkCategorySub, value];
+        });
+        setCategoryForForm(prevList => {
+            if (event.target.checked) {
+              return [...prevList, value]; // добавление нового элемента
+            } else {
+              return prevList.filter(item => item !== value); // удаление элемента
+            }
+          });
+      };
+    
+      const handleCategorySubCheck = (event : ChangeEvent<HTMLInputElement>) : void => {
+        const value: string = event.target.value;
+    
+        setCheckCategorySub(prevList => {
+          if (event.target.checked) {
+            return [...prevList, value]; // добавление нового элемента
           } else {
-            updatedList.splice(checkCategorySub.indexOf(value), 1);
+            return prevList.filter(item => item !== value); // удаление элемента
           }
-        
-        setCheckCategorySub(updatedList);
-        // console.log(JSON.stringify(data))
-        console.log("Проверка списка подкатегорий: "+JSON.stringify(checkCategorySub))
-    };
+        });
+      };
 
     useEffect(()=>{
         setDataCategory(dataCat)
     },[])
 
-    useEffect(() => {
-        if (dataCategory && category) {
-            const filteredCategorySub = dataCategory.category_sub.filter(
-                (item: ICategorySub) => item.id_category = checkCategory[1]
-            )
-            setCategorySub(filteredCategorySub);
-            console.log(JSON.stringify(filteredCategorySub))
-          }
-    }, [dataCategory, category, checkCategory]);
-    
-    // const handleCategoryChange = (categoryID: ICategory) => {
-    //     setSwitcher(!switcher)
-    //     setCategory(categoryID);
-    //     if (switcher && dataCategory && category) {
-    //         const filteredCategorySub = dataCategory.category_sub.filter(
-    //             (item: ICategorySub) => item.id_category === category.id
-    //         );
-    //         setCategorySub(filteredCategorySub);
-    //     }
-    // };
+    const [active, setActive] = useState(false);
+    const [styleSwitch, setStyleSwitch] = useState<string>('CheckboxCategoryContainer')
+    const [styleCircle, setStyleCircle] = useState<string>('CheckboxCategory__circle')
 
-    // const handleSwitcher = () => {
-    //     setSwitcherSub(!switcherSub)
+    // const buttonHandler = (): void => {
+    //     setActive(!active)
     // }
+
+    useEffect(() => {
+        if (dataCategory && checkCategory.length > 0) { // Проверка, что есть выбранные категории
+          const filteredCategorySub = dataCategory.category_sub.filter(
+            (item: ICategorySub) => checkCategory.some(category => category.id === item.id_category)
+          );
+          setCategorySub(filteredCategorySub);
+        }
+      }, [dataCategory, checkCategory]);
+    
+    function ExitForm() {
+        addValue(categoryForForm, checkCategorySub)
+        onClick()
+    }
 
     return (
         <div className='FormInterests'>
@@ -101,14 +97,18 @@ const FormInterests:FC<FormInterestsProps> = ({onClick, dataCat}) => {
                 <div className="FormInterestsCategoryGroup">
                     {dataCategory && (
                         <>
-                            {/* {dataCategory.category.map((category) => (
-                                <CheckboxCategory key={category.id} category={category} value={category.name} turn={() => handleCategoryChange(category)} onClick={()=>{addValue('category', category.id)}}/>
-                            ))} */}
                             {dataCategory.category.map((category) => (
-                                // <CheckboxCategory key={category.id} category={category} turn={handleCheck} onClick={()=>{addValue('category', category.id)}}/>
-                                <div key={category.id}>
-                                    <input type="checkbox" value={category.id} onChange={handleCategoryCheck}/>
-                                    <span>{category.name}</span>
+                                // <CheckboxCategory key={category.id} category={category} value={category.id} turn={handleCategoryCheck}/>
+                                <div className='CheckboxCategory' key={category.id}>
+                                    <div className={`CheckboxCategoryContainer${active ? ' check__active' : ''}`}>
+                                        <span className='title-18 semibold'>{category.name}</span>
+                                        <div className="CheckboxCategoryContainerSwitch">
+                                            {/* <label htmlFor={category.id} className='CheckboxCategory__circle'  onClick={buttonHandler}>
+                                                <div className={`CheckboxCategory__circle${active ? ' cir__active' : ''}`}></div>
+                                            </label> */}
+                                            <input id={category.id} type="checkbox" value={category.id} onChange={handleCategoryCheck}/>
+                                        </div>
+                                    </div>
                                 </div>
                             ))}
                         </>
@@ -120,29 +120,26 @@ const FormInterests:FC<FormInterestsProps> = ({onClick, dataCat}) => {
                 <div className="FormInterestsSubCategoryGroup">
                     {checkCategory && (
                         <>
-                            {/* {categorySub.map((category_sub) => (
-                                <CheckboxSubCategory key={category_sub.id} categorySub={category_sub} turn={handleSwitcher} onClick={()=>{addValue('category_sub', category_sub.id)}}/>
-                            ))} */}
-                            {/* {categorySub.map((category_sub) => (
-                                <div key={category_sub.id}>
-                                    <input type="checkbox" value={category_sub.id} onChange={handleCategorySubCheck}/>
-                                    <span>{category_sub.name}</span>
-                                </div>
-                            ))} */}
                             {categorySub.map((category_sub) => (
+                                <CheckboxSubCategory key={category_sub.id} categorySub={category_sub} turn={handleCategorySubCheck}/>
+                            ))}
+                            {/* {categorySub.map((category_sub) => (
                                 <div key={category_sub.id}>
                                     <input type="checkbox" value={category_sub.id} onChange={handleCategorySubCheck}/>
                                     <span>{category_sub.name}</span>
                                 </div>
-                            ))}
+                            ))} */}
+                            {/* {categorySub.map((category_sub) => (
+                                <div key={category_sub.id}>
+                                    <input type="checkbox" value={category_sub.id} onChange={handleCategorySubCheck}/>
+                                    <span>{category_sub.name}</span>
+                                </div>
+                            ))} */}
                         </>
                     )}
-                    {/* <div>
-                        {`Items checked are: ${checkedItems}`}
-                    </div> */}
                 </div>
             </div>
-            <button className='FormsSettingsButton text-17 semibold' onClick={onClick}>Сохранить</button>
+            <button className='FormsSettingsButton text-17 semibold' onClick={ExitForm}>Сохранить</button>
         </div>
     );
 };

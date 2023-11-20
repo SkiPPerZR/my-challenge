@@ -19,13 +19,24 @@ const ImgInput = () => {
     // }
 
     const handleSubmit = async (event : any) =>{       
-        event.preventDefault() 
-        const file = event.target.files[0];
-        setAvatar(file);
+        event.preventDefault()
+        console.log('отработал222')
         if (avatar) {
             await PostService.setImage(avatar, isToken)
         }
+        
     }
+    const handleImageUpload = (event: any) => {
+        const file = event.target.files[0];
+        setAvatar(file);
+        console.log('отработал')
+    }
+
+    // function OnSubmit(event: any) {
+    //     console.log('отработал')
+    //     handleSubmit(event)
+    //     handleImage(event)
+    // }
 
     // useEffect(()=>{
     //     sendAvatar(avatar)
@@ -51,16 +62,16 @@ const ImgInput = () => {
                 /> */}
                     <label
                         htmlFor="file-loader-button"
-                        className='file-uploader__custom-button'
-                        onChange={handleSubmit}></label>
+                        className='file-uploader__custom-button'></label>
                     <input
                         id='file-loader-button'
                         type="file"
                         className='file-uploader__upload-button'
+                        onChange={handleImageUpload}
                         // value={icon}
                         />
             </div>
-            <span className='text-14 regular' >Добавить фото</span>
+            <span className='text-14 regular' onClick={handleSubmit}>Добавить фото</span>
             <div className="file-uploader__file-name"></div>
         </div>
     );
