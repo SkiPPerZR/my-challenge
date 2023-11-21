@@ -2,10 +2,9 @@ import React, { FC, useContext, useState } from 'react';
 import './DeleteProfile.scss'
 
 import closeIcon from '../../img/close.svg'
-import DefaultButton from '../../shared/buttons/DefaultButton';
+import DefaultButton, { ButtonVariant } from '../../shared/buttons/DefaultButton';
 import PostService from '../../api/PostService';
 import { TokenContext } from '../../context';
-import { setTimeout } from 'timers/promises';
 
 interface DeleteProfileProps {
     setDeleteProf: () => void;
@@ -14,32 +13,35 @@ interface DeleteProfileProps {
 
 const DeleteProfile:FC<DeleteProfileProps> = ({setDeleteProf, close}) => {
     const {isToken, setIsToken} = useContext(TokenContext)
-    const [deleteProfile, setDeleteProfile] = useState('')
+    const [deleteProfile, setDeleteProfile] = useState(false)
 
-    // async function fetchDeleteAccount(token: string){
-    //     let deleteAc = await PostService.deleteAccount(token)
-    //     if (deleteAc === token) {
-    //         console.log('Ваш аккаунт успешно удален. Если захотите, вы сможите его восстановить в течение года')
-    //     } else {
-    //         console.log('Что-то пошло не так и аккаунт пользователя не удалился')
-    //     }
-    // }
+    async function fetchDeleteAccount(token: string){
+        await PostService.deleteAccount(token)
+        setDeleteProfile(true)
+    }
 
     function closeWindow() {
         setDeleteProf()
         close()
     }
 
-    // function deleteAccout() {
-    //     fetchDeleteAccount(isToken);
-    //     setDeleteProf()
-    // }
+    function deleteAccout() {
+        fetchDeleteAccount(isToken);
+        setTimeout(function() {
+          setDeleteProf();
+          close()
+          sessionStorage.setItem('isAuth', 'false')
+          sessionStorage.setItem('isToken', '')
+          // eslint-disable-next-line no-restricted-globals
+          location.reload()
+        }, 10000);
+      }
 
     return (
-        <div className='DeleteProfile-overlay' onMouseDown={closeWindow}>
+        <div className='DeleteProfile-overlay' onMouseDown={()=>closeWindow()}>
             <div className="DeleteProfile-box" onMouseDown={(e)=>e.stopPropagation()}>
                 <div className="DeleteProfileClose">
-                    <button onClick={closeWindow}>
+                    <button onClick={()=>closeWindow()}>
                         <img src={closeIcon} alt="Закрыть" />
                     </button>
                 </div>
@@ -50,10 +52,15 @@ const DeleteProfile:FC<DeleteProfileProps> = ({setDeleteProf, close}) => {
                     <h2 className="title-25 semibold">Удаление аккаунта</h2>
                 </div>
                 <div className="DeleteProfileContent">
-                    <span className='text-28 light'>Вы действительно хотите удалить аккаунт? Все данные о вас могут быть удалены.</span>
+                    <span className='text-28 light'>
+                        {deleteProfile
+                            ? <>Ваш аккаунт успешно удален.<br/>В течение года вы можете его восстановить.</>
+                            : <>Вы действительно хотите удалить аккаунт? Ваш аккаунт будет в базе еще 1 год и вы можете вернуться.</>
+                        }
+                    </span>
                     <div className="DeleteProfileContentChoose">
-                        <DefaultButton children='Остаться' paddingWidth={60} onClick={setDeleteProf}/>
-                        <DefaultButton children='Удалить аккаунт' paddingWidth={30} onClick={setDeleteProf}/>
+                        <DefaultButton theme={ButtonVariant.standart} children='Остаться' paddingWidth={60} onClick={()=>closeWindow}/>
+                        <DefaultButton theme={ButtonVariant.revers} children='Удалить аккаунт' paddingWidth={30} onClick={()=>deleteAccout}/>
                     </div>
                 </div>
             </div>

@@ -10,10 +10,10 @@ import archive from '../../img/Profile/Archive.svg'
 import help from '../../img/Profile/Help.svg'
 import log_out from '../../img/Profile/Log-out.svg'
 import { useNavigate } from 'react-router-dom';
-import useModal from '../../shared/hooks/useModal';
 import Settings from '../Settings/Settings';
 import { AuthContext } from '../../context';
 import { ISetting } from '../../interfaces/ISettings';
+import ExitWindow from '../ExitWindow/ExitWindow';
 
 interface ProfileMenuProps {
     profData: ISetting | null;
@@ -25,15 +25,12 @@ const ProfileMenu:FC<ProfileMenuProps> = ({setOpenProfileStatus, profData}) => {
 
     const [coverProfMenu, setCoverProfMenu] = useState(true);
     const [openSettings, setOpenSetting] = useState(false);
+    const [openExit, setExit] = useState(false);
 
     const navigate = useNavigate();
     const navigateToProfile = () => {
       navigate('/profile');
     }
-    const navigateToMain = () => {
-        navigate('/');
-      }
-    const {isOpen, toggle} = useModal();
 
     const closeSideBar = () => {
         setOpenProfileStatus(false)
@@ -44,20 +41,17 @@ const ProfileMenu:FC<ProfileMenuProps> = ({setOpenProfileStatus, profData}) => {
         setOpenSetting(true)
     }
 
-    const exitAuth = () => {
-        setIsAuth(false)
-        sessionStorage.setItem('isAuth', 'false')
-        navigateToMain()
-        // eslint-disable-next-line no-restricted-globals
-        location.reload()
+    const navExitAuth = () => {
+        setCoverProfMenu(false)
+        setExit(true)
     }
 
     return (
         <>
             {coverProfMenu
                 ?
-                    <div className="ProfileMenu-overlay" onClick={closeSideBar}>
-                        <div onClick={(e) => e.stopPropagation()} className="ProfileMenu">
+                    <div className="ProfileMenu-overlay" onMouseDown={closeSideBar}>
+                        <div onMouseDown={(e) => e.stopPropagation()} className="ProfileMenu">
                             <div className="ProfileMenuName">
                                 <span className='title-18 semibold'>{profData ? profData.nick : <></>}</span>
                                 <span className='text-14 regular'>#1234 API</span>
@@ -69,14 +63,15 @@ const ProfileMenu:FC<ProfileMenuProps> = ({setOpenProfileStatus, profData}) => {
                                 <ProfileItem icon={settings} title='Настройки' nav={navSettingsBar}/>
                                 <ProfileItem icon={archive} title='Архив'/>
                                 <ProfileItem icon={help} title='Помощь'/>
-                                <ProfileItem icon={log_out} title='Выйти из профиля' nav={exitAuth}/>
+                                <ProfileItem icon={log_out} title='Выйти из профиля' nav={navExitAuth}/>
                             </div>
                             
                         </div>
                     </div>
                 :   
                     <>
-                        {openSettings && <Settings setOpenSetting={()=>setOpenSetting(false)}/>}
+                        {openSettings && <Settings setOpenSetting={()=>setOpenSetting(false)} closeMenu={closeSideBar}/>}
+                        {openExit && <ExitWindow setExitWind={()=>setExit(false)} close={closeSideBar}/>}
                     </>
             }
         </>

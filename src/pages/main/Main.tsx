@@ -14,7 +14,7 @@ const Main = () => {
         const newAuth = sessionStorage.getItem('isAuth')
         if (newAuth === 'true') {
             setIsAuth(true)
-        } else {
+        } else if (newAuth === 'false'){
             setIsAuth(false)
         }
     }

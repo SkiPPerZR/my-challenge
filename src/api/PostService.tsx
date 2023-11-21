@@ -161,7 +161,9 @@ export default class PostService {
             email: email,
             password: password
         }
+        
         let response = await PostService.sendRawData(JSON.stringify(data), 'user_login_by_email.php');
+        
         return response.data;
     }
 

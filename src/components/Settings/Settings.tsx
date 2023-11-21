@@ -10,18 +10,15 @@ import phone from '../../img/Settings/Call.svg'
 import email from '../../img/Settings/email.svg'
 import blogger from '../../img/Settings/Bloger.svg'
 import del from '../../img/Settings/Del.svg'
-import useModal from '../../shared/hooks/useModal';
 import DeleteProfile from '../DeleteProfile/DeleteProfile';
-import { number } from 'yargs';
 import EditProfile from '../EditProfile/EditProfile';
 
 interface SettingsProps{
     setOpenSetting: () => void;
+    closeMenu: () => void;
 }
 
-const Settings:FC<SettingsProps> = ({setOpenSetting}) => {
-    const {isOpen, toggle} = useModal();
-
+const Settings:FC<SettingsProps> = ({setOpenSetting, closeMenu}) => {
     const [editProfile, setEditProfile] = useState(false);
     const [number, setNumber] = useState(false);
     const [emailPass, setEmailPass] = useState(false);
@@ -53,8 +50,14 @@ const Settings:FC<SettingsProps> = ({setOpenSetting}) => {
     }
 
     function openDelItem() {
+        console.log('Я вызвался')
         setCoverSettings(true)
         setDeleteProf(true)
+    }
+
+    function closeSettings() {
+        setOpenSetting()
+        closeMenu()
     }
 
     return (
@@ -62,14 +65,14 @@ const Settings:FC<SettingsProps> = ({setOpenSetting}) => {
             {coverSettings 
                 ?
                     <>
-                        {deleteProf && <DeleteProfile setDeleteProf={toggle} close={()=>setCoverSettings(false)}/>}
+                        {deleteProf && <DeleteProfile setDeleteProf={()=>setDeleteProf(false)} close={()=>setCoverSettings(false)}/>}
                         {editProfile && <EditProfile name='Редактирование профиля' setEditProfile={()=>setEditProfile(false)}/>}
                     </>
                 :   
-                    <div className="Settings-overlay" onClick={setOpenSetting}>
+                    <div className="Settings-overlay" onClick={closeSettings}>
                         <div className="Settings-box" onClick={(e) => e.stopPropagation()}>
                             <div className="SettingsClose">
-                                <button onClick={setOpenSetting}>
+                                <button onClick={closeSettings}>
                                     <img src={close} alt="Закрыть" />
                                 </button>
                             </div>
@@ -82,7 +85,7 @@ const Settings:FC<SettingsProps> = ({setOpenSetting}) => {
                                 <SettingsItem name='Номер телефона' icon={phone} theme={ItemTheme.standart} func={()=>{}}/>
                                 <SettingsItem name='Почта и пароль' icon={email} theme={ItemTheme.standart} func={()=>{}}/>
                                 <SettingsItem name='Верификация для блогеров' icon={blogger} theme={ItemTheme.blogger} func={()=>{}}/>
-                                <SettingsItem name='Удалить аккаунт' icon={del} theme={ItemTheme.delete} func={()=>openDelItem}/>
+                                <SettingsItem name='Удалить аккаунт' icon={del} theme={ItemTheme.delete} func={()=>openDelItem()}/>
                             </div>
                         </div>
                     </div>

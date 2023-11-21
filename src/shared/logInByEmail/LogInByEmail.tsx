@@ -32,11 +32,9 @@ const LogInByEmail:FC<LogInByEmailProps> = ({toggle, reChoose}) => {
 
     async function fetchLogin(email : string, password : string) {
         let message = await PostService.emailLogin(email, password);
-        // console.log('В отправке почты и пароля Token: '+message.token)
+        // console.log(JSON.stringify(message))
         let newToken = message.token
         sessionStorage.setItem('isToken', newToken)
-        sessionStorage.setItem('isAuth', 'true')
-        // console.log('Запись данных в хранилище сессии: '+ newToken);
         setIsToken(newToken)
     }
 
@@ -99,11 +97,13 @@ const LogInByEmail:FC<LogInByEmailProps> = ({toggle, reChoose}) => {
         checkPass()
         if (!is_error_email) {
             console.log('Ты вошел!')
+            sessionStorage.setItem('isAuth', 'true')
+            // console.log('isToken: '+isToken)
+            // console.log('isAuth: '+isAuth)
             setIsAuth(true)
-            console.log('isAuth: '+isAuth)
-            // eslint-disable-next-line no-restricted-globals
-            location.reload()
             toggle()
+            // eslint-disable-next-line no-restricted-globals
+            // location.reload()
         }
     }
 
@@ -112,12 +112,6 @@ const LogInByEmail:FC<LogInByEmailProps> = ({toggle, reChoose}) => {
             <div className='LogInByEmailInput'>
                 <p className="text-14 regular">Электронная почта</p>
                 <input type="text" className='text-17 semibold' value={emailCheck} onChange={event => setEmailCheck(event.target.value)}/>
-                {is_error_email
-                    ?
-                    <span className="text-14 medium error">Неверный формат электронной почты</span>
-                    :
-                    <></>
-                }
             </div>
             <div className='LogInByEmailInput'>
                 <p className="text-14 regular">Пароль</p>
@@ -132,7 +126,7 @@ const LogInByEmail:FC<LogInByEmailProps> = ({toggle, reChoose}) => {
                 </div>
                 {is_error_pass
                     ?
-                    <span className="text-14 medium error">Пароль не верный</span>
+                    <span className="text-14 medium error">Неверная почта или пароль не верный</span>
                     :
                     <></>
                 }

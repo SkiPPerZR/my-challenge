@@ -85,7 +85,7 @@ const LogInByNumber:FC<LogInByNumberProps> = ({toggle, reChoose}) => {
 
     function checkPhone() {
         // console.log('Я вызвался!' + phoneCheck.length)
-        let cleanNumber = phoneCheck.replace(/\D/g, '');
+        let cleanNumber = phoneCheck.replace(/[^0-9-]/g, '');
         const re = /^[78]9\d{9}$/
         if (!re.test(cleanNumber) || cleanNumber.length > 11 || cleanNumber.length < 10) {
             // console.log('Я вызвался снова!') 

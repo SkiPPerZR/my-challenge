@@ -5,7 +5,7 @@ import close from '../../img/close.svg'
 import defIcon from '../../img/iconSignUp.svg'
 import FormInput from '../../shared/inputs/FormInput/FormInput';
 import ImgInput from '../../shared/inputs/ImgInput/ImgInput';
-import DefaultButton from '../../shared/buttons/DefaultButton';
+import DefaultButton, { ButtonVariant } from '../../shared/buttons/DefaultButton';
 
 interface EditProfileProps {
     name: string;
@@ -34,7 +34,7 @@ const EditProfile:FC<EditProfileProps> = ({setEditProfile,name}) => {
                     <FormInput label='Steam' id='Name'/>
                     <FormInput label='Discord' id='Name'/>
                     <FormInput label='Telegram' id='Name'/>
-                    <DefaultButton children='Редактировать профиль' paddingWidth={145} onClick={setEditProfile}/>
+                    <DefaultButton theme={ButtonVariant.standart} children='Редактировать профиль' paddingWidth={145} onClick={setEditProfile}/>
                 </form>
             </div>
         </div>

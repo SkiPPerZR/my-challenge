@@ -1,19 +1,55 @@
-.DefaultButton {
-    color: var(--Button_Label);
+.DefaultButton, .ReversButton, .BackRevers {
     border: none;
     border-radius: 12px;
-    background-color: var(--intElements);
     padding: 8px 50px 9px 50px;
     transition: 0.3s ease-in-out;
+    font-size: 17px;
+    font-family: 'Rawline';
+    font-weight: 600;
     &:hover {
-        background-color: var(--intElementsHover);
         transition: 0.3s ease-in-out;
         cursor: pointer;
     }
     &:active {
-        background-color: var(--BG_secondary8);
-        color: var(--negativeIntElements);
         transition: 0.1s ease-in-out;
         cursor: pointer;
+    }
+}
+
+.DefaultButton {
+    color: var(--Button_Label);
+    background-color: var(--intElements);
+    &:hover {
+        background-color: var(--intElementsHover);
+    }
+    &:active {
+        background-color: var(--BG_secondary8);
+        color: var(--negativeIntElements);
+    }
+}
+
+.ReversButton {
+    color: var(--negativeIntElements);
+    background-color: var(--BG_secondary8);
+    &:hover {
+        background-color: var(--intElementsHover);
+        color: var(--Button_Label);
+    }
+    &:active {
+        background-color: var(--intElements);
+        color: var(--Button_Label);
+    }
+}
+
+.BackRevers {
+    color: var(--labelPrimary);
+    background-color: var(--BG_secondary8);
+    &:hover {
+        background-color: var(--intElementsHover);
+        color: var(--Button_Label);
+    }
+    &:active {
+        background-color: var(--intElements);
+        color: var(--negativeIntElements);
     }
 }

@@ -63,7 +63,6 @@ const SignUp:FC<SignUpProps> = ({isOpenSignUp, reChoose}) => {
         if (afterReg) {
             isOpenSignUp(false)
             fetchProfileData()
-            fetchImageUpload()
             // console.log('Нынешний токен: '+ isToken)
             setIsAuth(true)
             let newToken = sessionStorage.getItem('isToken')
@@ -82,14 +81,6 @@ const SignUp:FC<SignUpProps> = ({isOpenSignUp, reChoose}) => {
         fetchCategory(isToken)
         setAfterReg(true)
     }
-
-    async function fetchImageUpload() {
-        // const bin = await image?.arrayBuffer();
-        // console.log(bin)
-        // if (bin) {
-        //     await PostService.setImage(bin, isToken)
-        // }
-    };
 
     async function fetchCategory(token: string) {
         let categoryList = await PostService.getCategory(token);

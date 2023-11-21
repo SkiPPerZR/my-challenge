@@ -11,8 +11,10 @@ const Challenge = () => {
         const newAuth = sessionStorage.getItem('isAuth')
         if (newAuth === 'true') {
             setIsAuth(true)
-        } else {
+            console.log('isAuth: '+isAuth)
+        } else if (newAuth === 'false'){
             setIsAuth(false)
+            console.log('isAuth: '+isAuth)
         }
     }
 
