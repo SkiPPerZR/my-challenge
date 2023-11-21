@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import './ChallengePage.scss'
 
 import { useLocation } from 'react-router-dom';
@@ -24,12 +24,12 @@ function ChallengePage() {
     //     fetchInfo()
     // }, [])
 
-    // if (!info) return <NotLogin/> // info == null or undefiend or {}
+    // if (!info) return <NotLogin/> // info ===null or undefiend or {}
     return (
         <div className='ChallengePage'>
             {/* <ChallengeInfo info={info}/> */}
-            <ChallengeInfo/>
-            <ChallengeRequirement/>
+            <ChallengeInfo />
+            <ChallengeRequirement />
             <div className='ChallengePageChat'>
                 <h2 className='title-25 medium'>Чат в разработке...</h2>
             </div>

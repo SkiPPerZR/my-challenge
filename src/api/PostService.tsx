@@ -10,14 +10,14 @@ const TOKEN = '82d586feb901a2dc7ee622cdb693240870cbe714ecaedf2edab0cda81eb7fe203
 const MYTOKEN = 'd875845675a0affbc47a11c3e4997b180849ab397a93bdc0e445bdccc0d6021c1868902abece3465e04c063e11b907604340f99099fe37524f1202c5ff36c974'
 
 export default class PostService {
-    static async sendRawData(data : String, url:String) : Promise<AxiosResponse> {
+    static async sendRawData(data: String, url: String): Promise<AxiosResponse> {
         const BASE_URL = 'https://uponblog.ru/api/';
-            
+
         const config = {
             method: 'post',
             maxBodyLength: Infinity,
-            url: BASE_URL +  url,
-            headers: { 
+            url: BASE_URL + url,
+            headers: {
                 'Content-Type': 'text/plain' // application/json
             },
             data
@@ -28,14 +28,14 @@ export default class PostService {
         return responce;
     }
 
-    static async sendRawDataForm(data : String, url:String) : Promise<AxiosResponse> {
+    static async sendRawDataForm(data: String, url: String): Promise<AxiosResponse> {
         const BASE_URL = 'https://form.upon.ru/api/';
-            
+
         const config = {
             method: 'post',
             maxBodyLength: Infinity,
-            url: BASE_URL +  url,
-            headers: { 
+            url: BASE_URL + url,
+            headers: {
                 'Content-Type': 'text/plain' // application/json
             },
             data
@@ -46,8 +46,8 @@ export default class PostService {
         return responce;
     }
 
-    static async getChallengeList( type : String) : Promise<ICard[]> {
-        const data = `{"type" : "${  type  }", "token" : "6d432d60ef3bc832fb651ede7ab89cf2bec45cf0d2208dcf8c2f3a2fd5b151e1bb1b800b304e7798b6fc017128b7aea0bfe30dbd61f702599520e1a74ce1071d"}`;
+    static async getChallengeList(type: String): Promise<ICard[]> {
+        const data = `{"type" : "${type}", "token" : "6d432d60ef3bc832fb651ede7ab89cf2bec45cf0d2208dcf8c2f3a2fd5b151e1bb1b800b304e7798b6fc017128b7aea0bfe30dbd61f702599520e1a74ce1071d"}`;
 
         const responce = await PostService.sendRawData(data, 'challenge_list.php');
 
@@ -56,8 +56,8 @@ export default class PostService {
         return cardListFromApi;
     }
 
-    static async getChallengeInfo(token_challenge : String) : Promise<ICardInfo> {
-        const data = `{"token" : "6d432d60ef3bc832fb651ede7ab89cf2bec45cf0d2208dcf8c2f3a2fd5b151e1bb1b800b304e7798b6fc017128b7aea0bfe30dbd61f702599520e1a74ce1071d", "token_challenge" : "${ token_challenge }"}`;
+    static async getChallengeInfo(token_challenge: String): Promise<ICardInfo> {
+        const data = `{"token" : "6d432d60ef3bc832fb651ede7ab89cf2bec45cf0d2208dcf8c2f3a2fd5b151e1bb1b800b304e7798b6fc017128b7aea0bfe30dbd61f702599520e1a74ce1071d", "token_challenge" : "${token_challenge}"}`;
 
         const responce = await PostService.sendRawData(data, 'challenge_info.php');
         const cardInfoFromApi: ICardInfo = responce.data.challenge[0];
@@ -65,74 +65,74 @@ export default class PostService {
         return cardInfoFromApi
     }
 
-    static async sendPhone(phone : string) : Promise<string> {
+    static async sendPhone(phone: string): Promise<string> {
 
-        const data = `{"phone" : "${ phone }"}`;
+        const data = `{"phone" : "${phone}"}`;
 
         const responce = await PostService.sendRawData(data, 'user_registration_by_phone.php');
 
         const statusCode = responce.status;
 
-        if (statusCode == 200)
+        if (statusCode === 200)
             return responce.data.token; // заменить на сохранение в кеш
 
         return statusCode.toString();
     }
 
-    static async sendPhoneLogin(phone : string) : Promise<string> {
+    static async sendPhoneLogin(phone: string): Promise<string> {
 
-        const data = `{"phone" : "${ phone }"}`;
+        const data = `{"phone" : "${phone}"}`;
 
         const responce = await PostService.sendRawData(data, 'user_login_by_phone.php');
 
         const statusCode = responce.status;
 
-        if (statusCode == 200) {
+        if (statusCode === 200) {
             return responce.data.token;
         }
-        if ((statusCode == 401)) {
+        if ((statusCode === 401)) {
             return responce.data.error;
         }
 
         return responce.data;
     }
 
-    static async sendPhoneCodeLogin(code : String, token : String) : Promise<String> {
+    static async sendPhoneCodeLogin(code: String, token: String): Promise<String> {
 
-        const data = `{"phone_code" : "${ code  }", "token" : "${  token  }"}`;
+        const data = `{"phone_code" : "${code}", "token" : "${token}"}`;
 
         const responce = await PostService.sendRawData(data, 'user_registration_by_phone.php');
 
         const statusCode = responce.status;
 
-        if (statusCode == 200)
+        if (statusCode === 200)
             return responce.data.token;
 
-        if (statusCode == 401)
+        if (statusCode === 401)
             return responce.data.message;
 
         return statusCode.toString();
     }
 
 
-    static async sendPhoneCode(code : String, token : String) : Promise<String> {
+    static async sendPhoneCode(code: String, token: String): Promise<String> {
 
-        const data = `{"phone_code" : "${ code  }", "token" : "${  token  }"}`;
+        const data = `{"phone_code" : "${code}", "token" : "${token}"}`;
 
         const responce = await PostService.sendRawData(data, 'user_registration_by_phone.php');
 
         const statusCode = responce.status;
 
-        if (statusCode == 200)
+        if (statusCode === 200)
             return responce.data.token;
 
-        // if (statusCode == 401)
+        // if (statusCode ===401)
         //     return responce.data['message'];
 
         return statusCode.toString();
     }
 
-    static async sendPhoneCodeAgain (token : String) : Promise<String> {
+    static async sendPhoneCodeAgain(token: String): Promise<String> {
 
         const data = {
             token
@@ -142,61 +142,61 @@ export default class PostService {
         return responce.data;
     }
 
-    static async sendEmailCode(code : String, token : String) : Promise<String> {
+    static async sendEmailCode(code: String, token: String): Promise<String> {
 
-        const data = `{"email_code" : "${ code  }", "token" : "${  token  }"}`;
+        const data = `{"email_code" : "${code}", "token" : "${token}"}`;
 
         const responce = await PostService.sendRawData(data, 'user_registration_by_email.php');
 
         const statusCode = responce.status
 
-        if (statusCode == 200)
+        if (statusCode === 200)
             return responce.data.token;
 
         return statusCode.toString();
     }
 
-    static async emailLogin(email: string, password: string) : Promise<ILogin> {
+    static async emailLogin(email: string, password: string): Promise<ILogin> {
         const data = {
             email,
             password
         }
-        
+
         const response = await PostService.sendRawData(JSON.stringify(data), 'user_login_by_email.php');
-        
+
         return response.data;
     }
 
-    static async emailSignUp(email : string, password : string) : Promise<string> {
-        const data = `{"email" : "${ email }", "password" : "${ password }", "password_repeat" : "${ password }"}`;
+    static async emailSignUp(email: string, password: string): Promise<string> {
+        const data = `{"email" : "${email}", "password" : "${password}", "password_repeat" : "${password}"}`;
 
         const responce = await PostService.sendRawData(data, 'user_registration_by_email.php');
 
         const statusCode = responce.status;
 
-        if (statusCode == 200) 
+        if (statusCode === 200)
             return responce.data.token;
 
         return statusCode.toString(); // заменить на сохранение в кеш
     }
 
-    static async sendAgreement(isTerms : String, isPrivacy: String, token : String) : Promise<String> {
+    static async sendAgreement(isTerms: String, isPrivacy: String, token: String): Promise<String> {
 
         const data = `{"is_terms_of_use" : "${isTerms}", "is_privacy_policy" : "${isPrivacy}", "token" : "${token}"}`
-        
+
         const responce = await PostService.sendRawData(data, 'user_agreement.php');
 
         const statusCode = responce.status;
 
-        if (statusCode == 200) 
+        if (statusCode === 200)
             return responce.data.token;
-        if (statusCode == 402)
+        if (statusCode === 402)
             return ''
 
         return statusCode.toString();
     }
 
-    static async sendSettingProfile({nick, date_of_birth, fio, city, vk, steam, discord, category, category_sub, token}: ISetting) : Promise<string| any> {
+    static async sendSettingProfile({ nick, date_of_birth, fio, city, vk, steam, discord, category, category_sub, token }: ISetting): Promise<string | any> {
 
         const dataCorrect = {
             nick,
@@ -209,20 +209,20 @@ export default class PostService {
             category,
             category_sub,
             token
-        } 
+        }
         const responce = await PostService.sendRawData(JSON.stringify(dataCorrect), 'user_profile_update.php');
 
         const statusCode = responce.status;
 
-        if (statusCode == 200) 
+        if (statusCode === 200)
             return responce.data.token;
-        if (statusCode == 402)
+        if (statusCode === 402)
             return ''
 
         return statusCode.toString();
     }
 
-    static async getProfileData(token : string | null) : Promise<ISetting> {
+    static async getProfileData(token: string | null): Promise<ISetting> {
         const data = {
             token
         }
@@ -231,7 +231,7 @@ export default class PostService {
         return response.data;
     }
 
-    static async getCategory(token : string) : Promise<IResponse> {
+    static async getCategory(token: string): Promise<IResponse> {
         const data = {
             token
         }
@@ -240,7 +240,7 @@ export default class PostService {
         return response.data;
     }
 
-    static async getCities(token: string, letter: string) : Promise<ICity> {
+    static async getCities(token: string, letter: string): Promise<ICity> {
         const data = {
             token,
             letter
@@ -250,7 +250,7 @@ export default class PostService {
         return response.data;
     }
 
-    static async setImage(avatar: any, token: string) : Promise<any> {
+    static async setImage(avatar: any, token: string): Promise<any> {
 
         // const formData = new FormData();
         //     formData.append('avatar', avatar);
@@ -264,7 +264,7 @@ export default class PostService {
             method: 'post',
             maxBodyLength: Infinity,
             url: 'https://uponblog.ru/api/user_update_profile_avatar.php',
-            headers: { 
+            headers: {
                 'Content-Type': 'multipart/form-data' // application/json
             },
             data
@@ -281,7 +281,7 @@ export default class PostService {
         }
     }
 
-    static async deleteAccount(token: string) : Promise<string> {
+    static async deleteAccount(token: string): Promise<string> {
         const data = {
             token
         };
@@ -305,7 +305,7 @@ export default class PostService {
     //             token : token
     //         };
     //         const response = await axios.post(config)
-      
+
     //       console.log('Image upload successful:', response.data);
     //     } catch (error) {
     //       console.error('Error uploading image:', error);
