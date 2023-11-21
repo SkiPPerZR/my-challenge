@@ -62,6 +62,7 @@
   "devDependencies": {
     "@svgr/cli": "^7.0.0",
     "@svgr/webpack": "^7.0.0",
+    "@types/axios": "^0.14.0",
     "@types/react-router-hash-link": "^2.4.6",
     "@typescript-eslint/eslint-plugin": "^5.57.1",
     "@typescript-eslint/parser": "^5.57.1",
