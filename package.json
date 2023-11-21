@@ -35,7 +35,11 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "lint": "eslint src/**/*.ts src/**/*.tsx",
+    "lint-fix": "eslint src/**/*.ts src/**/*.tsx --fix",
+    "dev-wb": "webpack serve --config webpack.config.js --mode development",
+    "build-wb": "webpack --config webpack.config.js --mode production"
   },
   "eslintConfig": {
     "extends": [
@@ -54,5 +58,26 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "@svgr/cli": "^7.0.0",
+    "@svgr/webpack": "^7.0.0",
+    "@types/react-router-hash-link": "^2.4.6",
+    "@typescript-eslint/eslint-plugin": "^5.57.1",
+    "@typescript-eslint/parser": "^5.57.1",
+    "css-loader": "^6.7.3",
+    "eslint": "^8.38.0",
+    "eslint-config-airbnb": "^19.0.4",
+    "eslint-config-prettier": "^8.8.0",
+    "file-loader": "^6.2.0",
+    "html-loader": "^4.2.0",
+    "html-webpack-plugin": "^5.5.1",
+    "sass": "^1.62.1",
+    "sass-loader": "^13.2.2",
+    "style-loader": "^3.3.2",
+    "ts-loader": "^9.4.3",
+    "webpack": "^5.78.0",
+    "webpack-cli": "^5.0.1",
+    "webpack-dev-server": "^4.13.3"
   }
 }
