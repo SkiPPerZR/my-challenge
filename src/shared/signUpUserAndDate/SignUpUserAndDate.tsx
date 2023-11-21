@@ -29,7 +29,7 @@ const SignUpUserAndDate:FC<SignUpUserAndDateProps> = ({returnToChooseSignUp, cho
         if (!usernameRegex.test(String(nicknameCheck))) {
             // setErrorNickname(true)
             checkStatusNickname = true;
-            console.log("Ошибка ника" + checkStatusNickname)
+            console.log(`Ошибка ника${  checkStatusNickname}`)
         } else {
             checkStatusNickname = false;
         }
@@ -37,7 +37,7 @@ const SignUpUserAndDate:FC<SignUpUserAndDateProps> = ({returnToChooseSignUp, cho
 
     const handleDateChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setCheckDate(event.target.value);
-      };
+    };
 
     const checkDate = () => {
         const inputDate = dateCheck;
@@ -51,7 +51,7 @@ const SignUpUserAndDate:FC<SignUpUserAndDateProps> = ({returnToChooseSignUp, cho
         if (isDateValid) {
             // setErrorDate(true)
             checkStatusDate = true;
-            console.log("Ошибка даты" + checkStatusDate)
+            console.log(`Ошибка даты${  checkStatusDate}`)
         } else {
             // setErrorDate(false)
             checkStatusDate = false;
@@ -60,11 +60,11 @@ const SignUpUserAndDate:FC<SignUpUserAndDateProps> = ({returnToChooseSignUp, cho
 
     const handleField1Change = (nick: string, date: string) => {
         setData((prevData: any) => ({
-          ...prevData,
-          nick: nick,
-          date_of_birth: date,
+            ...prevData,
+            nick,
+            date_of_birth: date,
         }));
-      };
+    };
 
     function sendNickDate () {
         checkNick()
@@ -95,18 +95,18 @@ const SignUpUserAndDate:FC<SignUpUserAndDateProps> = ({returnToChooseSignUp, cho
             <span className="text-14 medium notice">
                 {!checkStatusNickname && !checkStatusDate
                     ?   
-                        <>Ник должен быть длинной от 3 до 16 символов, <br/> может содержать символы _ и -<br/><br/>Вы должны быть старше 14 лет</>
+                    <>Ник должен быть длинной от 3 до 16 символов, <br/> может содержать символы _ и -<br/><br/>Вы должны быть старше 14 лет</>
                     :  
-                        <>
-                            {!checkStatusNickname
-                                ? <>Ник должен быть длинной от 3 до 16 символов, <br/> может содержать символы _ и -<br/><br/></>
-                                : <></>
-                            }
-                            {!checkStatusDate
-                                ? <div className='plusIndent'>Вы должны быть старше 14 лет</div>
-                                : <></>
-                            }
-                        </>
+                    <>
+                        {!checkStatusNickname
+                            ? <>Ник должен быть длинной от 3 до 16 символов, <br/> может содержать символы _ и -<br/><br/></>
+                            : <></>
+                        }
+                        {!checkStatusDate
+                            ? <div className='plusIndent'>Вы должны быть старше 14 лет</div>
+                            : <></>
+                        }
+                    </>
                 }
             </span>
             <div className='SignUpUserAndDateState'>

@@ -27,15 +27,15 @@ const DeleteProfile:FC<DeleteProfileProps> = ({setDeleteProf, close}) => {
 
     function deleteAccout() {
         fetchDeleteAccount(isToken);
-        setTimeout(function() {
-          setDeleteProf();
-          close()
-          sessionStorage.setItem('isAuth', 'false')
-          sessionStorage.setItem('isToken', '')
-          // eslint-disable-next-line no-restricted-globals
-          location.reload()
+        setTimeout(() => {
+            setDeleteProf();
+            close()
+            sessionStorage.setItem('isAuth', 'false')
+            sessionStorage.setItem('isToken', '')
+            // eslint-disable-next-line no-restricted-globals
+            location.reload()
         }, 10000);
-      }
+    }
 
     return (
         <div className='DeleteProfile-overlay' onMouseDown={()=>closeWindow()}>

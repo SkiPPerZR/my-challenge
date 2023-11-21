@@ -1,7 +1,7 @@
-import React from 'react'
+import React, { FC, useState } from 'react'
 import './DeadLinesInputs.scss'
 import ask from '../../../img/CreateNewChallenge/Ask.svg'
-import { FC, useState } from 'react'
+
 import DescriptionModal from '../../../components/DescriptionModal/DescriptionModal'
 
 interface DeadLinesInputsProps {

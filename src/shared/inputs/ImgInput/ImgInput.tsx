@@ -1,13 +1,13 @@
 import React, { FC, useContext, useEffect, useState } from 'react';
 import './ImgInput.scss'
 
-import icon from '../../../img/logo.svg'
-import { ImageContext, TokenContext } from '../../../context';
 import { resolve } from 'path';
 import axios from 'axios';
+import icon from '../../../img/logo.svg'
+import { ImageContext, TokenContext } from '../../../context';
 import PostService from '../../../api/PostService';
 
-const ImgInput = () => {
+function ImgInput() {
     const {isToken, setIsToken} = useContext(TokenContext);
     const {image, setImage} = useContext(ImageContext);
 
@@ -60,21 +60,21 @@ const ImgInput = () => {
                     // value={icon}
                     onChange={handleImageUpload}
                 /> */}
-                    <label
-                        htmlFor="file-loader-button"
-                        className='file-uploader__custom-button'></label>
-                    <input
-                        id='file-loader-button'
-                        type="file"
-                        className='file-uploader__upload-button'
-                        onChange={handleImageUpload}
-                        // value={icon}
-                        />
+                <label
+                    htmlFor="file-loader-button"
+                    className='file-uploader__custom-button' />
+                <input
+                    id='file-loader-button'
+                    type="file"
+                    className='file-uploader__upload-button'
+                    onChange={handleImageUpload}
+                    // value={icon}
+                />
             </div>
             <span className='text-14 regular' onClick={handleSubmit}>Добавить фото</span>
-            <div className="file-uploader__file-name"></div>
+            <div className="file-uploader__file-name" />
         </div>
     );
-};
+}
 
 export default ImgInput;

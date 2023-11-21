@@ -1,9 +1,9 @@
 import React, {FC, useState, useEffect} from 'react';
 import './Section.scss'
+import { useNavigate } from 'react-router-dom';
 import ChallengeList from '../ChallengesList/ChallengesList';
 import { ICard } from '../../interfaces/ICard';
 import PostService from '../../api/PostService';
-import { useNavigate } from 'react-router-dom';
 
 // interface MarkersProps {
 //     marker_name: string;
@@ -25,7 +25,7 @@ const Section:FC<SectionProps> = ({icon,name,count}) => {
     // }, [])
 
     async function fetchCards() {
-        let cardList : ICard[] = await PostService.getChallengeList('recommend');
+        const cardList : ICard[] = await PostService.getChallengeList('recommend');
         setCards(cardList);
     }
 

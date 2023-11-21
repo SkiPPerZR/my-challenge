@@ -25,21 +25,21 @@ const FormsSettings:FC<FormsSettingsProps> = ({onClick}) => {
     const [isDiscordError, setIsDiscordError] = useState(false)
 
     async function fetchCities(letter: string) {
-        let citiesList = await PostService.getCities(isToken,letter)
+        const citiesList = await PostService.getCities(isToken,letter)
         setCities(citiesList.city)
     }
 
     const handleField1Change = (fio: string, city: string, vk: string, steam: string, discord: string, token: string) => {
         setData((prevData: any) => ({
-          ...prevData,
-          fio: fio,
-          city: city,
-          vk: vk,
-          steam: steam,
-          discord: discord,
-          token: token
+            ...prevData,
+            fio,
+            city,
+            vk,
+            steam,
+            discord,
+            token
         }));
-      };
+    };
 
     useEffect(() => {
         buttonHandler()
@@ -56,7 +56,7 @@ const FormsSettings:FC<FormsSettingsProps> = ({onClick}) => {
     }
 
     function citiesUpdate(event: any) {
-        let input = event.target.value;
+        const input = event.target.value;
         setIsCity(input);
         fetchCities(isCity);
     } 
@@ -72,11 +72,11 @@ const FormsSettings:FC<FormsSettingsProps> = ({onClick}) => {
                 <ImgInput />
                 <div className='FormsSettingsFormInput'>
                     <label className='text-14 regular'>Имя и Фамилия</label>
-                    <input type='text' className='text-17 semibold' value={isName} onChange={event => setIsName(event.target.value)}></input>
+                    <input type='text' className='text-17 semibold' value={isName} onChange={event => setIsName(event.target.value)} />
                 </div>
                 <div className='FormsSettingsFormInput'>
                     <label className='text-14 regular'>Город</label>
-                    <input type='text' className='text-17 semibold' value={isCity} onChange={citiesUpdate}></input>
+                    <input type='text' className='text-17 semibold' value={isCity} onChange={citiesUpdate} />
                     <div className={liSwitch}>
                         {cities.map(cities => (
                             <li className='text-14 regular' onClick={buttonHandler} onMouseDown={()=>setIsCity(cities.name)}>{cities.name}</li>
@@ -85,23 +85,23 @@ const FormsSettings:FC<FormsSettingsProps> = ({onClick}) => {
                 </div>
                 <div className='FormsSettingsFormInput'>
                     <label className='text-14 regular'>VK</label>
-                    <input type='text' className='text-17 semibold' value={isVK} onChange={event => setIsVK(event.target.value)}></input>
+                    <input type='text' className='text-17 semibold' value={isVK} onChange={event => setIsVK(event.target.value)} />
                     <span className="text-14 medium notice">Укажите VK Id</span>
                 </div>
                 <div className='FormsSettingsFormInput'>
                     <label className='text-14 regular'>Steam</label>
-                    <input type='text' className='text-17 semibold' value={isSteam} onChange={event => setIsSteam(event.target.value)}></input>
+                    <input type='text' className='text-17 semibold' value={isSteam} onChange={event => setIsSteam(event.target.value)} />
                     <span className="text-14 medium notice">Укажите Steam Id</span>
                 </div>
                 <div className='FormsSettingsFormInput'>
                     <label className='text-14 regular'>Discord</label>
-                    <input type='number' className='text-17 semibold' value={isDiscord} onChange={event => setIsDiscord(event.target.value)}></input>
+                    <input type='number' className='text-17 semibold' value={isDiscord} onChange={event => setIsDiscord(event.target.value)} />
                     <span className="text-14 medium notice">
                         {isDiscordError
                             ?
-                                <>Укажите свой Discord Id</>
+                            <>Укажите свой Discord Id</>
                             :
-                                <>Discord Id состоить из 18 цифр</>
+                            <>Discord Id состоить из 18 цифр</>
                         }
                     </span>
                 </div>

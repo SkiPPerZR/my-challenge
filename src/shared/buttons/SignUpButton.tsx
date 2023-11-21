@@ -8,12 +8,10 @@ interface SignUpButtonProps {
 }
 
 const SignUpButton:FC<SignUpButtonProps> = 
-    ({children, toggle, toggleStatus}) => {
-    return (
+    ({children, toggle, toggleStatus}) => (
         <button className='SignUpButton text-18 medium' onClick={toggle} onMouseDown={() => toggleStatus(true)}>
             {children}
         </button>
     );
-};
 
 export default SignUpButton;

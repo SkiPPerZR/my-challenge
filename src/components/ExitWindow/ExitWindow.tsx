@@ -1,11 +1,11 @@
 import React, { FC, useContext, useState } from 'react';
 import './ExitWindow.scss'
 
+import { useNavigate } from 'react-router';
 import closeIcon from '../../img/close.svg'
 import DefaultButton, { ButtonVariant } from '../../shared/buttons/DefaultButton';
 import PostService from '../../api/PostService';
 import { TokenContext } from '../../context';
-import { useNavigate } from 'react-router';
 
 interface ExitWindowProps {
     setExitWind: () => void;
@@ -19,7 +19,7 @@ const ExitWindow:FC<ExitWindowProps> = ({setExitWind, close}) => {
     const navigate = useNavigate();
     const navigateToMain = () => {
         navigate('/');
-      }
+    }
 
     function closeWindow() {
         setExitWind()
@@ -34,7 +34,7 @@ const ExitWindow:FC<ExitWindowProps> = ({setExitWind, close}) => {
         navigateToMain()
         // eslint-disable-next-line no-restricted-globals
         location.reload()
-      }
+    }
 
     return (
         <div className='ExitWindow-overlay' onMouseDown={()=>closeWindow()}>

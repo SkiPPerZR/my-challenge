@@ -2,17 +2,17 @@ import { useState } from 'react';
 import gold from '../../img/CreateNewChallenge/Gold.svg'
 import './CreateNewChallengeBank.scss'
 
-const CreateNewChallengeBank = () => {
+function CreateNewChallengeBank() {
     const [value, setValue] = useState(1);
 
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-      const newValue = parseInt(event.target.value);
-      setValue(newValue);
+        const newValue = parseInt(event.target.value);
+        setValue(newValue);
     };
   
     const handleSliderChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-      const newValue = parseInt(event.target.value);
-      setValue(newValue);
+        const newValue = parseInt(event.target.value);
+        setValue(newValue);
     };
   
     return (
@@ -43,7 +43,7 @@ const CreateNewChallengeBank = () => {
                     //     }%)
                     // }}
                 />
-                </div>
+            </div>
 
         </div>
     )

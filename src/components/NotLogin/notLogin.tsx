@@ -3,7 +3,7 @@ import './notLogin.scss'
 
 import NLicon from '../../img/contacts-icon.svg'
 
-const NotLogin = () => {
+function NotLogin() {
     return (
         <div className='NotLogin'>
             <div>
@@ -14,6 +14,6 @@ const NotLogin = () => {
             </div>
         </div>
     );
-};
+}
 
 export default NotLogin;

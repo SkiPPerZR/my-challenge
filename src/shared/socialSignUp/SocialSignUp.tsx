@@ -6,12 +6,10 @@ interface SocialSignUpProps {
     func?: () => void;
 }
 
-const SocialSignUp:FC<SocialSignUpProps> = ({icon, func}) => {
-    return (
-        <div className='SocialSignUp' onClick={func}>
-            <img src={icon} alt="Social" />
-        </div>
-    );
-};
+const SocialSignUp:FC<SocialSignUpProps> = ({icon, func}) => (
+    <div className='SocialSignUp' onClick={func}>
+        <img src={icon} alt="Social" />
+    </div>
+);
 
 export default SocialSignUp;

@@ -3,9 +3,9 @@ import './Favorites.scss'
 
 import close from '../../img/close.svg'
 import { ICard } from '../../interfaces/ICard';
-import { CardVariant } from '../../shared/card/Card';
+import Card, { CardVariant } from '../../shared/card/Card';
 import PostService from '../../api/PostService';
-import Card from '../../shared/card/Card';
+
 
 interface FavoritesProps {
     toggle: () => void;
@@ -39,12 +39,12 @@ const Favorites:FC<FavoritesProps> = ({toggle, isOpen}) => {
                             {/* {cards.map(card => {
                                 return <Card key={card.token} variant={CardVariant.standart} card={card} cardLook={true}/>
                             })} */}
-                            <Card variant={CardVariant.standart} cardLook={true}/>
-                            <Card variant={CardVariant.standart} cardLook={true}/>
-                            <Card variant={CardVariant.standart} cardLook={true}/>
-                            <Card variant={CardVariant.standart} cardLook={true}/>
-                            <Card variant={CardVariant.standart} cardLook={true}/>
-                            <Card variant={CardVariant.standart} cardLook={true}/>
+                            <Card variant={CardVariant.standart} cardLook/>
+                            <Card variant={CardVariant.standart} cardLook/>
+                            <Card variant={CardVariant.standart} cardLook/>
+                            <Card variant={CardVariant.standart} cardLook/>
+                            <Card variant={CardVariant.standart} cardLook/>
+                            <Card variant={CardVariant.standart} cardLook/>
                         </div>
                     </div>
                 </div>

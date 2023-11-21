@@ -4,17 +4,17 @@ import Sidebar from '../../components/Sidebar/Sidebar';
 import ChallengePage from '../../components/ChallengePage/ChallengePage';
 import { AuthContext } from '../../context';
 
-const Challenge = () => {
+function Challenge() {
     const {isAuth, setIsAuth} = useContext(AuthContext);
 
     function Auth() {
         const newAuth = sessionStorage.getItem('isAuth')
         if (newAuth === 'true') {
             setIsAuth(true)
-            console.log('isAuth: '+isAuth)
+            console.log(`isAuth: ${isAuth}`)
         } else if (newAuth === 'false'){
             setIsAuth(false)
-            console.log('isAuth: '+isAuth)
+            console.log(`isAuth: ${isAuth}`)
         }
     }
 
@@ -31,6 +31,6 @@ const Challenge = () => {
             </div>
         </div>
     );
-};
+}
 
 export default Challenge;

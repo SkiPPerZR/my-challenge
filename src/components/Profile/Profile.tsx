@@ -1,6 +1,7 @@
 import React from 'react-dom'
 import './Profile.scss'
 
+import { useContext, useEffect, useState } from 'react'
 import ProfileStatItem from '../../shared/profileStatItem/profileStatItem'
 import ProfileInfoItem from '../../shared/profileInfoItem/ProfileInfoItem'
 import AchivementItem from '../../shared/achivementItem/AchivementItem'
@@ -9,12 +10,11 @@ import SeeAll from '../../shared/buttons/SeeAll'
 import avatar from '../../img/test-profile-icon.png'
 import premium from '../../img/Profile/Premium.svg'
 import achivement from '../../img/Achivements/ambassador.svg'
-import { useContext, useEffect, useState } from 'react'
 import { TokenContext } from '../../context'
 import PostService from '../../api/PostService'
 import { ISetting } from '../../interfaces/ISettings'
 
-const Profile = () => {
+function Profile() {
     const {isToken, setIsToken} = useContext(TokenContext);
 
     const [profData, setProfData] = useState<ISetting>({
@@ -28,7 +28,7 @@ const Profile = () => {
         category: [],
         category_sub: [],
         token : ''
-      });
+    });
     const [vk, setVk] = useState('');
     const [steam, setSteam] = useState('');
     const [discord, setDiscord] = useState('');
@@ -37,7 +37,7 @@ const Profile = () => {
     
 
     async function fetchProfileData(token: string) {
-        let profileData = await PostService.getProfileData(token);
+        const profileData = await PostService.getProfileData(token);
         setProfData(profileData);
         // additingData()
     }
@@ -108,6 +108,6 @@ const Profile = () => {
             </div>
         </div>
     );
-};
+}
 
 export default Profile;

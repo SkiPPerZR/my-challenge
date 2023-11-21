@@ -39,8 +39,7 @@ const TermsPolicy:FC<TermsPolicyProps> = ({docId}) => {
                 <button  onMouseDown={() => setTerms(2)} className='text-11 bold'>Пользовательское соглашение</button>
             </div>
             <div className='TermsPolicyText'>
-                <iframe width="100%" height="100%" src={urlDocx[terms]}>
-                </iframe>
+                <iframe width="100%" height="100%" src={urlDocx[terms]} />
             </div>
         </div>
     );

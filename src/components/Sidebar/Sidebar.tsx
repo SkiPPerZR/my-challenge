@@ -1,6 +1,7 @@
 import React, {FC, useState} from 'react';
 import './Sidebar.scss'
 
+import { useNavigate } from 'react-router-dom';
 import SidebarButton from '../../shared/buttons/SidebarButton';
 import Contacts from '../contacts/Contacts';
 import useModal from '../../shared/hooks/useModal';
@@ -34,7 +35,6 @@ import trash_hover from '../../img/Challenge/Trash_hover.svg'
 import telegram from '../../img/Telegram.svg'
 import twitch from '../../img/Twitch.svg'
 import vk from '../../img/VK-menu-logo.svg'
-import { useNavigate } from 'react-router-dom';
 import SidebarUserButton from '../../shared/buttons/SidebarUserButton';
 import Favorites from '../Favorites/Favorites';
 
@@ -49,7 +49,7 @@ const Sidebar:FC<SiderbarProps> = ({backbutton}) => {
     const navigate = useNavigate();
 
     const navigateToMain = () => {
-      navigate('/');
+        navigate('/');
     }
 
     const buttonsData = [
@@ -72,30 +72,30 @@ const Sidebar:FC<SiderbarProps> = ({backbutton}) => {
         <div className='Sidebar'>
             <div className='SidebarWrapper'>
                 <div className='SidebarWrapperMenu'>
-                    <div className='logo' onClick={navigateToMain}></div>
+                    <div className='logo' onClick={navigateToMain} />
                     {backbutton === 1
                         ?
-                            <BackButton/>
-                        : <div></div>
+                        <BackButton/>
+                        : <div />
                     }
                     {backbutton === 0
                         ? 
-                            <>
-                                {buttonsData.map(el=>
-                                    <SidebarButton key={el.id} icon={el.icon} activeIcon={el.activeIcon} text={el.text} onClick={(event)=>setChoosedButton(el.id)} active={el.id===choosedBut}/>
-                                )}
-                                <div className="SidebarWrapperMenuUser">
-                                    <SidebarUserButton icon={like} activeIcon={like_hover} text='Избранное' toggle={toggle} onMouseDown={(togAct) => setTogAct(false)}/>
-                                </div>
-                            </>
-                        : <div></div>
+                        <>
+                            {buttonsData.map(el=>
+                                <SidebarButton key={el.id} icon={el.icon} activeIcon={el.activeIcon} text={el.text} onClick={(event)=>setChoosedButton(el.id)} active={el.id===choosedBut}/>
+                            )}
+                            <div className="SidebarWrapperMenuUser">
+                                <SidebarUserButton icon={like} activeIcon={like_hover} text='Избранное' toggle={toggle} onMouseDown={(togAct) => setTogAct(false)}/>
+                            </div>
+                        </>
+                        : <div />
                     }
                     {backbutton === 2
                         ? 
-                            buttonsDataChallenge.map(el=>
-                                <SidebarButton key={el.id} icon={el.icon} activeIcon={el.activeIcon} text={el.text} onClick={(event)=>setChoosedButton(el.id)} active={el.id===choosedBut}/>
-                            )
-                        : <div></div>
+                        buttonsDataChallenge.map(el=>
+                            <SidebarButton key={el.id} icon={el.icon} activeIcon={el.activeIcon} text={el.text} onClick={(event)=>setChoosedButton(el.id)} active={el.id===choosedBut}/>
+                        )
+                        : <div />
                     }
                 </div>
                 <div className='SidebarWrapperContacts'>

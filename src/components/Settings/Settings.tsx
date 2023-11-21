@@ -64,31 +64,31 @@ const Settings:FC<SettingsProps> = ({setOpenSetting, closeMenu}) => {
         <>
             {coverSettings 
                 ?
-                    <>
-                        {deleteProf && <DeleteProfile setDeleteProf={()=>setDeleteProf(false)} close={()=>setCoverSettings(false)}/>}
-                        {editProfile && <EditProfile name='Редактирование профиля' setEditProfile={()=>setEditProfile(false)}/>}
-                    </>
+                <>
+                    {deleteProf && <DeleteProfile setDeleteProf={()=>setDeleteProf(false)} close={()=>setCoverSettings(false)}/>}
+                    {editProfile && <EditProfile name='Редактирование профиля' setEditProfile={()=>setEditProfile(false)}/>}
+                </>
                 :   
-                    <div className="Settings-overlay" onClick={closeSettings}>
-                        <div className="Settings-box" onClick={(e) => e.stopPropagation()}>
-                            <div className="SettingsClose">
-                                <button onClick={closeSettings}>
-                                    <img src={close} alt="Закрыть" />
-                                </button>
-                            </div>
-                            <div className="SettingsTitle">
-                                <img src={settings} alt="Настройки" />
-                                <h2 className="title-25 semibold">Настройки</h2>
-                            </div>
-                            <div className="SettingsItems">
-                                <SettingsItem name='Информация о пользователе' icon={info} theme={ItemTheme.standart} func={()=>{}}/>
-                                <SettingsItem name='Номер телефона' icon={phone} theme={ItemTheme.standart} func={()=>{}}/>
-                                <SettingsItem name='Почта и пароль' icon={email} theme={ItemTheme.standart} func={()=>{}}/>
-                                <SettingsItem name='Верификация для блогеров' icon={blogger} theme={ItemTheme.blogger} func={()=>{}}/>
-                                <SettingsItem name='Удалить аккаунт' icon={del} theme={ItemTheme.delete} func={()=>openDelItem()}/>
-                            </div>
+                <div className="Settings-overlay" onClick={closeSettings}>
+                    <div className="Settings-box" onClick={(e) => e.stopPropagation()}>
+                        <div className="SettingsClose">
+                            <button onClick={closeSettings}>
+                                <img src={close} alt="Закрыть" />
+                            </button>
+                        </div>
+                        <div className="SettingsTitle">
+                            <img src={settings} alt="Настройки" />
+                            <h2 className="title-25 semibold">Настройки</h2>
+                        </div>
+                        <div className="SettingsItems">
+                            <SettingsItem name='Информация о пользователе' icon={info} theme={ItemTheme.standart} func={()=>{}}/>
+                            <SettingsItem name='Номер телефона' icon={phone} theme={ItemTheme.standart} func={()=>{}}/>
+                            <SettingsItem name='Почта и пароль' icon={email} theme={ItemTheme.standart} func={()=>{}}/>
+                            <SettingsItem name='Верификация для блогеров' icon={blogger} theme={ItemTheme.blogger} func={()=>{}}/>
+                            <SettingsItem name='Удалить аккаунт' icon={del} theme={ItemTheme.delete} func={()=>openDelItem()}/>
                         </div>
                     </div>
+                </div>
             }
         </>
     );

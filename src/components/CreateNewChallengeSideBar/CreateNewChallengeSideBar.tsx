@@ -18,7 +18,7 @@ const CreateNewChallengeSideBar: FC<CreateNewChallengeSideBarProps> = ({ setOpen
     }
     return (
         <div className="container">
-            <div className="sidebar__overlay" onClick={closeSideBar}></div>
+            <div className="sidebar__overlay" onClick={closeSideBar} />
             <div className="sidebar">
                 <div className="sidebar__header">
                     <h2 className="text-36 regular sidebar__title">Новый челлендж</h2>
@@ -57,8 +57,8 @@ const CreateNewChallengeSideBar: FC<CreateNewChallengeSideBarProps> = ({ setOpen
                 </div>
                 <div className="sidebar__deadlines">
                     <h3 className="text-28 regular sidebar__title">Пари и сроки</h3>
-                    <DeadLinesInputs title={"Общий спрок проведения Челленджа"} description={'Срок, когда челлендж будет автоматически завершен в пользу оппонентов, в случае, если создатель не предоставит вовремя результат.'}/>
-                    <DeadLinesInputs title={'Время на проверку результата' } description={'Время, в течение которого создатель челленджа должен рассмотреть результат и вынести вердикт.Если создатель\участник не рассмотрели голос идет участнику\создателю челленджа.'}/>
+                    <DeadLinesInputs title="Общий спрок проведения Челленджа" description="Срок, когда челлендж будет автоматически завершен в пользу оппонентов, в случае, если создатель не предоставит вовремя результат."/>
+                    <DeadLinesInputs title="Время на проверку результата" description={'Время, в течение которого создатель челленджа должен рассмотреть результат и вынести вердикт.Если создатель\участник не рассмотрели голос идет участнику\создателю челленджа.'}/>
                     <CreateNewChallengeBank />
 
                 </div>

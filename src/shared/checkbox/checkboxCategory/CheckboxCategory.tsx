@@ -36,7 +36,7 @@ const CheckboxCategory:FC<CheckboxCategoryProps> = ({category, turn}) => {
                 <div className="CheckboxCategoryContainerSwitch">
                     <label 
                         htmlFor={category.id}>
-                        <div className={styleCircle}></div>
+                        <div className={styleCircle} />
                     </label>
                     <input id={category.id} type="checkbox" onChange={event => turn(event.target.value)}/>
                 </div>

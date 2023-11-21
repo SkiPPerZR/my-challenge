@@ -37,7 +37,7 @@ const CreateChallengeSwitch: FC<CreateChallengeSwitchProps> = ({title, descripti
             <div className="switch__container">
                 <Link to={docUrl} target="_blank" className="switch__container__link"><span className="text-14 regular">{title}</span></Link>
                 <label htmlFor={id} className={styleSwitch} onMouseDown={buttonHandler}>
-                    <div className={styleCircle} ></div>
+                    <div className={styleCircle}  />
                 </label>
                 <input id={id} type="checkbox" onChange={event => turn(event.target.value)}/>
             </div>

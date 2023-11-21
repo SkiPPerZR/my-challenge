@@ -31,9 +31,9 @@ const LogInByEmail:FC<LogInByEmailProps> = ({toggle, reChoose}) => {
     const navigate = useNavigate();
 
     async function fetchLogin(email : string, password : string) {
-        let message = await PostService.emailLogin(email, password);
+        const message = await PostService.emailLogin(email, password);
         // console.log(JSON.stringify(message))
-        let newToken = message.token
+        const newToken = message.token
         sessionStorage.setItem('isToken', newToken)
         setIsToken(newToken)
     }
@@ -57,9 +57,9 @@ const LogInByEmail:FC<LogInByEmailProps> = ({toggle, reChoose}) => {
     useEffect(() => {
         let timer: NodeJS.Timeout | null = null;
         if (isBlocked) {
-        timer = setInterval(() => {
-            setCountdown((prevCountdown) => prevCountdown - 1);
-        }, 1000);
+            timer = setInterval(() => {
+                setCountdown((prevCountdown) => prevCountdown - 1);
+            }, 1000);
         }
         return () => {
             if (timer) {
@@ -84,7 +84,7 @@ const LogInByEmail:FC<LogInByEmailProps> = ({toggle, reChoose}) => {
         if (passCheck === '') {
             setEmailError(true)
             setPassError(true)
-         } else {
+        } else {
             setEmailError(false)
             setPassError(false)
             fetchLogin(emailCheck, passCheck)

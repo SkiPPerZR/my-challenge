@@ -8,17 +8,15 @@ interface SidebarButtonProps extends React.DetailedHTMLProps<React.ButtonHTMLAtt
     active?: boolean;
 }
 
-const SidebarButton:FC<SidebarButtonProps> = ({icon, activeIcon, text, active, ...props}: SidebarButtonProps) => {
-    return (
-        <button className='SidebarButton' {...props} style={{
-            background: active === true ? 'var(--BG_secondary8)' : 'transparent',
-            }}>
-            <div>
-                {active? <img src={activeIcon} alt=""/> : <img src={icon} alt=""/> }
-            </div>
-            <span className='title-11 bold'>{text}</span>
-        </button>
-    );
-};
+const SidebarButton:FC<SidebarButtonProps> = ({icon, activeIcon, text, active, ...props}: SidebarButtonProps) => (
+    <button className='SidebarButton' {...props} style={{
+        background: active === true ? 'var(--BG_secondary8)' : 'transparent',
+    }}>
+        <div>
+            {active? <img src={activeIcon} alt=""/> : <img src={icon} alt=""/> }
+        </div>
+        <span className='title-11 bold'>{text}</span>
+    </button>
+);
 
 export default SidebarButton;

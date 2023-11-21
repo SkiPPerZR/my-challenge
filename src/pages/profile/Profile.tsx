@@ -1,14 +1,14 @@
 import React, { useContext, useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
 import Header from '../../components/Header/Header';
 import Sidebar from '../../components/Sidebar/Sidebar';
 import Section from '../../components/Section/Section';
 
 import games from '../../img/SidebarLg/GamesLg.svg'
-import { useLocation } from 'react-router-dom';
 import Profile from '../../components/Profile/Profile';
 import { AuthContext } from '../../context';
 
-const Main = () => {
+function Main() {
     const {isAuth, setIsAuth} = useContext(AuthContext);
 
     function Auth() {
@@ -33,6 +33,6 @@ const Main = () => {
             </div>
         </div>
     );
-};
+}
 
 export default Main;

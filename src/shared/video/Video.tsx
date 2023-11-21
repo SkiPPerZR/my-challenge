@@ -3,7 +3,7 @@ import './Video.scss'
 
 import img from '../../img/soccer.jpg'
 
-const Video = () => {
+function Video() {
     return (
         <div className='Video'>
             {/* <iframe 
@@ -18,6 +18,6 @@ const Video = () => {
             <img src={img} alt="Шварц" width="100%"/>
         </div>
     );
-};
+}
 
 export default Video;

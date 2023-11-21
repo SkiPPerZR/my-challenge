@@ -4,7 +4,7 @@ import Sidebar from '../../components/Sidebar/Sidebar';
 import NotLogin from '../../components/NotLogin/notLogin';
 import { AuthContext } from '../../context';
 
-const Login = () => {
+function Login() {
     const {isAuth, setIsAuth} = useContext(AuthContext);
 
     function Auth() {
@@ -29,6 +29,6 @@ const Login = () => {
             </div>
         </div>
     );
-};
+}
 
 export default Login;

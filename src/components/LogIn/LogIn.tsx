@@ -1,12 +1,12 @@
 import React, { FC, useContext, useState } from 'react'
 import './LogIn.scss'
 
+import { useNavigate } from 'react-router-dom';
 import icon from '../../img/iconSignUp.svg'
 import close from '../../img/close.svg'
 import number from '../../img/Call.svg'
 import email from '../../img/email-signUp.svg'
 
-import { useNavigate } from 'react-router-dom';
 import ChooseSignUp, { ChooseVariant } from '../../shared/chooseSignUp/ChooseSignUp';
 import LogInByEmail from '../../shared/logInByEmail/LogInByEmail'
 import LogInByNumber from '../../shared/logInByNumber/LogInByNumber'
@@ -53,9 +53,9 @@ const LogIn:FC<LogInProps> = ({isOpenLogIn, reChoose}) => {
                     <>
                         {logInVar
                             ?
-                                <LogInByNumber toggle={closeSideBar} reChoose={reChooseFunc}/>
+                            <LogInByNumber toggle={closeSideBar} reChoose={reChooseFunc}/>
                             :
-                                <LogInByEmail toggle={closeSideBar} reChoose={reChooseFunc}/>
+                            <LogInByEmail toggle={closeSideBar} reChoose={reChooseFunc}/>
                         }
                     </>
                     :

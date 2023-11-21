@@ -65,7 +65,7 @@ const SignUp:FC<SignUpProps> = ({isOpenSignUp, reChoose}) => {
             fetchProfileData()
             // console.log('Нынешний токен: '+ isToken)
             setIsAuth(true)
-            let newToken = sessionStorage.getItem('isToken')
+            const newToken = sessionStorage.getItem('isToken')
             getProfileData(newToken)
             // eslint-disable-next-line no-restricted-globals
             location.reload()
@@ -83,7 +83,7 @@ const SignUp:FC<SignUpProps> = ({isOpenSignUp, reChoose}) => {
     }
 
     async function fetchCategory(token: string) {
-        let categoryList = await PostService.getCategory(token);
+        const categoryList = await PostService.getCategory(token);
         setDataCategory(categoryList.data)
     }
 
@@ -116,22 +116,38 @@ const SignUp:FC<SignUpProps> = ({isOpenSignUp, reChoose}) => {
             <div onMouseDown={(e) => e.stopPropagation()} className='SignUp_box'>
                 {chooseInterests
                     ? 
-                        <>
-                            <div className="SignUpClose">
-                                <button onClick={closeSideBar}>
-                                    <img src={close} alt="Закрыть" />
-                                </button>
-                            </div>
-                            <div className="SignUpTitle">
-                                <img src={icon} alt="Регистрация" />
-                                <h2 className="title-25 semibold">Ваши интересы</h2>
-                            </div> 
-                            <FormInterests dataCat={dataCategory} onClick={closeSideBar}/>
-                        </>
+                    <>
+                        <div className="SignUpClose">
+                            <button onClick={closeSideBar}>
+                                <img src={close} alt="Закрыть" />
+                            </button>
+                        </div>
+                        <div className="SignUpTitle">
+                            <img src={icon} alt="Регистрация" />
+                            <h2 className="title-25 semibold">Ваши интересы</h2>
+                        </div> 
+                        <FormInterests dataCat={dataCategory} onClick={closeSideBar}/>
+                    </>
                     :   
-                        <>
-                            {settingsProfile
-                                ?
+                    <>
+                        {settingsProfile
+                            ?
+                            <>
+                                <div className="SignUpClose">
+                                    <button onClick={closeSideBar}>
+                                        <img src={close} alt="Закрыть" />
+                                    </button>
+                                </div>
+                                <div className="SignUpTitle">
+                                    <img src={icon} alt="Регистрация" />
+                                    <h2 className="title-25 semibold">Настройка профиля</h2>
+                                </div> 
+                                <FormsSettings onClick={()=>setChooseInterests(true)}/>
+                            </>
+                            :
+                            <>
+                                {afterReg
+                                    ?
                                     <>
                                         <div className="SignUpClose">
                                             <button onClick={closeSideBar}>
@@ -140,85 +156,69 @@ const SignUp:FC<SignUpProps> = ({isOpenSignUp, reChoose}) => {
                                         </div>
                                         <div className="SignUpTitle">
                                             <img src={icon} alt="Регистрация" />
-                                            <h2 className="title-25 semibold">Настройка профиля</h2>
+                                            <h2 className="title-25 semibold">Добро пожаловать на<br/> площадку your challenge</h2>
                                         </div> 
-                                        <FormsSettings onClick={()=>setChooseInterests(true)}/>
+                                        <div className='SignUpChooseAfterReg'>
+                                            <div className="SignUpChooseAfterRegGroup">
+                                                <ChooseSignUp theme={ChooseVariant.standart} icon={skip} name='Пропустить' choose={closeSideBar}/>
+                                                <ChooseSignUp theme={ChooseVariant.bright} icon={gear} name='Настроить профиль' choose={() => setSettingsProfile(true)}/>
+                                            </div>
+                                            <span className="text-14 medium notice">Вы можете всегда настроить профиль позже</span>
+                                        </div>
                                     </>
-                                :
+                                    :
                                     <>
-                                        {afterReg
-                                            ?
-                                                <>
-                                                    <div className="SignUpClose">
-                                                        <button onClick={closeSideBar}>
-                                                            <img src={close} alt="Закрыть" />
-                                                        </button>
-                                                    </div>
-                                                    <div className="SignUpTitle">
-                                                        <img src={icon} alt="Регистрация" />
-                                                        <h2 className="title-25 semibold">Добро пожаловать на<br/> площадку your challenge</h2>
-                                                    </div> 
-                                                    <div className='SignUpChooseAfterReg'>
-                                                        <div className="SignUpChooseAfterRegGroup">
-                                                            <ChooseSignUp theme={ChooseVariant.standart} icon={skip} name='Пропустить' choose={closeSideBar}/>
-                                                            <ChooseSignUp theme={ChooseVariant.bright} icon={gear} name='Настроить профиль' choose={() => setSettingsProfile(true)}/>
-                                                        </div>
-                                                        <span className="text-14 medium notice">Вы можете всегда настроить профиль позже</span>
-                                                    </div>
-                                                </>
+                                        {UserDateinput
+                                            ?   
+                                            <>
+                                                <div className="SignUpClose">
+                                                    <button onClick={returnToChooseSignUp}>
+                                                        <img src={close} alt="Закрыть" />
+                                                    </button>
+                                                </div>
+                                                <div className="SignUpTitle">
+                                                    <img src={icon} alt="Регистрация" />
+                                                    <h2 className="title-25 semibold">Регистрация</h2>
+                                                </div>
+                                                <SignUpUserAndDate returnToChooseSignUp={returnToChooseSignUp} chooseAfterReg={chooseAfterReg}/>
+                                            </>
                                             :
-                                                <>
-                                                {UserDateinput
-                                                    ?   
-                                                        <>
-                                                            <div className="SignUpClose">
-                                                                <button onClick={returnToChooseSignUp}>
-                                                                    <img src={close} alt="Закрыть" />
-                                                                </button>
-                                                            </div>
-                                                            <div className="SignUpTitle">
-                                                                <img src={icon} alt="Регистрация" />
-                                                                <h2 className="title-25 semibold">Регистрация</h2>
-                                                            </div>
-                                                            <SignUpUserAndDate returnToChooseSignUp={returnToChooseSignUp} chooseAfterReg={chooseAfterReg}/>
-                                                        </>
+                                            <>
+                                                {chooseSignUp
+                                                    ?
+                                                    <>
+                                                        <div className="SignUpClose">
+                                                            <button onClick={() => setChooseSignUp(false)}>
+                                                                <img src={close} alt="Закрыть" />
+                                                            </button>
+                                                        </div>
+                                                        <div className="SignUpTitle">
+                                                            <img src={icon} alt="Регистрация" />
+                                                            <h2 className="title-25 semibold">Регистрация</h2>
+                                                        </div> 
+                                                        {signUpVar
+                                                            ?
+                                                            <SignUpByNumber UserDate={() => setUserDateInput(true)} reChoose={reChooseFunc}/>
+                                                            :
+                                                            <SignUpByEmail UserDate={() => setUserDateInput(true)} reChoose={reChooseFunc}/>
+                                                        }
+                                                    </>
                                                     :
-                                                        <>
-                                                            {chooseSignUp
-                                                                ?
-                                                                <>
-                                                                    <div className="SignUpClose">
-                                                                        <button onClick={() => setChooseSignUp(false)}>
-                                                                            <img src={close} alt="Закрыть" />
-                                                                        </button>
-                                                                    </div>
-                                                                    <div className="SignUpTitle">
-                                                                        <img src={icon} alt="Регистрация" />
-                                                                        <h2 className="title-25 semibold">Регистрация</h2>
-                                                                    </div> 
-                                                                    {signUpVar
-                                                                        ?
-                                                                            <SignUpByNumber UserDate={() => setUserDateInput(true)} reChoose={reChooseFunc}/>
-                                                                        :
-                                                                            <SignUpByEmail UserDate={() => setUserDateInput(true)} reChoose={reChooseFunc}/>
-                                                                    }
-                                                                </>
-                                                                :
-                                                                <>
-                                                                    <div className="SignUpClose">
-                                                                        <button onClick={closeSideBar}>
-                                                                            <img src={close} alt="Закрыть" />
-                                                                        </button>
-                                                                    </div>
-                                                                    <div className="SignUpTitle">
-                                                                        <img src={icon} alt="Регистрация" />
-                                                                        <h2 className="title-25 semibold">Регистрация</h2>
-                                                                    </div>
-                                                                    <div className='SignUpChoose'>
-                                                                        <ChooseSignUp theme={ChooseVariant.standart} icon={number} name='По номеру телефона' choose={() => setChooseSignUp(true)} type={() => setSignUpVar(true)}/>
-                                                                        <ChooseSignUp theme={ChooseVariant.standart} icon={email} name='По почте' choose={() => setChooseSignUp(true)} type={() => setSignUpVar(false)}/>
-                                                                    </div>
-                                                                    {/* <div className="SignUpBySocial">
+                                                    <>
+                                                        <div className="SignUpClose">
+                                                            <button onClick={closeSideBar}>
+                                                                <img src={close} alt="Закрыть" />
+                                                            </button>
+                                                        </div>
+                                                        <div className="SignUpTitle">
+                                                            <img src={icon} alt="Регистрация" />
+                                                            <h2 className="title-25 semibold">Регистрация</h2>
+                                                        </div>
+                                                        <div className='SignUpChoose'>
+                                                            <ChooseSignUp theme={ChooseVariant.standart} icon={number} name='По номеру телефона' choose={() => setChooseSignUp(true)} type={() => setSignUpVar(true)}/>
+                                                            <ChooseSignUp theme={ChooseVariant.standart} icon={email} name='По почте' choose={() => setChooseSignUp(true)} type={() => setSignUpVar(false)}/>
+                                                        </div>
+                                                        {/* <div className="SignUpBySocial">
                                                                         <div className="SignUpBySocialGroup">
                                                                             <SocialSignUp icon={vk}/>
                                                                             <SocialSignUp icon={ya}/>
@@ -226,15 +226,15 @@ const SignUp:FC<SignUpProps> = ({isOpenSignUp, reChoose}) => {
                                                                         </div>
                                                                         <span className='text-12 regular'>Через социальные сети</span>
                                                                     </div> */}
-                                                                </>
-                                                            }
-                                                        </>
+                                                    </>
                                                 }
                                             </>
                                         }
                                     </>
-                            }
-                        </>
+                                }
+                            </>
+                        }
+                    </>
                 }
             </div>
         </div>
