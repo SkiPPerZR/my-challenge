@@ -19,7 +19,7 @@ const LogInByNumber:FC<LogInByNumberProps> = ({toggle, reChoose}) => {
 
     const [codeCheck, setCodeCheck] = useState('');
     const [is_error_code, setCodeError] = useState(false);
-    const [is_error_phone_base, setErrorPhoneBase] = useState(false)
+    const [is_error_phone_base, setErrorPhoneBase] = useState('')
 
     const [isBlocked, setIsBlocked] = useState(false);
     const [countdown, setCountdown] = useState(0);
@@ -28,16 +28,19 @@ const LogInByNumber:FC<LogInByNumberProps> = ({toggle, reChoose}) => {
     const {isAuth, setIsAuth} = useContext(AuthContext);
 
     async function fetchPhoneLogin(e: string) {
-        let token = await PostService.sendPhoneLogin(e);
-        if (token !== '401' && token) {
-            let newToken = token
+        try {
+            let response = await PostService.sendPhoneLogin(e);
+            let newToken = response.data['token']
             sessionStorage.setItem('isToken', newToken)
-            sessionStorage.setItem('isAuth', 'true')
-            setIsToken(token)
-        } else {
-            setErrorPhoneBase(true)
-        }
-        
+            setIsToken(newToken)
+            setErrorPhoneBase('')
+        } catch (error){
+            //@ts-ignore
+            //console.log(error.response.data.message)
+            //@ts-ignore
+            setErrorPhoneBase(error.response.data.message)
+            console.log(is_error_phone_base)
+        }        
     }
 
     async function fetchCodeLogin(code : string, token : string) {
@@ -87,18 +90,23 @@ const LogInByNumber:FC<LogInByNumberProps> = ({toggle, reChoose}) => {
         // console.log('Я вызвался!' + phoneCheck.length)
         let cleanNumber = phoneCheck.replace(/[^0-9-]/g, '');
         const re = /^[78]9\d{9}$/
-        if (!re.test(cleanNumber) || cleanNumber.length > 11 || cleanNumber.length < 10) {
-            // console.log('Я вызвался снова!') 
-            setPhoneError(true)
-        } else if (is_error_phone_base === true) {
-            setPhonePass(true)
-        } else {
+        if (re.test(cleanNumber) && cleanNumber.length == 11) {
+            // console.log('Я вызвался снова!')
             cleanNumber = "+7" + cleanNumber.slice(1);
-            setPhoneError(false)
-            setPhonePass(false)
-            setCode(true)
             fetchPhoneLogin(cleanNumber)
-            // console.log('Я вызвался!' + cleanNumber)
+            console.log('Я вызвался!' + cleanNumber)
+            console.log('Ошибка' + is_error_phone_base)
+            if (is_error_phone_base === '') {
+                setPhonePass(false)
+                setCode(true)
+            } else if (is_error_phone_base === 'Данного телефона в системе нет') {
+                setPhonePass(true)
+                setCode(false)
+            }
+        } else {
+            setPhoneError(true)
+            setPhonePass(true)
+            setCode(false)
         }
     }
 
@@ -128,10 +136,10 @@ const LogInByNumber:FC<LogInByNumberProps> = ({toggle, reChoose}) => {
             // console.log('Проверка кода: ' + is_error_code)
             if (!checkError && !is_error_phone && code) {
                 console.log('Ты вошел!')
-                // eslint-disable-next-line no-restricted-globals
-                location.reload()
                 console.log('isAuth: '+isAuth)
                 toggle()
+                // eslint-disable-next-line no-restricted-globals
+                // location.reload()
             }
         }
     }
@@ -150,9 +158,9 @@ const LogInByNumber:FC<LogInByNumberProps> = ({toggle, reChoose}) => {
                             :
                             <></>
                         }
-                        {is_error_phone_base
+                        {is_error_phone_base === 'Данного телефона в системе нет'
                             ?
-                            <span className="text-14 medium error">Ошибка: Неверный формат номера введите с +7 / 8 и код должен начинаться с цифры 9</span>
+                            <span className="text-14 medium notice">Этот номер не зарегестрирован на сайте.<br/> Проверьте верность указанного номера.</span>
                             :
                             <></>
                         }

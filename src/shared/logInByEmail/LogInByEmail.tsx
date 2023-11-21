@@ -5,6 +5,7 @@ import eye from '../../img/Eye.svg'
 import eyeSlash from '../../img/Eye-slash.svg'
 import { AuthContext } from '../../context';
 import PostService from '../../api/PostService';
+import { object } from 'prop-types';
 
 interface LogInByEmailProps {
     toggle: () => void;
@@ -25,17 +26,26 @@ const LogInByEmail:FC<LogInByEmailProps> = ({toggle, reChoose}) => {
     const [isBlocked, setIsBlocked] = useState(false);
     const [countdown, setCountdown] = useState(0);
 
+    const [errorRequest, setErrorRequest] = useState('');
+
     const {isAuth, setIsAuth} = useContext(AuthContext);
     const [isToken, setIsToken] = useState<any>('');
 
     const navigate = useNavigate();
 
     async function fetchLogin(email : string, password : string) {
-        let message = await PostService.emailLogin(email, password);
-        // console.log(JSON.stringify(message))
-        let newToken = message.token
-        sessionStorage.setItem('isToken', newToken)
-        setIsToken(newToken)
+        try {
+            let response = await PostService.emailLogin(email, password);
+            // console.log(JSON.stringify(response.data['token']))
+            let newToken = response.data['token']
+            sessionStorage.setItem('isToken', newToken)
+            setIsToken(newToken)
+        } catch (error) {
+            //@ts-ignore
+            // console.log(error.response.data.message);
+            //@ts-ignore
+            setErrorRequest(error.response.data.message);
+        }
     }
 
     const handleClick = () => {
@@ -81,13 +91,13 @@ const LogInByEmail:FC<LogInByEmailProps> = ({toggle, reChoose}) => {
 
     function checkPass() {
         setPassCheck(passCheck)
-        if (passCheck === '') {
+        fetchLogin(emailCheck, passCheck)
+        if (errorRequest === 'Данного email в системе нет') {
             setEmailError(true)
             setPassError(true)
          } else {
             setEmailError(false)
             setPassError(false)
-            fetchLogin(emailCheck, passCheck)
         }
     }
 
@@ -98,8 +108,8 @@ const LogInByEmail:FC<LogInByEmailProps> = ({toggle, reChoose}) => {
         if (!is_error_email) {
             console.log('Ты вошел!')
             sessionStorage.setItem('isAuth', 'true')
-            // console.log('isToken: '+isToken)
-            // console.log('isAuth: '+isAuth)
+            console.log('isToken: '+isToken)
+            console.log('isAuth: '+isAuth)
             setIsAuth(true)
             toggle()
             // eslint-disable-next-line no-restricted-globals
@@ -126,7 +136,7 @@ const LogInByEmail:FC<LogInByEmailProps> = ({toggle, reChoose}) => {
                 </div>
                 {is_error_pass
                     ?
-                    <span className="text-14 medium error">Неверная почта или пароль не верный</span>
+                    <span className="text-14 medium notice">Неверно введен email или пароль.<br/>Проверьте верность данных и попробуйте войти снова.</span>
                     :
                     <></>
                 }

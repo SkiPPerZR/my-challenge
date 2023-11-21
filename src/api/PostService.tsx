@@ -79,22 +79,13 @@ export default class PostService {
         return statusCode.toString();
     }
 
-    static async sendPhoneLogin(phone : string) : Promise<string> {
+    static async sendPhoneLogin(phone : string) : Promise<any> {
 
         let data = '{"phone" : "'+ phone +'"}';
 
         let responce = await PostService.sendRawData(data, 'user_login_by_phone.php');
 
-        let statusCode = responce.status;
-
-        if (statusCode == 200) {
-            return responce.data["token"];
-        }
-        if ((statusCode == 401)) {
-            return responce.data["error"];
-         }
-
-        return responce.data;
+        return responce;
     }
 
     static async sendPhoneCodeLogin(code : String, token : String) : Promise<String> {
@@ -156,15 +147,15 @@ export default class PostService {
         return statusCode.toString();
     }
 
-    static async emailLogin(email: string, password: string) : Promise<ILogin> {
+    static async emailLogin(email: string, password: string) : Promise<any> {
         let data = {
             email: email,
             password: password
         }
-        
+
         let response = await PostService.sendRawData(JSON.stringify(data), 'user_login_by_email.php');
         
-        return response.data;
+        return response;
     }
 
     static async emailSignUp(email : string, password : string) : Promise<string> {
