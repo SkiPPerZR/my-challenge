@@ -1,7 +1,7 @@
 .user-profile {
     display: inline-block;
-    -webkit-mask-box-image: url('../../img/UserProfileIconMask.svg') 35 repeat;
-    mask-border: url('../../img/UserProfileIconMask.svg') 35 repeat;
+    -webkit-mask-box-image: url('public/img/UserProfileIconMask.svg') 35 repeat;
+    mask-border: url('public/img/UserProfileIconMask.svg') 35 repeat;
     width: 50px;
     height: 50px;
     background-color: var(--BG_secondary8);

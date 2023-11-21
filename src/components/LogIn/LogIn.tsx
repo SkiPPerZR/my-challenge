@@ -2,10 +2,10 @@ import React, { FC, useContext, useState } from 'react'
 import './LogIn.scss'
 
 import { useNavigate } from 'react-router-dom';
-import icon from '../../img/iconSignUp.svg'
-import close from '../../img/close.svg'
-import number from '../../img/Call.svg'
-import email from '../../img/email-signUp.svg'
+import icon from 'public/img/iconSignUp.svg'
+import close from 'public/img/close.svg'
+import number from 'public/img/Call.svg'
+import email from 'public/img/email-signUp.svg'
 
 import ChooseSignUp, { ChooseVariant } from '../../shared/chooseSignUp/ChooseSignUp';
 import LogInByEmail from '../../shared/logInByEmail/LogInByEmail'
@@ -18,8 +18,8 @@ interface LogInProps {
     reChoose: Function;
 }
 
-const LogIn:FC<LogInProps> = ({isOpenLogIn, reChoose}) => {
-    const {data, setData} = useContext(ProfileData);
+const LogIn: FC<LogInProps> = ({ isOpenLogIn, reChoose }) => {
+    const { data, setData } = useContext(ProfileData);
     const [chooseLogIn, setChooseLogIn] = useState(false);
     const [logInVar, setLogInVar] = useState(false);
 
@@ -47,22 +47,22 @@ const LogIn:FC<LogInProps> = ({isOpenLogIn, reChoose}) => {
                 <div className="LogInTitle">
                     <img src={icon} alt="Вход" />
                     <h2 className="title-25 semibold">Вход</h2>
-                </div> 
+                </div>
                 {chooseLogIn
                     ?
                     <>
                         {logInVar
                             ?
-                            <LogInByNumber toggle={closeSideBar} reChoose={reChooseFunc}/>
+                            <LogInByNumber toggle={closeSideBar} reChoose={reChooseFunc} />
                             :
-                            <LogInByEmail toggle={closeSideBar} reChoose={reChooseFunc}/>
+                            <LogInByEmail toggle={closeSideBar} reChoose={reChooseFunc} />
                         }
                     </>
                     :
                     <>
                         <div className='LogInChoose'>
-                            <ChooseSignUp theme={ChooseVariant.standart} icon={number} name='По номеру телефона' choose={() => setChooseLogIn(true)} type={() => setLogInVar(true)}/>
-                            <ChooseSignUp theme={ChooseVariant.standart} icon={email} name='По почте' choose={() => setChooseLogIn(true)} type={() => setLogInVar(false)}/>
+                            <ChooseSignUp theme={ChooseVariant.standart} icon={number} name='По номеру телефона' choose={() => setChooseLogIn(true)} type={() => setLogInVar(true)} />
+                            <ChooseSignUp theme={ChooseVariant.standart} icon={email} name='По почте' choose={() => setChooseLogIn(true)} type={() => setLogInVar(false)} />
                         </div>
                         {/* <div className="SignUpBySocial">
                             <div className="SignUpBySocialGroup">

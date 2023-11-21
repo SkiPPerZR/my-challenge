@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import gold from '../../img/CreateNewChallenge/Gold.svg'
+import gold from 'public/img/CreateNewChallenge/Gold.svg'
 import './CreateNewChallengeBank.scss'
 
 function CreateNewChallengeBank() {
@@ -9,12 +9,12 @@ function CreateNewChallengeBank() {
         const newValue = parseInt(event.target.value);
         setValue(newValue);
     };
-  
+
     const handleSliderChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         const newValue = parseInt(event.target.value);
         setValue(newValue);
     };
-  
+
     return (
         <div className='bank'>
             <span className='text-17 light'>Общий банк Челленджа</span>
@@ -37,11 +37,11 @@ function CreateNewChallengeBank() {
                     min={1}
                     max={10000}
                     onChange={handleSliderChange}
-                    // style={{
-                    //     background: linear-gradient(to right, blue ${value / 100}%, red ${
-                    //         100 - value / 100
-                    //     }%)
-                    // }}
+                // style={{
+                //     background: linear-gradient(to right, blue ${value / 100}%, red ${
+                //         100 - value / 100
+                //     }%)
+                // }}
                 />
             </div>
 

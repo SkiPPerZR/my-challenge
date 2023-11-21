@@ -3,13 +3,13 @@ import './ImgInput.scss'
 
 import { resolve } from 'path';
 import axios from 'axios';
-import icon from '../../../img/logo.svg'
+import icon from 'public/img/logo.svg'
 import { ImageContext, TokenContext } from '../../../context';
 import PostService from '../../../api/PostService';
 
 function ImgInput() {
-    const {isToken, setIsToken} = useContext(TokenContext);
-    const {image, setImage} = useContext(ImageContext);
+    const { isToken, setIsToken } = useContext(TokenContext);
+    const { image, setImage } = useContext(ImageContext);
 
     const [avatar, setAvatar] = useState(null);
 
@@ -18,13 +18,13 @@ function ImgInput() {
     //     setAvatar(file);
     // }
 
-    const handleSubmit = async (event : any) =>{       
+    const handleSubmit = async (event: any) => {
         event.preventDefault()
         console.log('отработал222')
         if (avatar) {
             await PostService.setImage(avatar, isToken)
         }
-        
+
     }
     const handleImageUpload = (event: any) => {
         const file = event.target.files[0];
@@ -46,7 +46,7 @@ function ImgInput() {
         <div className="ImgInput">
             <div
                 className="ImgInputAvatar"
-                // style={{backgroundImage: `url(${imageURL ? imageURL : icon})`}}
+            // style={{backgroundImage: `url(${imageURL ? imageURL : icon})`}}
             >
                 {/* <label
                     htmlFor="file-loader-button"
@@ -68,7 +68,7 @@ function ImgInput() {
                     type="file"
                     className='file-uploader__upload-button'
                     onChange={handleImageUpload}
-                    // value={icon}
+                // value={icon}
                 />
             </div>
             <span className='text-14 regular' onClick={handleSubmit}>Добавить фото</span>

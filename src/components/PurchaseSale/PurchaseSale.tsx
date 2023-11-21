@@ -1,7 +1,7 @@
 import React, { FC, ReactNode, useState } from "react";
 import './PurchaseSale.scss'
-import store from '../../img/Gift.svg';
-import close from '../../img/close.svg'
+import store from 'public/img/Gift.svg';
+import close from 'public/img/close.svg'
 import GoldInput from "../../shared/inputs/GoldInput/GoldInput";
 import CardHolder from '../../shared/cardHolder/CardHolder'
 import CardAdder from '../../shared/cardAdder/CardAdder'
@@ -9,17 +9,17 @@ import GoldButton from "../../shared/buttons/GoldButton";
 import Modal from "../../shared/modal/Modal";
 
 interface PurchaseSaleProps {
-  setOpenPurchStatus: Function;
+    setOpenPurchStatus: Function;
 }
 
-const PurchaseSale:FC<PurchaseSaleProps> = ({setOpenPurchStatus}) => {
+const PurchaseSale: FC<PurchaseSaleProps> = ({ setOpenPurchStatus }) => {
     const closeSideBar = () => {
         setOpenPurchStatus(false)
     }
 
     const [buy, setBuy] = useState(true);
     const [sale, setSale] = useState(false);
-  
+
     return (
         <div className="PurchaseSale-overlay" onClick={closeSideBar}>
             <div onClick={(e) => e.stopPropagation()} className="PurchaseSale-box">
@@ -31,26 +31,26 @@ const PurchaseSale:FC<PurchaseSaleProps> = ({setOpenPurchStatus}) => {
                     </button>
                 </div>
                 <div className="PurchaseSaleButton">
-                    <button className='title-18 medium' onClick={() => {setBuy(true); setSale(false)}}>Купить</button>
-                    <button className='title-18 medium' onClick={() => {setBuy(false); setSale(true)}}>Продать</button>
+                    <button className='title-18 medium' onClick={() => { setBuy(true); setSale(false) }}>Купить</button>
+                    <button className='title-18 medium' onClick={() => { setBuy(false); setSale(true) }}>Продать</button>
                 </div>
                 <Modal visible={buy} setVisible={setBuy}>
-                    <GoldInput/>
+                    <GoldInput />
                     <div className="PurchaseSaleCards">
                         <h4 className="text-14 regular">Выберите карту</h4>
                         <CardHolder />
                         <CardAdder />
                     </div>
-                    <GoldButton text='Купить'/>
+                    <GoldButton text='Купить' />
                 </Modal>
                 <Modal visible={sale} setVisible={setSale}>
-                    <GoldInput/>
+                    <GoldInput />
                     <div className="PurchaseSaleCards">
                         <h4 className="text-14 regular">Выберите карту</h4>
                         <CardHolder />
                         <CardAdder />
                     </div>
-                    <GoldButton text='Продать'/>
+                    <GoldButton text='Продать' />
                 </Modal>
             </div>
         </div>

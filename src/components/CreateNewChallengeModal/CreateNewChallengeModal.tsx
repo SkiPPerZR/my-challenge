@@ -1,7 +1,7 @@
 import './CreateNewChallengeModal.scss'
 import { FC } from 'react'
-import lightning from '../../img/CreateNewChallenge/lightning.svg'
-import heart from '../../img/CreateNewChallenge/heart.svg'
+import lightning from 'public/img/CreateNewChallenge/lightning.svg'
+import heart from 'public/img/CreateNewChallenge/heart.svg'
 
 interface CreateNewChallengeModalProps {
     setOpenMiniModal: Function;

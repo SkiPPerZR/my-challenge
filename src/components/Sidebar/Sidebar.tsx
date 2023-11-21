@@ -2,39 +2,42 @@ import React, {FC, useState} from 'react';
 import './Sidebar.scss'
 
 import { useNavigate } from 'react-router-dom';
+import games from 'public/img/SidebarLg/GamesLg.svg'
+import games_hover from 'public/img/SidebarLg/GamesLgHover.svg'
+import blog from 'public/img/SidebarLg/BlogLg.svg'
+import blog_hover from 'public/img/SidebarLg/BlogLgHover.svg'
+import other from 'public/img/SidebarLg/OtherLg.svg'
+import other_hover from 'public/img/SidebarLg/OtherLgHover.svg'
+import sport from 'public/img/SidebarLg/SportLg.svg'
+import sport_hover from 'public/img/SidebarLg/SportLgHover.svg'
+import tabletop from 'public/img/SidebarLg/TabletopLg.svg'
+import tabletop_hover from 'public/img/SidebarLg/TabletopLgHover.svg'
+import toEveryone from 'public/img/SidebarLg/ToEveryoneLg.svg'
+import toEveryone_hover from 'public/img/SidebarLg/ToEveryoneLgHover.svg'
+
+import like from 'public/img/SidebarLg/Liked.svg'
+import like_hover from 'public/img/SidebarLg/LikedHover.svg'
+
+import premium from 'public/img/Challenge/Premium.svg'
+import premium_hover from 'public/img/Challenge/Premium_hover.svg'
+import edit from 'public/img/Challenge/Edit.svg'
+import edit_hover from 'public/img/Challenge/Edit_hover.svg'
+import share from 'public/img/Challenge/Share.svg'
+import share_hover from 'public/img/Challenge/Share_hover.svg'
+import trash from 'public/img/Challenge/Trash.svg'
+import trash_hover from 'public/img/Challenge/Trash_hover.svg'
+
+import telegram from 'public/img/Telegram.svg'
+import twitch from 'public/img/Twitch.svg'
+import vk from 'public/img/VK-menu-logo.svg'
+
+
 import SidebarButton from '../../shared/buttons/SidebarButton';
 import Contacts from '../contacts/Contacts';
 import useModal from '../../shared/hooks/useModal';
 import BackButton from '../../shared/buttons/BackButton';
 
-import games from '../../img/SidebarLg/GamesLg.svg'
-import games_hover from '../../img/SidebarLg/GamesLgHover.svg'
-import blog from '../../img/SidebarLg/BlogLg.svg'
-import blog_hover from '../../img/SidebarLg/BlogLgHover.svg'
-import other from '../../img/SidebarLg/OtherLg.svg'
-import other_hover from '../../img/SidebarLg/OtherLgHover.svg'
-import sport from '../../img/SidebarLg/SportLg.svg'
-import sport_hover from '../../img/SidebarLg/SportLgHover.svg'
-import tabletop from '../../img/SidebarLg/TabletopLg.svg'
-import tabletop_hover from '../../img/SidebarLg/TabletopLgHover.svg'
-import toEveryone from '../../img/SidebarLg/ToEveryoneLg.svg'
-import toEveryone_hover from '../../img/SidebarLg/ToEveryoneLgHover.svg'
 
-import like from '../../img/SidebarLg/Liked.svg'
-import like_hover from '../../img/SidebarLg/LikedHover.svg'
-
-import premium from '../../img/Challenge/Premium.svg'
-import premium_hover from '../../img/Challenge/Premium_hover.svg'
-import edit from '../../img/Challenge/Edit.svg'
-import edit_hover from '../../img/Challenge/Edit_hover.svg'
-import share from '../../img/Challenge/Share.svg'
-import share_hover from '../../img/Challenge/Share_hover.svg'
-import trash from '../../img/Challenge/Trash.svg'
-import trash_hover from '../../img/Challenge/Trash_hover.svg'
-
-import telegram from '../../img/Telegram.svg'
-import twitch from '../../img/Twitch.svg'
-import vk from '../../img/VK-menu-logo.svg'
 import SidebarUserButton from '../../shared/buttons/SidebarUserButton';
 import Favorites from '../Favorites/Favorites';
 

@@ -4,6 +4,7 @@
     justify-content: center;
     align-items: center;
     margin-bottom: 40px;
+
     &Avatar {
         display: flex;
         align-items: center;
@@ -12,20 +13,24 @@
         height: 125px;
         border-radius: 30px;
         background-color: var(--BG_secondary8);
+
         &>label {
             width: 35px;
             height: 35px;
             border: none;
             border-radius: 30px;
-            background: url('../../../img/Settings/addAvatarButton.svg') no-repeat 50% 50%;
+            background: url('public/img/Settings/addAvatarButton.svg') no-repeat 50% 50%;
+
             &:hover {
                 cursor: pointer;
             }
         }
     }
+
     span {
         opacity: 0.4;
         margin-top: 3px;
+
         &:hover {
             cursor: pointer;
         }
@@ -44,4 +49,3 @@
     align-items: center;
     gap: 12px;
 }
-  

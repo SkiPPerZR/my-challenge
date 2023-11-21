@@ -3,13 +3,13 @@ import './Settings.scss'
 
 import SettingsItem, { ItemTheme } from '../../shared/settingsItem/SettingsItem';
 
-import close from '../../img/close.svg'
-import settings from '../../img/Settings.svg'
-import info from '../../img/Settings/Profile.svg'
-import phone from '../../img/Settings/Call.svg'
-import email from '../../img/Settings/email.svg'
-import blogger from '../../img/Settings/Bloger.svg'
-import del from '../../img/Settings/Del.svg'
+import close from 'public/img/close.svg'
+import settings from 'public/img/Settings.svg'
+import info from 'public/img/Settings/Profile.svg'
+import phone from 'public/img/Settings/Call.svg'
+import email from 'public/img/Settings/email.svg'
+import blogger from 'public/img/Settings/Bloger.svg'
+import del from 'public/img/Settings/Del.svg'
 import DeleteProfile from '../DeleteProfile/DeleteProfile';
 import EditProfile from '../EditProfile/EditProfile';
 

@@ -1,45 +1,45 @@
-import React, { FC, useContext, useEffect, useState} from 'react'
+import React, { FC, useContext, useEffect, useState } from 'react'
 import './SignUp.scss'
 // import {useGoogleLogin, GoogleOAuthProvider} from '@react-oauth/google'
 import axios from 'axios'
 
-import icon from '../../img/iconSignUp.svg'
-import close from '../../img/close.svg'
+import icon from 'public/img/iconSignUp.svg'
+import close from 'public/img/close.svg'
 import SignUpByNumber from '../../shared/signUpByNumber/SignUpByNumber';
 import SignUpByEmail from '../../shared/signUpByEmail/SignUpByEmail';
 import SignUpUserAndDate from '../../shared/signUpUserAndDate/SignUpUserAndDate'
 import ChooseSignUp, { ChooseVariant } from '../../shared/chooseSignUp/ChooseSignUp';
 import SocialSignUp from '../../shared/socialSignUp/SocialSignUp';
 
-import number from '../../img/Call.svg'
-import email from '../../img/email-signUp.svg'
+import number from 'public/img/Call.svg'
+import email from 'public/img/email-signUp.svg'
 
-import gear from '../../img/SettingsWhite.svg'
-import skip from '../../img/Skip.svg'
+import gear from 'public/img/SettingsWhite.svg'
+import skip from 'public/img/Skip.svg'
 
-import vk from '../../img/Sign_up/vk.svg'
-import ya from '../../img/Sign_up/ya.svg'
-import ap from '../../img/Sign_up/apple.svg'
-import gl from '../../img/Sign_up/gmail.svg'
+import vk from 'public/img/Sign_up/vk.svg'
+import ya from 'public/img/Sign_up/ya.svg'
+import ap from 'public/img/Sign_up/apple.svg'
+import gl from 'public/img/Sign_up/gmail.svg'
 import { AuthContext, ImageContext, ProfileData, TokenContext } from '../../context'
 import FormsSettings from '../../shared/forms/formSettings/FormsSettings'
 import FormInterests from '../../shared/forms/formInterests/FormInterests'
 import PostService from '../../api/PostService'
-import { ICategory, ICategorySub, IData} from '../../interfaces/IResponse'
+import { ICategory, ICategorySub, IData } from '../../interfaces/IResponse'
 
-{/* <GoogleOAuthProvider key='AIzaSyA6QQBIM3xnOAXkl0hTDFma615KZdLQVzQ' clientId="244707566602-vvchajhduhhbfd2jo5hrlopk43mjnu8p.apps.googleusercontent.com">...</GoogleOAuthProvider>; */}
+{/* <GoogleOAuthProvider key='AIzaSyA6QQBIM3xnOAXkl0hTDFma615KZdLQVzQ' clientId="244707566602-vvchajhduhhbfd2jo5hrlopk43mjnu8p.apps.googleusercontent.com">...</GoogleOAuthProvider>; */ }
 
 interface SignUpProps {
     isOpenSignUp: Function;
     reChoose: Function;
 }
- 
-const SignUp:FC<SignUpProps> = ({isOpenSignUp, reChoose}) => {
 
-    const {isAuth, setIsAuth} = useContext(AuthContext);
-    const {isToken, setIsToken} = useContext(TokenContext);
-    const {data, setData} = useContext(ProfileData);
-    const {image, setImage} = useContext(ImageContext);
+const SignUp: FC<SignUpProps> = ({ isOpenSignUp, reChoose }) => {
+
+    const { isAuth, setIsAuth } = useContext(AuthContext);
+    const { isToken, setIsToken } = useContext(TokenContext);
+    const { data, setData } = useContext(ProfileData);
+    const { image, setImage } = useContext(ImageContext);
 
     const [dataCategory, setDataCategory] = useState<IData>({
         challenge_mode: [],
@@ -96,7 +96,7 @@ const SignUp:FC<SignUpProps> = ({isOpenSignUp, reChoose}) => {
         setData(await PostService.getProfileData(token));
         // console.log('Получение данных юзера'+JSON.stringify(data))
     }
-    
+
     // const googleLogin = useGoogleLogin({
     //     flow: 'auth-code',
     //     onSuccess: async (codeResponse) => {
@@ -115,7 +115,7 @@ const SignUp:FC<SignUpProps> = ({isOpenSignUp, reChoose}) => {
         <div className='SignUp_overlay' onMouseDown={closeSideBar}>
             <div onMouseDown={(e) => e.stopPropagation()} className='SignUp_box'>
                 {chooseInterests
-                    ? 
+                    ?
                     <>
                         <div className="SignUpClose">
                             <button onClick={closeSideBar}>
@@ -125,10 +125,10 @@ const SignUp:FC<SignUpProps> = ({isOpenSignUp, reChoose}) => {
                         <div className="SignUpTitle">
                             <img src={icon} alt="Регистрация" />
                             <h2 className="title-25 semibold">Ваши интересы</h2>
-                        </div> 
-                        <FormInterests dataCat={dataCategory} onClick={closeSideBar}/>
+                        </div>
+                        <FormInterests dataCat={dataCategory} onClick={closeSideBar} />
                     </>
-                    :   
+                    :
                     <>
                         {settingsProfile
                             ?
@@ -141,8 +141,8 @@ const SignUp:FC<SignUpProps> = ({isOpenSignUp, reChoose}) => {
                                 <div className="SignUpTitle">
                                     <img src={icon} alt="Регистрация" />
                                     <h2 className="title-25 semibold">Настройка профиля</h2>
-                                </div> 
-                                <FormsSettings onClick={()=>setChooseInterests(true)}/>
+                                </div>
+                                <FormsSettings onClick={() => setChooseInterests(true)} />
                             </>
                             :
                             <>
@@ -156,12 +156,12 @@ const SignUp:FC<SignUpProps> = ({isOpenSignUp, reChoose}) => {
                                         </div>
                                         <div className="SignUpTitle">
                                             <img src={icon} alt="Регистрация" />
-                                            <h2 className="title-25 semibold">Добро пожаловать на<br/> площадку your challenge</h2>
-                                        </div> 
+                                            <h2 className="title-25 semibold">Добро пожаловать на<br /> площадку your challenge</h2>
+                                        </div>
                                         <div className='SignUpChooseAfterReg'>
                                             <div className="SignUpChooseAfterRegGroup">
-                                                <ChooseSignUp theme={ChooseVariant.standart} icon={skip} name='Пропустить' choose={closeSideBar}/>
-                                                <ChooseSignUp theme={ChooseVariant.bright} icon={gear} name='Настроить профиль' choose={() => setSettingsProfile(true)}/>
+                                                <ChooseSignUp theme={ChooseVariant.standart} icon={skip} name='Пропустить' choose={closeSideBar} />
+                                                <ChooseSignUp theme={ChooseVariant.bright} icon={gear} name='Настроить профиль' choose={() => setSettingsProfile(true)} />
                                             </div>
                                             <span className="text-14 medium notice">Вы можете всегда настроить профиль позже</span>
                                         </div>
@@ -169,7 +169,7 @@ const SignUp:FC<SignUpProps> = ({isOpenSignUp, reChoose}) => {
                                     :
                                     <>
                                         {UserDateinput
-                                            ?   
+                                            ?
                                             <>
                                                 <div className="SignUpClose">
                                                     <button onClick={returnToChooseSignUp}>
@@ -180,7 +180,7 @@ const SignUp:FC<SignUpProps> = ({isOpenSignUp, reChoose}) => {
                                                     <img src={icon} alt="Регистрация" />
                                                     <h2 className="title-25 semibold">Регистрация</h2>
                                                 </div>
-                                                <SignUpUserAndDate returnToChooseSignUp={returnToChooseSignUp} chooseAfterReg={chooseAfterReg}/>
+                                                <SignUpUserAndDate returnToChooseSignUp={returnToChooseSignUp} chooseAfterReg={chooseAfterReg} />
                                             </>
                                             :
                                             <>
@@ -195,12 +195,12 @@ const SignUp:FC<SignUpProps> = ({isOpenSignUp, reChoose}) => {
                                                         <div className="SignUpTitle">
                                                             <img src={icon} alt="Регистрация" />
                                                             <h2 className="title-25 semibold">Регистрация</h2>
-                                                        </div> 
+                                                        </div>
                                                         {signUpVar
                                                             ?
-                                                            <SignUpByNumber UserDate={() => setUserDateInput(true)} reChoose={reChooseFunc}/>
+                                                            <SignUpByNumber UserDate={() => setUserDateInput(true)} reChoose={reChooseFunc} />
                                                             :
-                                                            <SignUpByEmail UserDate={() => setUserDateInput(true)} reChoose={reChooseFunc}/>
+                                                            <SignUpByEmail UserDate={() => setUserDateInput(true)} reChoose={reChooseFunc} />
                                                         }
                                                     </>
                                                     :
@@ -215,8 +215,8 @@ const SignUp:FC<SignUpProps> = ({isOpenSignUp, reChoose}) => {
                                                             <h2 className="title-25 semibold">Регистрация</h2>
                                                         </div>
                                                         <div className='SignUpChoose'>
-                                                            <ChooseSignUp theme={ChooseVariant.standart} icon={number} name='По номеру телефона' choose={() => setChooseSignUp(true)} type={() => setSignUpVar(true)}/>
-                                                            <ChooseSignUp theme={ChooseVariant.standart} icon={email} name='По почте' choose={() => setChooseSignUp(true)} type={() => setSignUpVar(false)}/>
+                                                            <ChooseSignUp theme={ChooseVariant.standart} icon={number} name='По номеру телефона' choose={() => setChooseSignUp(true)} type={() => setSignUpVar(true)} />
+                                                            <ChooseSignUp theme={ChooseVariant.standart} icon={email} name='По почте' choose={() => setChooseSignUp(true)} type={() => setSignUpVar(false)} />
                                                         </div>
                                                         {/* <div className="SignUpBySocial">
                                                                         <div className="SignUpBySocialGroup">
