@@ -6,22 +6,24 @@ import eyeSlash from '../../img/Eye-slash.svg'
 import { AuthContext } from '../../context';
 import PostService from '../../api/PostService';
 import { object } from 'prop-types';
+import { response } from 'express';
 
 interface LogInByEmailProps {
     toggle: () => void;
     reChoose: Function;
+    restoreAcc: Function;
 }
 
-const LogInByEmail:FC<LogInByEmailProps> = ({toggle, reChoose}) => {
+const LogInByEmail:FC<LogInByEmailProps> = ({toggle, reChoose, restoreAcc}) => {
     const [emailCheck, setEmailCheck] = useState('');
     const [is_error_email, setEmailError] = useState(false);
 
     const [passCheck, setPassCheck] = useState('');
     const [is_error_pass, setPassError] = useState(false);
     const [showPassword, setShowPassword] = useState(false);
-    
-    const [codeCheck, setCodeCheck] = useState('');
-    const [is_error_code, setCodeError] = useState(false);
+    const [request, setRequest] = useState('');
+
+    const [activeForm, setActiveForm] = useState(false);
 
     const [isBlocked, setIsBlocked] = useState(false);
     const [countdown, setCountdown] = useState(0);
@@ -32,19 +34,24 @@ const LogInByEmail:FC<LogInByEmailProps> = ({toggle, reChoose}) => {
     const navigate = useNavigate();
     
     
+    // async function fetchLogin(email : string, password : string) {
+    //     try {
+    //         let response = await PostService.emailLogin(email, password);
+    //         let newToken = response.data['token']
+    //         sessionStorage.setItem('isToken', newToken)
+    //         setIsToken(newToken)
+    //         setRequest(response.data.message)
+    //         console.log('Try',request)
+    //     } catch (error) {
+    //         //@ts-ignore
+    //         setRequest(error.response.data.message)
+    //         console.log('Catch',request)
+    //     }
+    // }
+
     async function fetchLogin(email : string, password : string) {
-        try {
-            let response = await PostService.emailLogin(email, password);
-            let newToken = response.data['token']
-            sessionStorage.setItem('isToken', newToken)
-            setIsToken(newToken)
-            setRequest(response.data.message)
-            console.log('Try',request)
-        } catch (error) {
-            //@ts-ignore
-            setRequest(error.response.data.message)
-            console.log('Catch',request)
-        }
+        let response = await PostService.emailLogin(email, password);
+        return response
     }
 
     // const handleClick = () => {
@@ -88,10 +95,23 @@ const LogInByEmail:FC<LogInByEmailProps> = ({toggle, reChoose}) => {
         }
     }
 
-    function checkPass() {
+    async function checkPass() {
         setPassCheck(passCheck)
-        fetchLogin(emailCheck, passCheck)
-        console.log('Вызов в чекпасе: ',request)
+        let finalResult = await fetchLogin(emailCheck, passCheck)
+            .then((response)=>{
+                let newToken = response.data['token']
+                sessionStorage.setItem('isToken', newToken)
+                setIsToken(newToken)
+                // console.log('Try', response.data.message)
+                return response.data.message
+            })
+            .catch((error)=> {
+                let answer = error.response.data.message
+                // console.log('Catch',answer)
+                return answer
+            })
+        setRequest(finalResult)
+        console.log(request)
         if (request === 'Successful login'){
             setEmailError(false)
             setPassError(false)
@@ -107,16 +127,14 @@ const LogInByEmail:FC<LogInByEmailProps> = ({toggle, reChoose}) => {
         if (request === 'Successful login') {
             console.log('Ты вошел!')
             sessionStorage.setItem('isAuth', 'true')
-            console.log('isToken: '+isToken)
-            console.log('isAuth: '+isAuth)
+            // console.log('isToken: '+isToken)
+            // console.log('isAuth: '+isAuth)
             setIsAuth(true)
             toggle()
             // eslint-disable-next-line no-restricted-globals
             // location.reload()
         }
     }
-
-    const [request, setRequest] = useState('');
 
     return (
         <div className='LogInByEmail'>
@@ -141,6 +159,9 @@ const LogInByEmail:FC<LogInByEmailProps> = ({toggle, reChoose}) => {
                     :
                     <></>
                 }
+                <div className='LogInByEmailInputButton'>
+                    <button className="text-14 regular" onClick={()=>restoreAcc()}>Забыли пароль?</button>
+                </div>
             </div>
             <div className='LogInByEmailState'>
                 <div>

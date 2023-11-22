@@ -13,6 +13,7 @@ import { useContext, useEffect, useState } from 'react'
 import { TokenContext } from '../../context'
 import PostService from '../../api/PostService'
 import { ISetting } from '../../interfaces/ISettings'
+import { IStatistics } from '../../interfaces/IStatistics'
 
 const Profile = () => {
     const {isToken, setIsToken} = useContext(TokenContext);
@@ -28,7 +29,14 @@ const Profile = () => {
         category: [],
         category_sub: [],
         token : ''
-      });
+    });
+
+    const [profStat, setProfStat] = useState<IStatistics>({
+        winner_count: 0,
+        challenge_count: 0,
+        winner_gold_count: 0,
+        token : ''
+    });
     const [vk, setVk] = useState('');
     const [steam, setSteam] = useState('');
     const [discord, setDiscord] = useState('');
@@ -42,6 +50,13 @@ const Profile = () => {
         // additingData()
     }
 
+    async function fetchProfileStatistics(token: string) {
+        let profileStat = await PostService.getProfileStat(token);
+        setProfStat(profileStat);
+        // additingData()
+    }
+    
+
     // TODO: доделать редактирование даты;
     // function additingData(){
     //     const raw = profData.date_of_birth.replace(/-/g, '.')
@@ -53,6 +68,7 @@ const Profile = () => {
 
     useEffect(()=>{
         fetchProfileData(isToken);
+        fetchProfileStatistics(isToken)
     },[])
 
 
@@ -68,9 +84,9 @@ const Profile = () => {
                     <span className="text-18 light">{profData ? profData.fio : <></>}</span>
                     <img src={premium} alt="" />
                 </div>
-                <ProfileStatItem nameStat='Всего побед' statValue={32} />
-                <ProfileStatItem nameStat='Участий в Челленджах' statValue={50} />
-                <ProfileStatItem nameStat='Всего выиграно золота' statValue={150100} />
+                <ProfileStatItem nameStat='Всего побед' statValue={profStat.winner_count} />
+                <ProfileStatItem nameStat='Участий в Челленджах' statValue={profStat.challenge_count} />
+                <ProfileStatItem nameStat='Всего выиграно золота' statValue={profStat.winner_gold_count} />
                 {/* Todo: Пофиксить чтобы пример: 1,5, округление до 0,1 после 100 не нужно*/}
             </div>
             <div className="ProfileUserInfo">

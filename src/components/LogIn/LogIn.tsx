@@ -16,9 +16,10 @@ import { ProfileData } from '../../context'
 interface LogInProps {
     isOpenLogIn: Function;
     reChoose: Function;
+    forgotForm: Function;
 }
 
-const LogIn:FC<LogInProps> = ({isOpenLogIn, reChoose}) => {
+const LogIn:FC<LogInProps> = ({isOpenLogIn, reChoose, forgotForm}) => {
     const {data, setData} = useContext(ProfileData);
     const [chooseLogIn, setChooseLogIn] = useState(false);
     const [logInVar, setLogInVar] = useState(false);
@@ -26,6 +27,11 @@ const LogIn:FC<LogInProps> = ({isOpenLogIn, reChoose}) => {
     const reChooseFunc = () => {
         isOpenLogIn(false)
         reChoose(true)
+    }
+
+    const restoreFunc = () => {
+        isOpenLogIn(false)
+        forgotForm(true)
     }
 
     const closeSideBar = () => {
@@ -55,7 +61,7 @@ const LogIn:FC<LogInProps> = ({isOpenLogIn, reChoose}) => {
                             ?
                                 <LogInByNumber toggle={closeSideBar} reChoose={reChooseFunc}/>
                             :
-                                <LogInByEmail toggle={closeSideBar} reChoose={reChooseFunc}/>
+                                <LogInByEmail toggle={closeSideBar} reChoose={reChooseFunc} restoreAcc={restoreFunc}/>
                         }
                     </>
                     :
@@ -64,6 +70,7 @@ const LogIn:FC<LogInProps> = ({isOpenLogIn, reChoose}) => {
                             <ChooseSignUp theme={ChooseVariant.standart} icon={number} name='По номеру телефона' choose={() => setChooseLogIn(true)} type={() => setLogInVar(true)}/>
                             <ChooseSignUp theme={ChooseVariant.standart} icon={email} name='По почте' choose={() => setChooseLogIn(true)} type={() => setLogInVar(false)}/>
                         </div>
+                        <button className='LogInChooseButton text-14 regular' onClick={restoreFunc}>Я не могу войти</button>
                         {/* <div className="SignUpBySocial">
                             <div className="SignUpBySocialGroup">
                                 <SocialSignUp icon={vk}/>

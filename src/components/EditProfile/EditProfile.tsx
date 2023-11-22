@@ -6,7 +6,8 @@ import defIcon from '../../img/iconSignUp.svg'
 import ImgInput from '../../shared/inputs/ImgInput/ImgInput';
 import { ICityItem } from '../../interfaces/ICity';
 import PostService from '../../api/PostService';
-import { ProfileNewData, TokenContext } from '../../context';
+import { ProfileData, ProfileNewData, TokenContext } from '../../context';
+import { ICategory, ICategorySub } from '../../interfaces/IResponse';
 
 interface EditProfileProps {
     name: string;
@@ -15,23 +16,32 @@ interface EditProfileProps {
 }
 
 const EditProfile:FC<EditProfileProps> = ({setEditProfile, name, closeWindow}) => {
-    const { newData, setNewData } = useContext(ProfileNewData);
+    const { data, setData } = useContext(ProfileData);
     const {isToken, setIsToken} = useContext(TokenContext);
 
     const [cities, setCities] = useState<ICityItem[]>([]);
     const [liSwitch, setLiSwitch] = useState<string>('FormsSettingsFormInputCitiesList');
     const [visible, setVisible] = useState(false);
 
-    const [isName, setIsName] = useState('')
-    const [isCity, setIsCity] = useState('')
-    const [isVK, setIsVK] = useState('')
-    const [isSteam, setIsSteam] = useState('')
-    const [isDiscord, setIsDiscord] = useState('')
-    const [isDiscordError, setIsDiscordError] = useState(false)
+    const [isNick, setIsNick] = useState('');
+    const [isDob, setIsDob] = useState('');
+    const [isName, setIsName] = useState('');
+    const [isCity, setIsCity] = useState('');
+    const [isVK, setIsVK] = useState('');
+    const [isSteam, setIsSteam] = useState('');
+    const [isDiscord, setIsDiscord] = useState('');
+    const [isDiscordError, setIsDiscordError] = useState(false);
+    const [isCategory, setIsCategory] = useState<ICategory[]>([]);
+    const [isCategorySub, setIsCategorySub] = useState<ICategorySub[]>([]);
 
-    async function fetchProfileData() {
-        await PostService.sendSettingNewProfile(newData);
-        console.log('Отправка данных юзера'+JSON.stringify(newData))
+    async function fetchProfileData(token: string) {
+        let profileData = await PostService.getProfileData(token);
+        setData(profileData);
+    }
+
+    async function fetchProfileDataInfo() {
+        await PostService.sendSettingProfile(data);
+        console.log('Отправка данных юзера'+JSON.stringify(data))
     }
 
     async function fetchCities(letter: string) {
@@ -39,22 +49,38 @@ const EditProfile:FC<EditProfileProps> = ({setEditProfile, name, closeWindow}) =
         setCities(citiesList.city)
     }
 
-    const handleField1Change = (fio: string, city: string, vk: string, steam: string, discord: string, token: string) => {
-        setNewData((prevData: any) => ({
-          ...prevData,
-          fio: fio,
-          city: city,
-          vk: vk,
-          steam: steam,
-          discord: discord,
-          token: token
+    const handleField1Change = (nick: string, date_of_birth : string, fio: string, city: string, vk: string, steam: string, category: ICategory[], category_sub: ICategorySub[], discord: string, token: string) => {
+        setData((prevData: any) => ({
+            ...prevData,
+            nick : nick,
+            date_of_birth : date_of_birth,
+            fio : fio,
+            city : city,
+            vk: vk,
+            steam: steam,
+            discord: discord,
+            category: category,
+            category_sub: category_sub,
+            token : token
         }));
       };
 
     useEffect(() => {
+        handleField1Change(isNick,isDob,isName,isCity,isVK,isSteam,isCategory,isCategorySub,isDiscord,isToken);
+        // console.log(JSON.stringify(data))
+    }, [isName, isVK, isSteam, isDiscord])
+
+    useEffect(()=>{
         buttonHandler()
-        handleField1Change(isName,isCity,isVK,isSteam,isDiscord,isToken);
-    }, [isName, isCity, isVK, isSteam, isDiscord])
+    },[isCity])
+
+    useEffect(()=>{
+        fetchProfileData(isToken);
+        setIsNick(data.nick)
+        setIsDob(data.date_of_birth)
+        setIsCategory(data.category)
+        setIsCategorySub(data.category_sub)
+    },[])
 
     const buttonHandler = (): void => {
         setVisible(!visible)
@@ -74,11 +100,11 @@ const EditProfile:FC<EditProfileProps> = ({setEditProfile, name, closeWindow}) =
 
     function ExitWindow() {
         setEditProfile();
-        closeWindow()
+        closeWindow();
     }
 
     function sendProfileData() {
-        fetchProfileData();
+        fetchProfileDataInfo();
         setEditProfile();
         closeWindow()
     }

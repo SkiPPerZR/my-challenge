@@ -1,4 +1,4 @@
-.LogIn_overlay {
+.RestoreAccount_overlay {
     z-index: 9999 !important;
     width: 100%;
     height: 100vh;
@@ -12,7 +12,7 @@
     transition: 0.2s ease-in-out;
 }
 
-.LogIn_box {
+.RestoreAccount_box {
     width: 580px;
     background-color: var(--BG_secondary100);
     border-radius: 20px;
@@ -29,7 +29,7 @@
         }
     }
 }
-.LogInClose {
+.RestoreAccountClose {
     display: flex;
     flex-direction: row;
     justify-content: flex-end;
@@ -47,7 +47,7 @@
     }
 }
 
-.LogInTitle {
+.RestoreAccountTitle {
     width: 100%;
     display: flex;
     align-items: center;
@@ -71,24 +71,14 @@
     }
 }
 
-.LogInChoose {
+.RestoreAccountChoose {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     padding: 0 40px;
 }
 
-.LogInChooseButton {
-    margin-top: 20px;
-    border: none;
-    background-color: transparent;
-    color: var(--intElements);
-    &:hover {
-        cursor: pointer;
-    }
-}
-
-.LogInState {
+.RestoreAccountState {
     display: flex;
     flex-direction: column;
     margin-top: 15vh;

@@ -6,6 +6,7 @@ import { ICity, ICityItem } from "../interfaces/ICity";
 import { ISetting } from "../interfaces/ISettings";
 import { ILogin } from "../interfaces/ILogin";
 import { INewSetting } from "../interfaces/INewSettings";
+import { IStatistics } from "../interfaces/IStatistics";
 
 const TOKEN = '82d586feb901a2dc7ee622cdb693240870cbe714ecaedf2edab0cda81eb7fe20302fe398c5456a72820205eb4cd41e96c6a48c1106df4cde09d054693eea7a4f'
 const MYTOKEN = 'd875845675a0affbc47a11c3e4997b180849ab397a93bdc0e445bdccc0d6021c1868902abece3465e04c063e11b907604340f99099fe37524f1202c5ff36c974'
@@ -172,6 +173,16 @@ export default class PostService {
         return statusCode.toString(); //заменить на сохранение в кеш
     }
 
+    static async restoreAccessByEmail(email: string) : Promise<any> {
+        let data = {
+            email: email
+        }
+
+        let response = await PostService.sendRawData(JSON.stringify(data), 'user_restore_access_by_email.php');
+        
+        return response;
+    }
+
     static async sendAgreement(isTerms : String, isPrivacy: String, token : String) : Promise<String> {
 
         const data = '{"is_terms_of_use" : "'+isTerms+'", "is_privacy_policy" : "'+isPrivacy+'", "token" : "'+token+'"}'
@@ -214,33 +225,20 @@ export default class PostService {
         return statusCode.toString();
     }
 
-    static async sendSettingNewProfile({fio, city, vk, steam, discord, token}: INewSetting) : Promise<string| any> {
-
-        const dataCorrect = {
-            fio: fio,
-            city: city,
-            vk: `https://vk.com/${vk}`,
-            steam: `https://steamcommunity.com/id/${steam}`,
-            discord: `https://discordapp.com/users/${discord}`,
-            token: token
-        } 
-        let responce = await PostService.sendRawData(JSON.stringify(dataCorrect), 'user_profile_update.php');
-
-        let statusCode = responce.status;
-
-        if (statusCode == 200) 
-            return responce.data['token'];
-        if (statusCode == 402)
-            return ''
-
-        return statusCode.toString();
-    }
-
     static async getProfileData(token : string | null) : Promise<ISetting> {
         let data = {
             token: token
         }
         let response = await PostService.sendRawData(JSON.stringify(data), 'user_profile_info.php');
+
+        return response.data;
+    }
+
+    static async getProfileStat(token : string | null) : Promise<IStatistics> {
+        let data = {
+            token: token
+        }
+        let response = await PostService.sendRawData(JSON.stringify(data), 'user_profile_stats.php');
 
         return response.data;
     }

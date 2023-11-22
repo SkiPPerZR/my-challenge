@@ -20,6 +20,7 @@ import CreateNewChallengeSideBar from '../CreateNewChallengeSideBar/CreateNewCha
 import PostService from '../../api/PostService';
 import { ProfileData, TokenContext } from '../../context';
 import { ISetting } from '../../interfaces/ISettings';
+import RestoreAccount from '../RestoreAccount/RestoreAccount';
 
 
 interface HeaderProps {
@@ -33,6 +34,7 @@ const Header:FC<HeaderProps> = ({login}) => {
     const {data, setData} = useContext(ProfileData)
     const [profData, setProfData] = useState<ISetting | null>(null);
 
+    const [openRestoreAccout, setOpenRestoreAccout] = useState(false)
     const [openProfileStatus, setOpenProfileStatus] = useState(false);
     const [openSignUpStatus, setOpenSignUpStatus] = useState(false);
     const [openLogInStatus, setOpenLogInStatus] = useState(false);
@@ -82,12 +84,10 @@ const Header:FC<HeaderProps> = ({login}) => {
                         <NotificationButton/>
                         <UserProfileButton toggle={toggle} toggleStatus={openProfileMenu}/>
                     </nav>
-                    <>
-                        {openProfileStatus && <ProfileMenu profData={profData} setOpenProfileStatus={()=>setOpenProfileStatus(false)}/>}
-                        {openPurchStatus && <PurchaseSale setOpenPurchStatus={setOpenPurchStatus}/>}
-                        {openMiniModal && <CreateNewChallengeModal setOpenMiniModal={setOpenMiniModal} setOpenSideBar={setOpenSideBar} />}
-                        {openSideBar && <CreateNewChallengeSideBar setOpenSideBar={setOpenSideBar}/>}
-                    </>
+                    {openProfileStatus && <ProfileMenu profData={profData} setOpenProfileStatus={()=>setOpenProfileStatus(false)}/>}
+                    {openPurchStatus && <PurchaseSale setOpenPurchStatus={setOpenPurchStatus}/>}
+                    {openMiniModal && <CreateNewChallengeModal setOpenMiniModal={setOpenMiniModal} setOpenSideBar={setOpenSideBar} />}
+                    {openSideBar && <CreateNewChallengeSideBar setOpenSideBar={setOpenSideBar}/>}
                 </>
                 :
                 <>
@@ -95,8 +95,9 @@ const Header:FC<HeaderProps> = ({login}) => {
                         <LoginButton children='Вход' toggle={toggle} toggleStatus={setOpenLogInStatus}/>
                         <SignUpButton children='Регистрация' toggle={toggle} toggleStatus={setOpenSignUpStatus}/>
                     </div>
-                        {openSignUpStatus && <SignUp isOpenSignUp={setOpenSignUpStatus} reChoose={setOpenLogInStatus}/>}
-                        {openLogInStatus && <LogIn isOpenLogIn={setOpenLogInStatus} reChoose={setOpenSignUpStatus}/>}
+                    {openSignUpStatus && <SignUp isOpenSignUp={setOpenSignUpStatus} reChoose={setOpenLogInStatus}/>}
+                    {openLogInStatus && <LogIn isOpenLogIn={setOpenLogInStatus} reChoose={setOpenSignUpStatus} forgotForm={setOpenRestoreAccout}/>}
+                    {openRestoreAccout && <RestoreAccount isOpenRestoreAccount={setOpenRestoreAccout} loginOff={setOpenLogInStatus}/>}
                 </>
             }
 
