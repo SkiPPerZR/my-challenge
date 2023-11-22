@@ -5,6 +5,7 @@ import { ICategory, ICategorySub, IData, IResponse } from "../interfaces/IRespon
 import { ICity, ICityItem } from "../interfaces/ICity";
 import { ISetting } from "../interfaces/ISettings";
 import { ILogin } from "../interfaces/ILogin";
+import { INewSetting } from "../interfaces/INewSettings";
 
 const TOKEN = '82d586feb901a2dc7ee622cdb693240870cbe714ecaedf2edab0cda81eb7fe20302fe398c5456a72820205eb4cd41e96c6a48c1106df4cde09d054693eea7a4f'
 const MYTOKEN = 'd875845675a0affbc47a11c3e4997b180849ab397a93bdc0e445bdccc0d6021c1868902abece3465e04c063e11b907604340f99099fe37524f1202c5ff36c974'
@@ -199,6 +200,28 @@ export default class PostService {
             discord: `https://discordapp.com/users/${discord}`,
             category: category,
             category_sub: category_sub,
+            token: token
+        } 
+        let responce = await PostService.sendRawData(JSON.stringify(dataCorrect), 'user_profile_update.php');
+
+        let statusCode = responce.status;
+
+        if (statusCode == 200) 
+            return responce.data['token'];
+        if (statusCode == 402)
+            return ''
+
+        return statusCode.toString();
+    }
+
+    static async sendSettingNewProfile({fio, city, vk, steam, discord, token}: INewSetting) : Promise<string| any> {
+
+        const dataCorrect = {
+            fio: fio,
+            city: city,
+            vk: `https://vk.com/${vk}`,
+            steam: `https://steamcommunity.com/id/${steam}`,
+            discord: `https://discordapp.com/users/${discord}`,
             token: token
         } 
         let responce = await PostService.sendRawData(JSON.stringify(dataCorrect), 'user_profile_update.php');

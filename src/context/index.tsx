@@ -1,5 +1,6 @@
 import React from 'react'
 import { ISetting } from '../interfaces/ISettings';
+import { INewSetting } from '../interfaces/INewSettings';
 
 interface AuthContextProps {
     isAuth: boolean;
@@ -14,6 +15,13 @@ interface ProfileDataProps {
 }
 
 export const ProfileData = React.createContext<ProfileDataProps>({} as ProfileDataProps);
+
+interface ProfileDataNewProps {
+    newData: INewSetting;
+    setNewData: React.Dispatch<React.SetStateAction<INewSetting>>; 
+}
+
+export const ProfileNewData = React.createContext<ProfileDataNewProps>({} as ProfileDataNewProps);
 
 interface TokenContextProps {
     isToken: any;

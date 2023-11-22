@@ -12,13 +12,13 @@
     transition: 0.2s ease-in-out;
 }
   
-.EditProfile-box {
+.EditProfile {
     display: flex;
     flex-direction: column;
     align-items: center;
     background: #fff;
     width: 580px;
-    height: 930px;
+    height: 850px;
     padding: 10px 0 40px 0;
     border-radius: 12px;
     transition: 0.2s ease-in-out;
@@ -32,6 +32,78 @@
         &>div input {
             margin-bottom: 20px;
         }
+    }
+    &Form {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        width: 100%;
+        padding: 0 40px;
+        &Input {
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+            margin-bottom: 20px;
+            padding: 0 40px;
+            &CitiesList {
+                margin-top: 60px;
+                position: absolute;
+                background-color: var(--BG_challenge_menu);
+                border-radius: 7px;
+                & li {
+                    padding: 2px 5px;
+                    list-style-type: none;
+                    &:hover {
+                        cursor: pointer;
+                    }
+                    &:first-child {
+                        padding-top: 5px;
+                    }
+                    &:last-child {
+                        padding-bottom: 5px;
+                    }
+                }
+            }
+            &>label {
+                margin-bottom: 10px;
+            }
+            &>input {
+                border: none;
+                border-bottom: 1px solid var(--separator);
+                height: 28px;
+                background-color: transparent;
+                padding-left: 10px;
+                &:focus-visible {
+                    border: none;
+                    border-bottom: 2px solid var(--labelPrimary);
+                }
+            }
+            &>span {
+                margin-top: 3px;
+            }
+        }
+    }
+    &Button {
+        color: var(--Button_Label);
+        border: none;
+        border-radius: 12px;
+        background-color: var(--intElements);
+        padding: 8px 175px 9px 175px;
+        transition: 0.3s ease-in-out;
+        &:hover {
+            background-color: var(--intElementsHover);
+            transition: 0.3s ease-in-out;
+            cursor: pointer;
+        }
+        &:active {
+            background-color: var(--BG_secondary8);
+            color: var(--negativeIntElements);
+            transition: 0.1s ease-in-out;
+            cursor: pointer;
+        }
+    }
+    &>span {
+        margin-top: 10px;
     }
 }
 
@@ -63,3 +135,4 @@
         padding-bottom: 3px;
     }
 }
+

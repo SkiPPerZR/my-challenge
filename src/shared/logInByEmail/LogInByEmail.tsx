@@ -26,39 +26,38 @@ const LogInByEmail:FC<LogInByEmailProps> = ({toggle, reChoose}) => {
     const [isBlocked, setIsBlocked] = useState(false);
     const [countdown, setCountdown] = useState(0);
 
-    const [errorRequest, setErrorRequest] = useState('');
-
     const {isAuth, setIsAuth} = useContext(AuthContext);
     const [isToken, setIsToken] = useState<any>('');
 
     const navigate = useNavigate();
-
+    
+    
     async function fetchLogin(email : string, password : string) {
         try {
             let response = await PostService.emailLogin(email, password);
-            // console.log(JSON.stringify(response.data['token']))
             let newToken = response.data['token']
             sessionStorage.setItem('isToken', newToken)
             setIsToken(newToken)
+            setRequest(response.data.message)
+            console.log('Try',request)
         } catch (error) {
             //@ts-ignore
-            // console.log(error.response.data.message);
-            //@ts-ignore
-            setErrorRequest(error.response.data.message);
+            setRequest(error.response.data.message)
+            console.log('Catch',request)
         }
     }
 
-    const handleClick = () => {
-        if (!isBlocked) {
-            setIsBlocked(true);
-            setCountdown(30);
-            setTimeout(() => {
-                setIsBlocked(false);
-            }, 30000);
-            checkEmail()
-            checkPass()
-        }
-    };
+    // const handleClick = () => {
+    //     if (!isBlocked) {
+    //         setIsBlocked(true);
+    //         setCountdown(30);
+    //         setTimeout(() => {
+    //             setIsBlocked(false);
+    //         }, 30000);
+    //         checkEmail()
+    //         checkPass()
+    //     }
+    // };
 
     const handleShowPassword = () => {
         setShowPassword(!showPassword);
@@ -92,20 +91,20 @@ const LogInByEmail:FC<LogInByEmailProps> = ({toggle, reChoose}) => {
     function checkPass() {
         setPassCheck(passCheck)
         fetchLogin(emailCheck, passCheck)
-        if (errorRequest === 'Данного email в системе нет') {
-            setEmailError(true)
-            setPassError(true)
-         } else {
+        console.log('Вызов в чекпасе: ',request)
+        if (request === 'Successful login'){
             setEmailError(false)
             setPassError(false)
+        } else if (request === 'Данного email в системе нет'){
+            setEmailError(true)
+            setPassError(true)
         }
     }
-
 
     function checkEmailConfirmed() {
         checkEmail()
         checkPass()
-        if (!is_error_email) {
+        if (request === 'Successful login') {
             console.log('Ты вошел!')
             sessionStorage.setItem('isAuth', 'true')
             console.log('isToken: '+isToken)
@@ -116,6 +115,8 @@ const LogInByEmail:FC<LogInByEmailProps> = ({toggle, reChoose}) => {
             // location.reload()
         }
     }
+
+    const [request, setRequest] = useState('');
 
     return (
         <div className='LogInByEmail'>
@@ -134,7 +135,7 @@ const LogInByEmail:FC<LogInByEmailProps> = ({toggle, reChoose}) => {
                         }
                     </button>
                 </div>
-                {is_error_pass
+                {request === 'Данного email в системе нет'
                     ?
                     <span className="text-14 medium notice">Неверно введен email или пароль.<br/>Проверьте верность данных и попробуйте войти снова.</span>
                     :

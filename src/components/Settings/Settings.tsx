@@ -27,30 +27,7 @@ const Settings:FC<SettingsProps> = ({setOpenSetting, closeMenu}) => {
 
     const [coverSettings, setCoverSettings] = useState(false)
 
-    function closeSetItem(switcher: number) {
-        setCoverSettings(true)
-        if (switcher == 1) {
-            setEditProfile(true)
-        } else if (switcher == 2) {
-            setNumber(true)
-        } else if (switcher == 3) {
-            setEmailPass(true)
-        } else if (switcher == 4) {
-            setBlogVer(true)
-        } else if (switcher == 5) {
-            console.log('Я переключил состояние кнопки удалить')
-            setDeleteProf(true)
-        } else {
-            setEditProfile(false)
-            setNumber(false)
-            setEmailPass(false)
-            setBlogVer(false)
-            setDeleteProf(false)
-        }
-    }
-
     function openDelItem() {
-        console.log('Я вызвался')
         setCoverSettings(true)
         setDeleteProf(true)
     }
@@ -60,13 +37,18 @@ const Settings:FC<SettingsProps> = ({setOpenSetting, closeMenu}) => {
         closeMenu()
     }
 
+    function closeEditProfile() {
+        setCoverSettings(true)
+        setEditProfile(true)
+    }
+
     return (
         <>
             {coverSettings 
                 ?
                     <>
                         {deleteProf && <DeleteProfile setDeleteProf={()=>setDeleteProf(false)} close={()=>setCoverSettings(false)}/>}
-                        {editProfile && <EditProfile name='Редактирование профиля' setEditProfile={()=>setEditProfile(false)}/>}
+                        {editProfile && <EditProfile name='Редактирование профиля' setEditProfile={()=>setEditProfile(false)} closeWindow={()=>setCoverSettings(false)}/>}
                     </>
                 :   
                     <div className="Settings-overlay" onClick={closeSettings}>
@@ -81,7 +63,7 @@ const Settings:FC<SettingsProps> = ({setOpenSetting, closeMenu}) => {
                                 <h2 className="title-25 semibold">Настройки</h2>
                             </div>
                             <div className="SettingsItems">
-                                <SettingsItem name='Информация о пользователе' icon={info} theme={ItemTheme.standart} func={()=>{}}/>
+                                <SettingsItem name='Информация о пользователе' icon={info} theme={ItemTheme.standart} func={()=>closeEditProfile()}/>
                                 <SettingsItem name='Номер телефона' icon={phone} theme={ItemTheme.standart} func={()=>{}}/>
                                 <SettingsItem name='Почта и пароль' icon={email} theme={ItemTheme.standart} func={()=>{}}/>
                                 <SettingsItem name='Верификация для блогеров' icon={blogger} theme={ItemTheme.blogger} func={()=>{}}/>
