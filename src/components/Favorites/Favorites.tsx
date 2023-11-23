@@ -1,18 +1,18 @@
 import React, { FC, useEffect, useState } from 'react';
 import './Favorites.scss'
 
-import close from '../../img/close.svg'
+import close from 'public/img/close.svg'
 import { ICard } from '../../interfaces/ICard';
-import { CardVariant } from '../../shared/card/Card';
+import Card, { CardVariant } from '../../shared/card/Card';
 import PostService from '../../api/PostService';
-import Card from '../../shared/card/Card';
+
 
 interface FavoritesProps {
     toggle: () => void;
     isOpen: boolean;
 }
 
-const Favorites:FC<FavoritesProps> = ({toggle, isOpen}) => {
+const Favorites: FC<FavoritesProps> = ({ toggle, isOpen }) => {
     const [cards, setCards] = useState<ICard[]>([]);
 
     // useEffect( ()=> {
@@ -26,7 +26,7 @@ const Favorites:FC<FavoritesProps> = ({toggle, isOpen}) => {
 
     return (
         <>
-            {isOpen&&(
+            {isOpen && (
                 <div className="Favorites-overlay" onClick={toggle}>
                     <div className="Favorites" onClick={(e) => e.stopPropagation()}>
                         <div className='FavoritesTitle'>
@@ -39,12 +39,12 @@ const Favorites:FC<FavoritesProps> = ({toggle, isOpen}) => {
                             {/* {cards.map(card => {
                                 return <Card key={card.token} variant={CardVariant.standart} card={card} cardLook={true}/>
                             })} */}
-                            <Card variant={CardVariant.standart} cardLook={true}/>
-                            <Card variant={CardVariant.standart} cardLook={true}/>
-                            <Card variant={CardVariant.standart} cardLook={true}/>
-                            <Card variant={CardVariant.standart} cardLook={true}/>
-                            <Card variant={CardVariant.standart} cardLook={true}/>
-                            <Card variant={CardVariant.standart} cardLook={true}/>
+                            <Card variant={CardVariant.standart} cardLook />
+                            <Card variant={CardVariant.standart} cardLook />
+                            <Card variant={CardVariant.standart} cardLook />
+                            <Card variant={CardVariant.standart} cardLook />
+                            <Card variant={CardVariant.standart} cardLook />
+                            <Card variant={CardVariant.standart} cardLook />
                         </div>
                     </div>
                 </div>

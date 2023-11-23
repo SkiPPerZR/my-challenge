@@ -1,12 +1,12 @@
 import React, { useContext, useEffect, useState } from 'react';
+import { useLocation } from 'react-router-dom';
 import Sidebar from '../../components/Sidebar/Sidebar';
 import Header from '../../components/Header/Header';
-import { useLocation } from 'react-router-dom';
 import { AuthContext } from '../../context';
 import SignUpByEmail from '../../shared/signUpByEmail/SignUpByEmail';
 import SignUp from '../../components/SignUp/SignUp';
 
-const Test = () => {
+function Test() {
     const {isAuth, setIsAuth} = useContext(AuthContext);
     function Auth() {
         const newAuth = sessionStorage.getItem('isAuth')
@@ -32,6 +32,6 @@ const Test = () => {
             </div>
         </div>
     );
-};
+}
 
 export default Test;

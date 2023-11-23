@@ -1,15 +1,15 @@
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import './ChallengePage.scss'
 
+import { useLocation } from 'react-router-dom';
 import ChallengeInfo from '../ChallengeInfo/ChallengeInfo';
 import { ICardInfo } from '../../interfaces/ICardInfo';
 import PostService from '../../api/PostService';
-import { useLocation } from 'react-router-dom';
 import ChallengeRequirement from '../ChallengeRequirement/ChallengeRequirement';
 import NotLogin from '../NotLogin/notLogin';
 
 
-const ChallengePage = () => {
+function ChallengePage() {
     const location = useLocation();
 
     // const [info, setInfo] = useState<ICardInfo>();
@@ -24,17 +24,17 @@ const ChallengePage = () => {
     //     fetchInfo()
     // }, [])
 
-    // if (!info) return <NotLogin/> // info == null or undefiend or {}
+    // if (!info) return <NotLogin/> // info ===null or undefiend or {}
     return (
         <div className='ChallengePage'>
             {/* <ChallengeInfo info={info}/> */}
-            <ChallengeInfo/>
-            <ChallengeRequirement/>
+            <ChallengeInfo />
+            <ChallengeRequirement />
             <div className='ChallengePageChat'>
                 <h2 className='title-25 medium'>Чат в разработке...</h2>
             </div>
         </div>
     );
-};
+}
 
 export default ChallengePage;

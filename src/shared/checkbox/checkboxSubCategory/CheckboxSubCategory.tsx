@@ -29,7 +29,7 @@ const CheckboxSubCategory:FC<CheckboxSubCategoryProps> = ({categorySub,turn}) =>
         <div 
             className={styleSwitch}
             onMouseDown={buttonHandler}
-            >
+        >
             <label htmlFor='CheckBoxSub' className='title-18 regular'>{categorySub.name}</label>
             <input id='CheckBoxSub' type="checkbox" onChange={() => turn()}/>
         </div>

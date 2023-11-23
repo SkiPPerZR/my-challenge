@@ -1,7 +1,7 @@
 import './CreateNewChallengeModal.scss'
-import lightning from '../../img/CreateNewChallenge/lightning.svg'
-import heart from '../../img/CreateNewChallenge/heart.svg'
 import { FC } from 'react'
+import lightning from 'public/img/CreateNewChallenge/lightning.svg'
+import heart from 'public/img/CreateNewChallenge/heart.svg'
 
 interface CreateNewChallengeModalProps {
     setOpenMiniModal: Function;
@@ -19,7 +19,7 @@ const CreateNewChallengeModal: FC<CreateNewChallengeModalProps> = ({ setOpenMini
     }
     return (
         <>
-            <div className='overlay' onClick={closeModal}></div>
+            <div className='overlay' onClick={closeModal} />
             <div className='modal'>
                 <div className='modal__item' onClick={openSideBar}>
                     <img src={lightning} alt="img" className='modal__icon' />

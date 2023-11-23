@@ -6,23 +6,21 @@ interface NewChallengeInputsProps {
 
 }
 
-const NewChallengeInputs:FC<NewChallengeInputsProps> = (  ) => {
-    // const [category, setCategory] = useState<IChallenge>()
+const NewChallengeInputs:FC<NewChallengeInputsProps> = (  ) => 
+// const [category, setCategory] = useState<IChallenge>()
 
-    // useEffect(() => {
-    //     fetchCategory()
-    // })
+// useEffect(() => {
+//     fetchCategory()
+// })
 
     // async function fetchCategory() {
     //     let categoryList : IChallenge = await PostService.getChallengeCategory()
     //     setCategory(categoryList)
     // }
     // console.log(category)
-    return (
-        <div>
-
-        </div>
+    (
+        <div />
     )
-}
+
 
 export default NewChallengeInputs;

@@ -18,4 +18,4 @@ const DescriptionModal: FC<DescriptionModalProps> = ({ setOpenModal, description
         </div>
     )
 }
- export default DescriptionModal
+export default DescriptionModal

@@ -14,12 +14,10 @@ interface DefaultButtonProps {
     theme: ButtonVariant;
 }
 
-const DefaultButton:FC<DefaultButtonProps> = ({children, paddingWidth, onClick, theme }) => {
-    return (
-        <button className={theme} onClick={onClick()} style={{paddingLeft: paddingWidth + 'px', paddingRight: paddingWidth + 'px'}}>
-            {children}
-        </button>
-    );
-};
+const DefaultButton:FC<DefaultButtonProps> = ({children, paddingWidth, onClick, theme }) => (
+    <button className={theme} onClick={onClick()} style={{paddingLeft: `${paddingWidth  }px`, paddingRight: `${paddingWidth  }px`}}>
+        {children}
+    </button>
+);
 
 export default DefaultButton;

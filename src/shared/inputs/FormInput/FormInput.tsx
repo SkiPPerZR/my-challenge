@@ -8,12 +8,10 @@ interface FormInputProps {
     onChange?: Function;
 }
 
-const FormInput:FC<FormInputProps> = ({label,id,value,onChange}) => {
-    return (
-        <div className='FormInput'>
-            <label htmlFor={id} className='text-14 regular'>{label}</label>
-            <input id={id} type='text' className='text-17 semibold' value={value} onChange={() => onChange}></input>
-        </div>
-    );
-};
+const FormInput:FC<FormInputProps> = ({label,id,value,onChange}) => (
+    <div className='FormInput'>
+        <label htmlFor={id} className='text-14 regular'>{label}</label>
+        <input id={id} type='text' className='text-17 semibold' value={value} onChange={() => onChange} />
+    </div>
+);
 export default FormInput;

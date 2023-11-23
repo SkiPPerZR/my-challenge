@@ -8,12 +8,10 @@ interface LoginButtonProps {
 }
 
 const LoginButton:FC<LoginButtonProps> = 
-    ({children, toggle, toggleStatus}) => {
-    return (
+    ({children, toggle, toggleStatus}) => (
         <button className='LoginButton text-18 medium' onClick={toggle} onMouseDown={()=>toggleStatus(true)}>
             {children}
         </button>
     );
-};
 
 export default LoginButton;

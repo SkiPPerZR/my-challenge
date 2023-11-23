@@ -7,12 +7,10 @@ interface HeaderSelectorProps {
 }
 
 const HeaderSelector:FC<HeaderSelectorProps> = 
-    ({children}) => {
-    return (
+    ({children}) => (
         <button className='selector text-18 medium'>
             {children}
         </button>
     );
-};
 
 export default HeaderSelector;

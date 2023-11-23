@@ -24,7 +24,7 @@ const FormInterests:FC<FormInterestsProps> = ({onClick, dataCat}) => {
     const [categorySub, setCategorySub] = useState<ICategorySub[]>([]);
 
     const addValue = (category: string[], category_sub: string[]) => {
-        //console.log(data)
+        // console.log(data)
         setData((prevData: any) => ({
             ...prevData,
             category: [category],
@@ -34,35 +34,35 @@ const FormInterests:FC<FormInterestsProps> = ({onClick, dataCat}) => {
     };
 
     const handleCategoryCheck = (event : ChangeEvent<HTMLInputElement>) : void => {
-        const value: string = event.target.value;
+        const {value} = event.target;
     
         setCheckCategory(prevList => {
-          if (event.target.checked) {
-            return [...prevList, { id: value, name: '' }]; // добавление нового элемента
-          } else {
+            if (event.target.checked) {
+                return [...prevList, { id: value, name: '' }]; // добавление нового элемента
+            } 
             return prevList.filter(item => item.id !== value); // удаление элемента
-          }
+          
         });
         setCategoryForForm(prevList => {
             if (event.target.checked) {
-              return [...prevList, value]; // добавление нового элемента
-            } else {
-              return prevList.filter(item => item !== value); // удаление элемента
-            }
-          });
-      };
+                return [...prevList, value]; // добавление нового элемента
+            } 
+            return prevList.filter(item => item !== value); // удаление элемента
+            
+        });
+    };
     
-      const handleCategorySubCheck = (event : ChangeEvent<HTMLInputElement>) : void => {
-        const value: string = event.target.value;
+    const handleCategorySubCheck = (event : ChangeEvent<HTMLInputElement>) : void => {
+        const {value} = event.target;
     
         setCheckCategorySub(prevList => {
-          if (event.target.checked) {
-            return [...prevList, value]; // добавление нового элемента
-          } else {
+            if (event.target.checked) {
+                return [...prevList, value]; // добавление нового элемента
+            } 
             return prevList.filter(item => item !== value); // удаление элемента
-          }
+          
         });
-      };
+    };
 
     useEffect(()=>{
         setDataCategory(dataCat)
@@ -78,12 +78,12 @@ const FormInterests:FC<FormInterestsProps> = ({onClick, dataCat}) => {
 
     useEffect(() => {
         if (dataCategory && checkCategory.length > 0) { // Проверка, что есть выбранные категории
-          const filteredCategorySub = dataCategory.category_sub.filter(
-            (item: ICategorySub) => checkCategory.some(category => category.id === item.id_category)
-          );
-          setCategorySub(filteredCategorySub);
+            const filteredCategorySub = dataCategory.category_sub.filter(
+                (item: ICategorySub) => checkCategory.some(category => category.id === item.id_category)
+            );
+            setCategorySub(filteredCategorySub);
         }
-      }, [dataCategory, checkCategory]);
+    }, [dataCategory, checkCategory]);
     
     function ExitForm() {
         addValue(categoryForForm, checkCategorySub)
@@ -114,7 +114,7 @@ const FormInterests:FC<FormInterestsProps> = ({onClick, dataCat}) => {
                         </>
                     )}
                 </div>
-        </div>
+            </div>
             <div className="FormInterestsSubCategory">
                 <span className='text-14 regular'>Возможно, вам будет интересно</span>
                 <div className="FormInterestsSubCategoryGroup">

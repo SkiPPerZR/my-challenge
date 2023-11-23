@@ -41,7 +41,7 @@ const Header:FC<HeaderProps> = ({login}) => {
     const [openSideBar, setOpenSideBar] = useState(false);
 
     async function fetchProfileData(token: string) {
-        let profileData = await PostService.getProfileData(token);
+        const profileData = await PostService.getProfileData(token);
         // console.log('Инфа о пользователе при открытии меню: ' + JSON.stringify(profileData))
         setProfData(profileData);
     }
@@ -49,7 +49,7 @@ const Header:FC<HeaderProps> = ({login}) => {
     function openProfileMenu() {
         const temporaryToken = sessionStorage.getItem('isToken');
         setIsToken(temporaryToken)
-        console.log('Токен при открытии меню: ' + temporaryToken)
+        console.log(`Токен при открытии меню: ${  temporaryToken}`)
         if (temporaryToken) 
             fetchProfileData(temporaryToken)
         setOpenProfileStatus(true)
@@ -74,30 +74,30 @@ const Header:FC<HeaderProps> = ({login}) => {
             <SearchInput width={600}/>
             {
                 login
-                ?
-                <>
-                    <nav className='HeaderActionGroup'>
-                        <HeaderButton children='Создать челлендж' setOpenMiniModal={setOpenMiniModal}/>
-                        <BalanceState balance='213 124,23' toggle={toggle} toggleStatus={() => setOpenPurchStatus(true)}/>
-                        <NotificationButton/>
-                        <UserProfileButton toggle={toggle} toggleStatus={openProfileMenu}/>
-                    </nav>
+                    ?
                     <>
-                        {openProfileStatus && <ProfileMenu profData={profData} setOpenProfileStatus={()=>setOpenProfileStatus(false)}/>}
-                        {openPurchStatus && <PurchaseSale setOpenPurchStatus={setOpenPurchStatus}/>}
-                        {openMiniModal && <CreateNewChallengeModal setOpenMiniModal={setOpenMiniModal} setOpenSideBar={setOpenSideBar} />}
-                        {openSideBar && <CreateNewChallengeSideBar setOpenSideBar={setOpenSideBar}/>}
+                        <nav className='HeaderActionGroup'>
+                            <HeaderButton children='Создать челлендж' setOpenMiniModal={setOpenMiniModal}/>
+                            <BalanceState balance='213 124,23' toggle={toggle} toggleStatus={() => setOpenPurchStatus(true)}/>
+                            <NotificationButton/>
+                            <UserProfileButton toggle={toggle} toggleStatus={openProfileMenu}/>
+                        </nav>
+                        <>
+                            {openProfileStatus && <ProfileMenu profData={profData} setOpenProfileStatus={()=>setOpenProfileStatus(false)}/>}
+                            {openPurchStatus && <PurchaseSale setOpenPurchStatus={setOpenPurchStatus}/>}
+                            {openMiniModal && <CreateNewChallengeModal setOpenMiniModal={setOpenMiniModal} setOpenSideBar={setOpenSideBar} />}
+                            {openSideBar && <CreateNewChallengeSideBar setOpenSideBar={setOpenSideBar}/>}
+                        </>
                     </>
-                </>
-                :
-                <>
-                    <div className='HeaderActionGroup'>
-                        <LoginButton children='Вход' toggle={toggle} toggleStatus={setOpenLogInStatus}/>
-                        <SignUpButton children='Регистрация' toggle={toggle} toggleStatus={setOpenSignUpStatus}/>
-                    </div>
+                    :
+                    <>
+                        <div className='HeaderActionGroup'>
+                            <LoginButton children='Вход' toggle={toggle} toggleStatus={setOpenLogInStatus}/>
+                            <SignUpButton children='Регистрация' toggle={toggle} toggleStatus={setOpenSignUpStatus}/>
+                        </div>
                         {openSignUpStatus && <SignUp isOpenSignUp={setOpenSignUpStatus} reChoose={setOpenLogInStatus}/>}
                         {openLogInStatus && <LogIn isOpenLogIn={setOpenLogInStatus} reChoose={setOpenSignUpStatus}/>}
-                </>
+                    </>
             }
 
         </header>

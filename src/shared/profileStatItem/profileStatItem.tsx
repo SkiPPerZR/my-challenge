@@ -7,7 +7,7 @@ interface ProfileStatItemProps {
 }
 
 const ProfileStatItem:FC<ProfileStatItemProps> = ({nameStat, statValue}) => {
-    let thousands = Math.round(statValue/1000)
+    const thousands = Math.round(statValue/1000)
 
     return (
         <div className='ProfileStatItem'>

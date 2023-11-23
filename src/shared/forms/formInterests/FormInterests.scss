@@ -2,25 +2,31 @@
     display: flex;
     flex-direction: column;
     padding: 0 40px;
+
     &Category {
         display: flex;
         flex-direction: column;
+
         &Group {
             margin-top: 20px;
+
             &>div {
                 margin-bottom: 8px;
             }
         }
     }
+
     &SubCategory {
         display: flex;
         flex-direction: column;
+
         &Group {
             display: flex;
             flex-direction: row;
             flex-wrap: wrap;
             margin-bottom: 40px;
         }
+
         & span {
             margin-bottom: 16px;
         }
@@ -36,15 +42,18 @@
         justify-content: space-between;
         border-radius: 12px;
         padding: 5px 10px 3px 8px;
+
         &:hover {
             background-color: var(--BG_secondary8);
         }
+
         & span {
             margin: 0 !important;
             padding-bottom: 3px;
             color: var(--labelPrimary);
             text-transform: uppercase;
         }
+
         & input {
             width: 20px;
             height: 20px;
@@ -57,12 +66,14 @@
             cursor: pointer;
             transition: var(--transition)
         }
+
         // & input {
         //     display: none;
         //     opacity: 0;
         //     z-index: 0;
         // }
     }
+
     &__circle {
         position: relative;
         z-index: 11000;
@@ -76,7 +87,8 @@
     transition: var(--transition);
     background-color: var(--BG_secondary8);
 }
+
 .cir__active {
-    background: url('../../../img/Subtract.svg') no-repeat 50% 50%;
+    background: url('public/img/Subtract.svg') no-repeat 50% 50%;
     transition: var(--transition)
 }

@@ -28,9 +28,9 @@ const LogInByNumber:FC<LogInByNumberProps> = ({toggle, reChoose}) => {
     const {isAuth, setIsAuth} = useContext(AuthContext);
 
     async function fetchPhoneLogin(e: string) {
-        let token = await PostService.sendPhoneLogin(e);
+        const token = await PostService.sendPhoneLogin(e);
         if (token !== '401' && token) {
-            let newToken = token
+            const newToken = token
             sessionStorage.setItem('isToken', newToken)
             sessionStorage.setItem('isAuth', 'true')
             setIsToken(token)
@@ -41,21 +41,21 @@ const LogInByNumber:FC<LogInByNumberProps> = ({toggle, reChoose}) => {
     }
 
     async function fetchCodeLogin(code : string, token : string) {
-        let message = await PostService.sendPhoneCodeLogin(code, token);
+        const message = await PostService.sendPhoneCodeLogin(code, token);
         if (message === isToken) {
             return true
-        } else {
-            return false
-        }
+        } 
+        return false
+        
     }
 
     async function fetchCodeAgain(token : string) {
-        let message = await PostService.sendPhoneCodeAgain(token);
+        const message = await PostService.sendPhoneCodeAgain(token);
         if (message === isToken) {
             return true
-        } else {
-            return false
-        }
+        } 
+        return false
+        
     }
 
     const handleClick = () => {
@@ -72,9 +72,9 @@ const LogInByNumber:FC<LogInByNumberProps> = ({toggle, reChoose}) => {
     useEffect(() => {
         let timer: NodeJS.Timeout | null = null;
         if (isBlocked) {
-        timer = setInterval(() => {
-            setCountdown((prevCountdown) => prevCountdown - 1);
-        }, 1000);
+            timer = setInterval(() => {
+                setCountdown((prevCountdown) => prevCountdown - 1);
+            }, 1000);
         }
         return () => {
             if (timer) {
@@ -93,7 +93,7 @@ const LogInByNumber:FC<LogInByNumberProps> = ({toggle, reChoose}) => {
         } else if (is_error_phone_base === true) {
             setPhonePass(true)
         } else {
-            cleanNumber = "+7" + cleanNumber.slice(1);
+            cleanNumber = `+7${  cleanNumber.slice(1)}`;
             setPhoneError(false)
             setPhonePass(false)
             setCode(true)
@@ -105,13 +105,12 @@ const LogInByNumber:FC<LogInByNumberProps> = ({toggle, reChoose}) => {
     async function checkCode() {
         if (codeCheck.length === 4) {
             setCode(true)
-            let codeConfirmed = await fetchCodeLogin(codeCheck, isToken)
+            const codeConfirmed = await fetchCodeLogin(codeCheck, isToken)
             if (!codeConfirmed) {
-                //console.log('Я отработал если код неверен!')
+                // console.log('Я отработал если код неверен!')
                 return true
-            } else 
-                return false
-        } else return true
+            } return false
+        } return true
     }
 
     function checkPhoneConfirmed() {
@@ -122,7 +121,7 @@ const LogInByNumber:FC<LogInByNumberProps> = ({toggle, reChoose}) => {
 
     async function checkCodeConfirmed() {
         if (code) {
-            let checkError = await checkCode()
+            const checkError = await checkCode()
             setCodeError(checkError)
             // console.log('Проверка checkError: ' + checkError)
             // console.log('Проверка кода: ' + is_error_code)
@@ -130,7 +129,7 @@ const LogInByNumber:FC<LogInByNumberProps> = ({toggle, reChoose}) => {
                 console.log('Ты вошел!')
                 // eslint-disable-next-line no-restricted-globals
                 location.reload()
-                console.log('isAuth: '+isAuth)
+                console.log(`isAuth: ${isAuth}`)
                 toggle()
             }
         }
@@ -159,7 +158,7 @@ const LogInByNumber:FC<LogInByNumberProps> = ({toggle, reChoose}) => {
                     </div>
                     <div className='LogInByNumberState'>
                         <div>
-                        <span className='text-14 regular' onClick={()=>reChoose()}>У вас нет аккаунта? Зарегистрируйтесь</span>
+                            <span className='text-14 regular' onClick={()=>reChoose()}>У вас нет аккаунта? Зарегистрируйтесь</span>
                             <button className='text-17 semibold' onClick={() => checkPhoneConfirmed()}>Вход</button>
                         </div>
                     </div>

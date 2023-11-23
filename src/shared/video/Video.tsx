@@ -1,9 +1,9 @@
 import React from 'react';
 import './Video.scss'
 
-import img from '../../img/soccer.jpg'
+import img from 'public/img/soccer.jpg'
 
-const Video = () => {
+function Video() {
     return (
         <div className='Video'>
             {/* <iframe 
@@ -15,9 +15,9 @@ const Video = () => {
                 allow=" autoplay; clipboard-write; encrypted-media; web-share"
                 allowFullScreen
             ></iframe> */}
-            <img src={img} alt="Шварц" width="100%"/>
+            <img src={img} alt="Шварц" width="100%" />
         </div>
     );
-};
+}
 
 export default Video;

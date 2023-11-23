@@ -14,13 +14,11 @@ interface ChooseSignUpProps {
     type?: () => void;
 }
 
-const ChooseSignUp:FC<ChooseSignUpProps> = ({icon, name, choose, type, theme}) => {
-    return (
-        <div className={theme} onClick={choose} onMouseDown={type}>
-            <img src={icon} alt={name}/>
-            <p className='text-14 regular'>{name}</p>
-        </div>
-    );
-};
+const ChooseSignUp:FC<ChooseSignUpProps> = ({icon, name, choose, type, theme}) => (
+    <div className={theme} onClick={choose} onMouseDown={type}>
+        <img src={icon} alt={name}/>
+        <p className='text-14 regular'>{name}</p>
+    </div>
+);
 
 export default ChooseSignUp;
