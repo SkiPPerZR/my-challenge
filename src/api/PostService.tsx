@@ -183,6 +183,17 @@ export default class PostService {
         return response;
     }
 
+    static async restoreAccessByEmailSendCode(email_code: string, token : string) : Promise<any> {
+        let data = {
+            email_code : email_code,
+            token : token
+        }
+
+        let response = await PostService.sendRawData(JSON.stringify(data), 'user_restore_access_by_email.php');
+        
+        return response;
+    }
+
     static async sendAgreement(isTerms : String, isPrivacy: String, token : String) : Promise<String> {
 
         const data = '{"is_terms_of_use" : "'+isTerms+'", "is_privacy_policy" : "'+isPrivacy+'", "token" : "'+token+'"}'

@@ -27,14 +27,11 @@ const RestoreAccountByEmail:FC<RestoreAccountByEmailProps> = ({toggle, reChoose}
     const {isToken, setIsToken} = useContext(TokenContext);
 
     async function fetchRestoreEmail(email : string) {
-        let token = await PostService.restoreAccessByEmail(email);
-        let newToken = token
-        sessionStorage.setItem('isToken', newToken)
-        sessionStorage.setItem('isAuth', 'true')
-        setIsToken(newToken)
+        let response = await PostService.restoreAccessByEmail(email);
+        return response
     }
 
-    async function fetchCode(code : string, token : string) {
+    async function restoreAccessByEmailSendCode(code : string, token : string) {
         let message = await PostService.sendEmailCode(code, token);
         // console.log('В отправке кода Token: '+token)
         if (message === token) {
@@ -77,8 +74,20 @@ const RestoreAccountByEmail:FC<RestoreAccountByEmailProps> = ({toggle, reChoose}
             setEmailPass(false)
         } else {
             setEmailError(false)
-            fetchRestoreEmail(emailCheck)
-            setEmailPass(true)
+            let result = fetchRestoreEmail(emailCheck)
+            .then((result)=>{
+                let newToken = result.data['token']
+                setIsToken(newToken)
+                // console.log('Try', response.data.message)
+                return result.data.message
+            })
+            .catch((error)=> {
+                let answer = error.response.data.message
+                // console.log('Catch',answer)
+                return answer
+            })
+            setEmailPass(false)
+            setCode(false)
         }
     }
 
@@ -130,7 +139,7 @@ const RestoreAccountByEmail:FC<RestoreAccountByEmailProps> = ({toggle, reChoose}
                         </div>
                         <div className='RestoreAccountByEmailState'>
                             <div>
-                                <span className='text-14 regular' onClick={()=>reChoose()}>У вас уже есть аккаунт? Войти</span> 
+                                <span className='text-14 regular' onClick={()=>reChoose()}>Вспомнили пароль? Войти</span> 
                                 <button className='text-17 semibold' onClick={() => checkEmailConfirmed()}>Восстановить</button>
                             </div>
                         </div>
@@ -158,7 +167,7 @@ const RestoreAccountByEmail:FC<RestoreAccountByEmailProps> = ({toggle, reChoose}
                         </div>
                         <div className='RestoreAccountByEmailState'>
                             <div>
-                                <span className='text-14 regular' onClick={()=>reChoose()}>У вас уже есть аккаунт? Войти</span> 
+                                <button className='text-17 semibold' onClick={() => setCode(false)}>Назад</button>
                                 <button className='text-17 semibold' onClick={() => checkCodeConfirmed()}>Отправить код</button>
                             </div>
                         </div>
